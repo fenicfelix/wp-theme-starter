@@ -1,0 +1,104 @@
+<!-- Google Adsense Header Code -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1135192034261806"
+    crossorigin="anonymous"></script>
+<!-- Google Ad Manager Header Code -->
+<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+<script>
+  window.googletag = window.googletag || { cmd: [] };
+  googletag.cmd.push(function () {
+    var largeLeaderboard = googletag.sizeMapping().addSize([1050, 200], [970, 90]).addSize([1024, 768], [970, 90]).addSize([980, 690], [728, 90]).addSize([500, 500], [468, 60]).addSize([0, 0], [320, 50]).build();
+    var leaderboard = googletag.sizeMapping().addSize([1050, 200], [728, 90]).addSize([1024, 768], [728, 90]).addSize([500, 500], [468, 60]).addSize([320, 700], [320, 50]).addSize([0, 0], [320, 50]).build();
+
+    googletag.defineSlot('/23198293506/default_post_top_banner', [[468, 60], [970, 90], [728, 90], [320, 50]], 'div-gpt-ad-1739344603990-0').defineSizeMapping(largeLeaderboard).addService(googletag.pubads());
+    googletag.defineSlot('/23198293506/default_post_social_section_ad', [[468, 60], [728, 90], [320, 50]], 'div-gpt-ad-1739199420610-0').defineSizeMapping(leaderboard).addService(googletag.pubads()); 
+    googletag.defineSlot('/23198293506/default_post_midcontent_1', [336, 280], 'div-gpt-ad-1739199346313-0').addService(googletag.pubads()); 
+    googletag.defineSlot('/23198293506/default_post_midcontent_2', [336, 280], 'div-gpt-ad-1739199369101-0').addService(googletag.pubads());
+    googletag.defineSlot('/23198293506/default_post_midcontent_3', [336, 280], 'div-gpt-ad-1739199393073-0').addService(googletag.pubads());
+    googletag.defineSlot('/23198293506/default_section_comment_section_ad', [[320, 50], [468, 60], [728, 90]], 'div-gpt-ad-1739199327470-0').defineSizeMapping(leaderboard).addService(googletag.pubads());
+    googletag.defineSlot('/23198293506/default_post_tag_section_ad', [[320, 50], [468, 60], [728, 90]], 'div-gpt-ad-1739199500613-0').defineSizeMapping(leaderboard).addService(googletag.pubads());
+    googletag.defineSlot('/23198293506/default_post_sidebar_1', [[300, 250], [336, 280]], 'div-gpt-ad-1739394156815-0').addService(googletag.pubads());
+    googletag.defineSlot('/23198293506/default_post_sidebar_2', [[300, 250], [336, 280]], 'div-gpt-ad-1739394234613-0').addService(googletag.pubads());
+    googletag.defineSlot('/23198293506/default_post_sidebar_3', [[336, 280], [300, 250]], 'div-gpt-ad-1739394825415-0').addService(googletag.pubads());
+    googletag.defineSlot('/23198293506/default_post_sticky_footer_ad', [[970, 90], [728, 90], [320, 50], [468, 60]], 'div-gpt-ad-1739199468836-0').defineSizeMapping(largeLeaderboard).addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.pubads().collapseEmptyDivs();
+    googletag.enableServices();
+  });
+</script>
+
+<!-- /23198293506/default_post_top_banner -->
+<div id='div-gpt-ad-1739344603990-0' style='min-width: 320px; min-height: 50px;'>
+  <script>
+    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1739344603990-0'); });
+  </script>
+</div>
+
+<!-- /23198293506/default_post_social_section_ad -->
+<div id='div-gpt-ad-1739199420610-0' style='min-width: 320px; min-height: 50px;'>
+  <script>
+    googletag.cmd.push(function () { googletag.display('div-gpt-ad-1739199420610-0'); });
+  </script>
+</div>
+
+<!-- /23198293506/default_section_comment_section_ad -->
+<div id='div-gpt-ad-1739199327470-0' style='min-width: 320px; min-height: 50px;'>
+  <script>
+    googletag.cmd.push(function () { googletag.display('div-gpt-ad-1739199327470-0'); });
+  </script>
+</div>
+
+<!-- /23198293506/default_post_midcontent_1 -->
+<div id='div-gpt-ad-1739199346313-0' style='min-width: 336px; min-height: 280px;'>
+  <script>
+    googletag.cmd.push(function () { googletag.display('div-gpt-ad-1739199346313-0'); });
+  </script>
+</div>
+
+<!-- /23198293506/default_post_midcontent_2 -->
+<div id='div-gpt-ad-1739199369101-0' style='min-width: 336px; min-height: 280px;'>
+  <script>
+    googletag.cmd.push(function () { googletag.display('div-gpt-ad-1739199369101-0'); });
+  </script>
+</div>
+
+<!-- /23198293506/default_post_midcontent_3 -->
+<div id='div-gpt-ad-1739199393073-0' style='min-width: 336px; min-height: 280px;'>
+  <script>
+    googletag.cmd.push(function () { googletag.display('div-gpt-ad-1739199393073-0'); });
+  </script>
+</div>
+
+<!-- /23198293506/default_post_tag_section_ad -->
+<div id='div-gpt-ad-1739199500613-0' style='min-width: 320px; min-height: 50px;'>
+  <script>
+    googletag.cmd.push(function () { googletag.display('div-gpt-ad-1739199500613-0'); });
+  </script>
+</div>
+
+<!-- /23198293506/default_post_sidebar_1 -->
+<div id='div-gpt-ad-1739394156815-0' style='min-width: 300px; min-height: 250px;'>
+  <script>
+    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1739394156815-0'); });
+  </script>
+</div>
+
+<!-- /23198293506/default_post_sidebar_2 -->
+<div id='div-gpt-ad-1739394234613-0' style='min-width: 300px; min-height: 250px;'>
+  <script>
+    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1739394234613-0'); });
+  </script>
+</div>
+
+<!-- /23198293506/default_post_sidebar_3 -->
+<div id='div-gpt-ad-1739394825415-0' style='min-width: 300px; min-height: 250px;'>
+  <script>
+    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1739394825415-0'); });
+  </script>
+</div>
+
+<!-- /23198293506/default_post_sticky_footer_ad -->
+<div id='div-gpt-ad-1739199468836-0' style='min-width: 320px; min-height: 50px;'>
+  <script>
+    googletag.cmd.push(function () { googletag.display('div-gpt-ad-1739199468836-0'); });
+  </script>
+</div>
