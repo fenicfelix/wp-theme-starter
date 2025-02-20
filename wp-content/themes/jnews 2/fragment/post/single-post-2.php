@@ -15,6 +15,7 @@ $single = JNews\Single\SinglePost::getInstance();
 
 			<?php if (jnews_can_render_breadcrumb() && jnews_show_breadcrumb()) : ?>
 				<div class="jeg_breadcrumbs jeg_breadcrumb_container">
+					<p class="ad-title">Advertisement</p>
 					<?php $single->render_breadcrumb(); ?>
 				</div>
 			<?php endif; ?>
@@ -47,6 +48,7 @@ $single = JNews\Single\SinglePost::getInstance();
 							</div>
 
 							<div class="jeg_ad jeg_article_top jnews_article_top_ads">
+								<p class="ad-title">Advertisement</p>
 								<?php echo do_shortcode('[dynamic_ads ad_position="default_post_social_section"]'); ?>
 							</div>
 
@@ -76,6 +78,7 @@ $single = JNews\Single\SinglePost::getInstance();
 						<?php do_action('jnews_share_bottom_bar', get_the_ID()); ?>
 						<?php do_action('jnews_push_notification_single_post'); ?>
 						<div class="jeg_ad jeg_article jnews_article_bottom_ads mt-4">
+							<p class="ad-title">Advertisement</p>
 							<?php echo do_shortcode('[dynamic_ads ad_position="default_post_comment_section"]'); ?>
 						</div>
 						<?php do_action('jnews_single_post_after_content'); ?>
@@ -89,6 +92,7 @@ $single = JNews\Single\SinglePost::getInstance();
 		<?php endif; ?>
 
 		<div class="jeg_ad jeg_article jnews_article_bottom_ads">
+			<p class="ad-title">Advertisement</p>
 			<?php echo do_shortcode('[dynamic_ads ad_position="default_post_tag_section_ad"]'); ?>
 		</div>
 

@@ -33,6 +33,7 @@ $category = new \JNews\Category\Category($term);
                                     <?php echo jnews_sanitize_output($category->render_header('bottom')); ?>
                                 </div>
                                 <div class="jeg_ad jeg_article jnews_article_top_ads mb-4">
+                                    <span class="ad-title">Advertisement</span>
                                     <?php echo do_shortcode('[dynamic_ads ad_position="default_page_post_listing_ad"]'); ?>
                                 </div>
                                 <div class="jnews_category_content_wrapper">
