@@ -14,7 +14,19 @@
     googletag.defineSlot('/23198293506/default_sidebar_1', [[336, 280], [300, 250]], 'div-gpt-ad-1739198612724-0').addService(googletag.pubads()); 
     googletag.defineSlot('/23198293506/default_sidebar_2', [[300, 250], [336, 280]], 'div-gpt-ad-1739198636261-0').addService(googletag.pubads()); 
     googletag.defineSlot('/23198293506/default_sidebar_3', [[300, 250], [336, 280]], 'div-gpt-ad-1739400115117-0').addService(googletag.pubads());
+    googletag.defineSlot('/23198293506/default_bottom_left_section_ad', [[468, 60], [970, 90], [728, 90], [320, 50]], 'div-gpt-ad-1740030882338-0').defineSizeMapping(largeLeaderboard).addService(googletag.pubads());
     googletag.defineSlot('/23198293506/default_sticky_footer_ad', [[468, 60], [970, 90], [728, 90], [320, 50]], 'div-gpt-ad-1739198671801-0').defineSizeMapping(largeLeaderboard).addService(googletag.pubads()); 
+    googletag.pubads().enableSingleRequest();
+    googletag.pubads().collapseEmptyDivs();
+    googletag.enableServices();
+  });
+</script>
+
+<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+<script>
+  window.googletag = window.googletag || {cmd: []};
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/23198293506/default_bottom_left_section_ad', [[468, 60], [970, 90], [728, 90], [320, 50]], 'div-gpt-ad-1740030882338-0').addService(googletag.pubads());
     googletag.pubads().enableSingleRequest();
     googletag.pubads().collapseEmptyDivs();
     googletag.enableServices();
@@ -53,6 +65,13 @@
 <div id='div-gpt-ad-1739400115117-0' style='min-width: 300px; min-height: 250px;'>
   <script>
     googletag.cmd.push(function() { googletag.display('div-gpt-ad-1739400115117-0'); });
+  </script>
+</div>
+
+<!-- /23198293506/default_bottom_left_section_ad -->
+<div id='div-gpt-ad-1740030882338-0' style='min-width: 320px; min-height: 50px;'>
+  <script>
+    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1740030882338-0'); });
   </script>
 </div>
 
