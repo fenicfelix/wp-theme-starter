@@ -57,7 +57,6 @@ $search = new \JNews\Archive\SearchArchive();
 				</div>
 			</div>
 		</div>
-		<?php do_action('jnews_after_main'); ?>
 	</div>
 </div>
 

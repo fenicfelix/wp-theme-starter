@@ -51,10 +51,7 @@ $category = new \JNews\Category\Category($term);
                     </div>
                 </div>
             </div>
-
         </div>
-
-        <!-- < ?php do_action('jnews_archive_below_hero'); ?> -->
     </div>
 </div>
 

@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-    <div class="jeg_ads">
+    <div class="jnews_mobile_sticky_ads">
         <?php
         if (is_front_page()) {
             echo do_shortcode('[dynamic_ads ad_position="homepage_sticky_footer_ad"]');

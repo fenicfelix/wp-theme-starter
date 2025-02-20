@@ -232,8 +232,9 @@ class Ads {
 	 * @return void
 	 */
 	public function after_main() {
-		$html = '<div class="jeg_ad jnews_above_footer_ads ' . $this->additional_class( 'above_footer' ) . '">' . $this->above_footer( false ) . '</div>';
-		echo jnews_sanitize_output( $html );
+		echo '';
+		// $html = '<div class="jeg_ad jnews_above_footer_ads ' . $this->additional_class( 'above_footer' ) . '">' . $this->above_footer( false ) . '</div>';
+		// echo jnews_sanitize_output( $html );
 	}
 
 	/**
@@ -496,8 +497,9 @@ class Ads {
 	 * @return void
 	 */
 	public function sticky_footer_ads() {
-		$html = '<div class="jeg_ad jnews_mobile_sticky_ads ' . $this->additional_class( 'mobile_sticky' ) . '">' . $this->mobile_sticky( false ) . '</div>';
-		echo jnews_sanitize_output( $html );
+		echo '';
+		// $html = '<div class="jeg_ad jnews_mobile_sticky_ads ' . $this->additional_class( 'mobile_sticky' ) . '">' . $this->mobile_sticky( false ) . '</div>';
+		// echo jnews_sanitize_output( $html );
 	}
 
 	/**

@@ -83,7 +83,6 @@ $section     = isset($_REQUEST['section']) ? esc_html($_REQUEST['section']) : ''
 				</div>
 			</div>
 		</div>
-		<?php do_action('jnews_after_main'); ?>
 	</div>
 </div>
 

@@ -15,10 +15,6 @@
         </div>
         </div>
 
-        <div class="sticky-footer-ad">
-            <img src="<?= get_template_directory_uri(); ?>/assets/img/ad_728x90.png" alt="">
-        </div>
-
         <?php
 
         if (apply_filters('jnews_can_render_account_popup', false)) {

@@ -49,7 +49,6 @@ $archive = new \JNews\Archive\SingleArchive();
                 </div>
             </div>
         </div>
-        <?php do_action('jnews_after_main'); ?>
     </div>
 </div>
 
