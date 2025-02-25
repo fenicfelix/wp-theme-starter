@@ -23,6 +23,3 @@ defined('JEGTHEME_SERVER') || define('JEGTHEME_SERVER', 'https://support.jegthem
 require get_parent_theme_file_path('class/autoload.php');
 
 JNews\Init::getInstance();
-
-// Custom Functions
-require_once 'includes/custom-functions.php';
