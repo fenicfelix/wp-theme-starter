@@ -35,7 +35,6 @@ $search = new \JNews\Archive\SearchArchive();
 									</div>
 
 									<div class="jeg_ad jeg_article jnews_article_top_ads my-4">
-										<p class="ad-title">Advertisement</p>
 										<?php echo do_shortcode('[dynamic_ads ad_position="default_page_post_listing_ad"]'); ?>
 									</div>
 

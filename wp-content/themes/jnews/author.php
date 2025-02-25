@@ -45,7 +45,6 @@ $section     = isset($_REQUEST['section']) ? esc_html($_REQUEST['section']) : ''
 									</div>
 								<?php endif; ?>
 								<div class="jeg_ad jeg_article jnews_article_top_ads mb-4">
-									<p class="ad-title">Advertisement</p>
 									<?php echo do_shortcode('[dynamic_ads ad_position="default_page_post_listing_ad"]'); ?>
 								</div>
 							</div>

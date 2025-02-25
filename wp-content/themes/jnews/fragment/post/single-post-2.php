@@ -4,7 +4,7 @@ $single = JNews\Single\SinglePost::getInstance();
 <div class="jeg_content jeg_singlepage">
 	<div class="container">
 
-		<div class="jeg_ad jeg_article_top jnews_article_top_ads mb-4">
+		<div class="jeg_ad mb-4">
 			<?php echo do_shortcode('[dynamic_ads ad_position="default_post_top_banner"]'); ?>
 		</div>
 
@@ -46,7 +46,7 @@ $single = JNews\Single\SinglePost::getInstance();
 								<?php do_action('jnews_share_float_bar', get_the_ID()); ?>
 							</div>
 
-							<div class="jeg_ad jeg_article_top jnews_article_top_ads">
+							<div class="jeg_ad">
 								<?php echo do_shortcode('[dynamic_ads ad_position="default_post_social_section"]'); ?>
 							</div>
 

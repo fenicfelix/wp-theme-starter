@@ -15,7 +15,6 @@ $category = new \JNews\Category\Category($term);
                 <div class="container">
 
                     <div class="jeg_ad mb-4">
-                        <p class="ad-title">Advertisement</p>
                         <?php echo do_shortcode('[dynamic_ads ad_position="default_page_top_banner"]'); ?>
                     </div>
 
@@ -27,7 +26,6 @@ $category = new \JNews\Category\Category($term);
 
                     <!-- < ?php do_action('jnews_archive_below_hero'); ?> -->
                     <div class="jeg_ad jeg_article jnews_article_top_ads mb-4">
-                        <p class="ad-title">Advertisement</p>
                         <?php echo do_shortcode('[dynamic_ads ad_position="default_page_post_listing_ad"]'); ?>
                     </div>
 
