@@ -17,6 +17,10 @@
 
     <?php get_template_part('fragment/side-feed'); ?>
 
+    <div class="jeg_ad jeg_ad_top jnews_header_top_ads">
+        <?php do_action('jnews_header_top_ads'); ?>
+    </div>
+
     <!-- The Main Wrapper
     ============================================= -->
     <div class="jeg_viewport">

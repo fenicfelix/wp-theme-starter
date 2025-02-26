@@ -7,6 +7,7 @@ namespace JNews\Module\Slider;
 Class Slider_9_Option extends SliderOptionAbstract
 {
     protected $default_number = 5;
+    protected $second_thumbnail = true;
 
     public function get_module_name()
     {

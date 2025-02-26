@@ -153,7 +153,7 @@ class SocialIcon extends Widget_Base {
 							'github'        => esc_attr__( 'Github', 'jnews' ),
 							'flickr'        => esc_attr__( 'Flickr', 'jnews' ),
 							'tumblr'        => esc_attr__( 'Tumblr', 'jnews' ),
-							'telegram'      => esc_attr__( 'Telegram', 'jnews' ), //see rYir2Qgd
+							'telegram'      => esc_attr__( 'Telegram', 'jnews' ), // see rYir2Qgd
 							'dribbble'      => esc_attr__( 'Dribbble', 'jnews' ),
 							'stumbleupon'   => esc_attr__( 'Stumbleupon', 'jnews' ),
 							'soundcloud'    => esc_attr__( 'Soundcloud', 'jnews' ),
@@ -171,7 +171,9 @@ class SocialIcon extends Widget_Base {
 							'snapchat'      => esc_attr__( 'Snapchat', 'jnews' ),
 							'whatsapp'      => esc_attr__( 'Whatsapp', 'jnews' ),
 							'line'          => esc_attr__( 'Line', 'jnews' ),
-							'threads'       => esc_attr__( 'Thrads', 'jnews' ),
+							'threads'       => esc_attr__( 'Threads', 'jnews' ),
+							'xing'          => esc_attr__( 'Xing', 'jnews' ),
+							'bluesky'       => esc_attr__( 'Bluesky', 'jnews' ),
 						),
 						'default'     => '',
 						'label_block' => true,
@@ -371,7 +373,7 @@ class SocialIcon extends Widget_Base {
                                             ' . $label . '
                                         </a>';
 								break;
-								
+
 							case 'stumbleupon':
 								$label = $vertical ? '<span>' . jnews_return_translation( 'StumbleUpon', 'jnews', 'stumbleupon' ) . '</span>' : '';
 
@@ -384,7 +386,7 @@ class SocialIcon extends Widget_Base {
 							case 'telegram':
 								$label = $vertical ? '<span>' . jnews_return_translation( 'Telegram', 'jnews', 'telegram' ) . '</span>' : '';
 
-								$output .= '<a href="' . $social['social_url']. '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $social['social_icon'] ) . '" class="jeg_telegram">
+								$output .= '<a href="' . $social['social_url'] . '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $social['social_icon'] ) . '" class="jeg_telegram">
 											<i class="fa fa-telegram" ' . $inline_css . '></i>
 											' . $label . '
 										</a>';
@@ -480,6 +482,24 @@ class SocialIcon extends Widget_Base {
 											<i class="fa fa-whatsapp" ' . $inline_css . '></i>
 											' . $label . '
 										</a>';
+								break;
+							case 'xing':
+								$label = $vertical ? '<span>' . jnews_return_translation( 'xing', 'jnews', 'xing' ) . '</span>' : '';
+
+								$output .= '<a href="' . $social['social_url'] . '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $social['social_icon'] ) . '" class="jeg_xing">
+											<i class="fa fa-xing" ' . $inline_css . '></i>
+											' . $label . '
+										</a>';
+								break;
+							case 'bluesky':
+								$svg   = true;
+								$label = $vertical ? '<span>' . jnews_return_translation( 'Bluesky', 'jnews', 'bluesky' ) . '</span>' : '';
+								$icon  = jnews_get_svg( 'bluesky' );
+
+								$output .= '<a href="' . $social['social_url'] . '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $social['social_icon'] ) . '" class="jeg_bluesky">
+												<span class="jeg-icon icon-bluesky" ' . $inline_css . '><div class="' . $jeg_icon_class . '"> ' . $icon . ' </div></span>
+												' . $label . '
+											</a>';
 								break;
 						}
 					}

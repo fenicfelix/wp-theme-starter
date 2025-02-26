@@ -244,6 +244,78 @@ $options[] = [
 	],
 ];
 
+$size_lists = array(
+	'default' => esc_attr__( 'Default', 'jnews' ),
+	'full'    => esc_attr__( 'Original Image', 'jnews' ),
+);
+foreach ( wp_get_registered_image_subsizes()  as $key => $image_size ) {
+	$size_lists[ $key ] = $key;
+}
+
+$options[] = array(
+	'id'              => 'jnews_archive_content_main_image',
+	'transport'       => 'postMessage',
+	'default'         => 'default',
+	'type'            => 'jnews-select',
+	'label'           => esc_html__( 'Rendered Image Size in Main Thumbnail', 'jnews' ),
+	'description'     => esc_html__( 'Choose the image size that you want to rendered in main thumbnail in this module.', 'jnews' ),
+	'multiple'        => 1,
+	'choices'         => $size_lists,
+	'partial_refresh' => array(
+		'jnews_archive_content' => array(
+			'selector'        => '.jnews_archive_content_wrapper',
+			'render_callback' => function () {
+				$single = new \JNews\Archive\SingleArchive();
+				echo jnews_sanitize_output( $single->render_content() );
+			},
+		),
+	),
+	'postvar'         => array(
+		array(
+			'redirect' => 'archive_tag',
+			'refresh'  => false,
+		),
+	),
+);
+
+$options[] = array(
+	'id'              => 'jnews_archive_content_second_image',
+	'transport'       => 'postMessage',
+	'default'         => 'default',
+	'type'            => 'jnews-select',
+	'label'           => esc_html__( 'Rendered Image Size in Second Thumbnail', 'jnews' ),
+	'description'     => esc_html__( 'Choose the image size that you want to rendered in second thumbnail in this module.', 'jnews' ),
+	'multiple'        => 1,
+	'choices'         => $size_lists,
+	'partial_refresh' => array(
+		'jnews_archive_content' => array(
+			'selector'        => '.jnews_archive_content_wrapper',
+			'render_callback' => function () {
+				$single = new \JNews\Archive\SingleArchive();
+				echo jnews_sanitize_output( $single->render_content() );
+			},
+		),
+	),
+	'postvar'         => array(
+		array(
+			'redirect' => 'archive_tag',
+			'refresh'  => false,
+		),
+	),
+	'active_callback' => array(
+		array(
+			'setting'  => 'jnews_archive_content',
+			'operator' => '==',
+			'value'    => '14',
+		),
+		array(
+			'setting'  => 'jnews_archive_page_layout',
+			'operator' => '!=',
+			'value'    => 'custom-template',
+		),
+	),
+);
+
 $options[] = [
 	'id'              => 'jnews_archive_boxed',
 	'transport'       => 'postMessage',

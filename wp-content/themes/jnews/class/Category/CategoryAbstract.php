@@ -18,12 +18,21 @@ abstract class CategoryAbstract extends ArchiveAbstract {
 	 */
 	protected $term;
 
+	/**
+	 * Post type query.
+	 *
+	 * @var array|string
+	 */
+	protected $post_type;
+
 	public function __construct( $term = null ) {
 		if ( $term === null ) {
 			$term = get_queried_object();
 		}
 		$this->term = $term;
 		$this->set_hero_class();
+		$cpt_archive     = get_theme_mod( 'jnews_cpt_category_archive', array() );
+		$this->post_type = empty( $cpt_archive ) ? 'post' : array_merge( array( 'post' ), $cpt_archive );  //see ZKyevnHL
 	}
 
 	public function render_hero() {
@@ -31,15 +40,20 @@ abstract class CategoryAbstract extends ArchiveAbstract {
 			ModuleManager::getInstance()->set_width( array( 12 ) );
 
 			$attr = array(
-				'hero_style'         => $this->get_hero_style(),
-				'hero_margin'        => $this->get_hero_margin(),
-				'date_format'        => $this->get_hero_date(),
-				'date_format_custom' => $this->get_hero_date_custom(),
-				'paged'              => 1,
-				'number_post'        => $this->hero_instance->get_number_post(),
-				'include_category'   => $this->term->term_id,
-				'sort_by'            => 'latest',
-				'push_archive'       => true,
+				'hero_style'               => $this->get_hero_style(),
+				'hero_margin'              => $this->get_hero_margin(),
+				'date_format'              => $this->get_hero_date(),
+				'date_format_custom'       => $this->get_hero_date_custom(),
+				'paged'                    => 1,
+				'number_post'              => $this->hero_instance->get_number_post(),
+				'include_category'         => $this->term->term_id,
+				'sort_by'                  => 'latest',
+				'push_archive'             => true,
+				'post_type'          	   => $this->post_type,  //see ZKyevnHL
+				'main_custom_image_size'   => $this->get_hero_main_image(),
+				'second_custom_image_size' => $this->get_hero_second_image(),
+				'thrid_custom_image_size'  => $this->get_hero_thrid_image(),
+
 			);
 
 			/** @var Hero\HeroViewAbstract */
@@ -78,7 +92,13 @@ abstract class CategoryAbstract extends ArchiveAbstract {
 			'boxed_shadow'            => $this->get_boxed_shadow(),
 			'box_shadow'              => $this->get_box_shadow(),
 			'push_archive'            => true,
+			'main_custom_image_size'  => $this->get_content_main_image(),
+			'post_type'               => $this->post_type,  //see ZKyevnHL
 		);
+
+		if ( 'default' !== $this->get_content_second_image() && '14' === $this->get_content_type() ) {
+			$attr['second_custom_image_size'] = $this->get_content_second_image();
+		}
 
 		if ( get_theme_mod( 'jnews_ads_inline_module_enable', false ) ) {
 			$ads_option = array(
@@ -277,4 +297,11 @@ abstract class CategoryAbstract extends ArchiveAbstract {
 	abstract public function get_hero_margin();
 	abstract public function get_hero_date();
 	abstract public function get_hero_date_custom();
+
+	// Get Custom Image.
+	abstract public function get_content_main_image();
+	abstract public function get_content_second_image();
+	abstract public function get_hero_main_image();
+	abstract public function get_hero_second_image();
+	abstract public function get_hero_thrid_image();
 }

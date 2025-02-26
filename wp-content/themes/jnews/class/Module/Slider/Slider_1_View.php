@@ -8,6 +8,7 @@ class Slider_1_View extends SliderViewAbstract {
 
 	public function content( $results ) {
 		$content = '';
+		add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 		foreach ( $results as $key => $post ) {
 			$primary_category  = $this->get_primary_category( $post->ID );
 			$post_thumbnail_id = get_post_thumbnail_id( $post->ID );
@@ -44,11 +45,13 @@ class Slider_1_View extends SliderViewAbstract {
                 </div>";
 		}
 
+		remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 		return $content;
 	}
 
 	public function carousel( $results ) {
 		$content = '';
+		add_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
 		foreach ( $results as $key => $post ) {
 			$post_thumbnail_id = get_post_thumbnail_id( $post->ID );
 			if ( $this->manager->get_current_width() > 8 ) {
@@ -59,7 +62,7 @@ class Slider_1_View extends SliderViewAbstract {
 
 			$content .= '<div class="jeg_slide_thumbnail_item_wrapper" ><div  ' . jnews_post_class( 'jeg_slide_thumbnail_item', $post->ID ) . '><a href="' . get_permalink( $post ) . '" aria-label="' . esc_html__( 'Show article: ', 'jnews' ) . get_the_title( $post ) . "\">{$image}</a></div></div>";
 		}
-
+		remove_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
 		return $content;
 	}
 

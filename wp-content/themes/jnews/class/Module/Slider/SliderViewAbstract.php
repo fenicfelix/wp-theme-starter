@@ -131,5 +131,15 @@ abstract Class SliderViewAbstract extends ModuleViewAbstract
         return $style;
     }
 
+    public function main_custom_image_size( $size ) {
+		$size = ! empty( $this->attribute['main_custom_image_size'] ) && 'default' !== $this->attribute['main_custom_image_size'] ? $this->attribute['main_custom_image_size'] : $size;
+		return $size;
+	}
+
+    public function second_custom_image_size( $size ) {
+		$size = ! empty( $this->attribute['second_custom_image_size'] ) && 'default' !== $this->attribute['second_custom_image_size'] ? $this->attribute['second_custom_image_size'] : $size;
+		return $size;
+	}
+
     abstract public function render_element($result, $attr);
 }

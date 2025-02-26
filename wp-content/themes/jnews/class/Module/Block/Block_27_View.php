@@ -85,7 +85,9 @@ Class Block_27_View extends BlockViewAbstract
 	    $name           = str_replace('jnews_block_','',$this->class_name);
         $style_output   = jnews_header_styling($attr, $this->unique_id . ' ');
 	    $style_output   .= jnews_module_custom_color($attr, $this->unique_id . ' ', $name);
+		add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
         $content        = $this->render_output($attr, $column_class);
+		remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
         $style          = !empty($style_output) ? "<style scoped>{$style_output}</style>" : "";
         $script         = $this->render_script($attr, $column_class);
 

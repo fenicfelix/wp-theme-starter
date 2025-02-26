@@ -12,7 +12,7 @@ class Block_19_View extends BlockViewAbstract {
 
 		$content = '<div class="jeg_thumb">
                         ' . jnews_edit_post( $post->ID ) . '
-                        <a href="' . $permalink . '" aria-label="' . esc_html__( 'Read article: ', 'jnews' )  . get_the_title( $post ) . '">' . $this->get_thumbnail( $post->ID, $image_size ) . '</a>
+                        <a href="' . $permalink . '" aria-label="' . esc_html__( 'Read article: ', 'jnews' ) . get_the_title( $post ) . '">' . $this->get_thumbnail( $post->ID, $image_size ) . '</a>
                     </div>
                     <div class="jeg_postblock_content">
                         <h3 class="jeg_post_title">
@@ -33,7 +33,10 @@ class Block_19_View extends BlockViewAbstract {
 	}
 
 	public function build_column_1( $results ) {
-		$first_block  = $this->render_block( $results[0], 'jnews-350x250', 1 );
+		add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+		$first_block = $this->render_block( $results[0], 'jnews-350x250', 1 );
+		remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+		add_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
 		$second_block = '';
 		$size         = sizeof( $results );
 		for ( $i = 1; $i < $size; $i++ ) {
@@ -54,8 +57,13 @@ class Block_19_View extends BlockViewAbstract {
 		$size        = sizeof( $results );
 		for ( $i = 0; $i < $size; $i++ ) {
 			if ( $i < $limit ) {
+				add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 				$first_block .= $this->render_block( $results[ $i ], 'jnews-350x250', 1 );
+				remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+
 			} else {
+				add_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
+
 				$first_block .= $this->render_block( $results[ $i ], 'jnews-120x86', 2 );
 			}
 		}
@@ -67,6 +75,7 @@ class Block_19_View extends BlockViewAbstract {
 
 	public function build_column_1_alt( $results ) {
 		$first_block = '';
+		add_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
 		for ( $i = 0; $i < sizeof( $results ); $i++ ) {
 			$first_block .= $this->render_block( $results[ $i ], 'jnews-120x86', 2 );
 		}

@@ -1,5 +1,69 @@
 Change Log:
 
+=== 11.6.10 ===
+- [BUG] Fix WooCommerce shop page is empty on JNews v11.6.9
+
+=== 11.6.9 ===
+- [IMPROVEMENT] Display a scrollable table when adding the class "jnews-scrolling" to the table wrapper in a post.
+- [IMPROVEMENT] Add an option to enable the View Counter on Custom Post Types
+- [IMPROVEMENT] Add an option to change the rendered image size on JNews Module, JNews Hero, and JNews Slider
+- [IMPROVEMENT] Add an option to display Custom Post Types on the Author, Category, Tags, and Archives page
+- [IMPROVEMENT] Adding an option to disable synchronization of post view counts across multiple languages
+- [IMPROVEMENT] Add Stripe Hosted Checkout to the JNews Paywall to add more payment options
+- [BUG] Fix the Gallery Post display issue when using the Narrow Post Layout on Template 1 and Template 2
+- [BUG] Fix the issue with Inline Related Post content on post built with Elementor & WP Bakery
+- [BUG] Fix the JNews table style issue when the Fixed Width Table Cells option is enabled
+- [BUG] Fix JNews Push Notification widget not working on the new OneSignal version
+- [BUG] Fix PayPal payment error on the JNews Subscription product
+- [BUG] Fix JNews Shortcode Builder not showing on Classic Block
+- [BUG] Fix some social media networks not working on the JNews Social Counter widget
+- [BUG] Fix TikTok feed not working due to TikTok API update
+- [BUG] Fix cannot get thumbnail in JNews - RSS Block
+- [PLUGIN] Update JNews - Push Notification v11.0.1
+- [PLUGIN] Update JNews - View Counter v11.0.6
+- [PLUGIN] Update JNews - Tiktok Feed v11.0.4
+- [PLUGIN] Update JNews - Paywall v11.6.4
+- [PLUGIN] Update JNews - Extended Category Option v11.6.1
+- [PLUGIN] Update JNews - Social Share v11.6.3
+
+=== 11.6.8 ===
+- [IMPROVEMENT] Add a loading animation to the post estimated earnings chart
+- [IMPROVEMENT] Add a loading animation to the Post View Stats chart
+- [IMPROVEMENT] Add an option to disable the scroll-to-top button on desktop
+- [IMPROVEMENT] Add an option to limit YouTube Playlist items in the JNews YouTube/Vimeo Playlist element
+- [IMPROVEMENT] Auto-scroll to new content loaded after clicking Load More button in the side feed
+- [IMPROVEMENT] Reinstated the Post Format fields to above the title fields in the Classic Editor
+- [IMPROVEMENT] Add a filter option for subscription status on the User Status page
+- [IMPROVEMENT] Add Xing, Bluesky and Threads to JNews Social Share buttons
+- [IMPROVEMENT] Add Xing and Bluesky to JNews social media icons
+- [IMPROVEMENT] Add JNews View Counter Cache Setitngs.
+- [IMPROVEMENT] Change the input type of the Content Preview option to a Text Editor
+- [BUG] Fix the WooCommerce log error caused by JNews - Paywall
+- [BUG] Fix issue where additional fields on WooCommerce Simple Subscriptions products were hidden when JNews Post Subscribe was active
+- [BUG] Fix a few payment issues in WooCommerce Simple Subscription products when the JNews Post Subscribe option is enabled
+- [BUG] Fix the issue where the YouTube Data API cannot be accessed when adding website restrictions
+- [BUG] Fix pagination in the popular post filter sometimes shows repeated posts
+- [BUG] Fix social share QR Code not working
+- [BUG] Fix the comment button sometimes not working for users who are not logged in
+- [BUG] Fix cannot add Script Autoload Ads Separator through the JNews Dashboard
+- [BUG] Fix Trending Tags in JNews Mega Menu always appearing even when empty
+- [BUG] Fix the Disable Ad option on Single Post Setting not working
+- [BUG] Fix styling on WP Bakery Editor version 8.0.0
+- [BUG] Fix cannot leave the JNews Page Loop title empty
+- [BUG] Fix the heading block preview style in the Gutenberg editor
+- [BUG] Fix the Override Container Width option not working for Elementor Flexbox and Grid Containers
+- [PLUGIN] Update JNews - Social Share v11.6.2
+- [PLUGIN] Update JNews - Video v11.6.2
+- [PLUGIN] Update JNews - Podcast v11.6.1
+- [PLUGIN] Update JNews - Pay Writer v11.6.2
+- [PLUGIN] Update JNews - Paywall v11.6.3
+- [PLUGIN] Update JNews - View Counter v11.0.5
+- [PLUGIN] Update JNews - Auto Load Post v11.0.3
+- [PLUGIN] Update WPBakery Page Builder v8.1
+
+=== 11.6.7 ===
+- [IMPROVEMENT] Improved security checks on the JNews account registration endpoint.
+
 === 11.6.6 ===
 - [IMPROVEMENT] SEO Improvement
 - [IMPROVEMENT] Add description meta options for pages, tags and categories

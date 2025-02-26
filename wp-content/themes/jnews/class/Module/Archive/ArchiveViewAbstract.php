@@ -15,7 +15,7 @@ abstract class ArchiveViewAbstract extends ModuleViewAbstract {
 
 	protected static $index;
 
-	protected static $result = [];
+	protected static $result = array();
 
 	public function is_on_editor() {
 
@@ -67,41 +67,45 @@ abstract class ArchiveViewAbstract extends ModuleViewAbstract {
 
 	protected function do_query( $attr ) {
 		if ( ! self::$result ) {
+			$cpt_archive = array(); //see ZKyevnHL
 
 			if ( is_category() ) {
-				$term = $this->get_term();
+				$term        = $this->get_term();
+				$cpt_archive = get_theme_mod( 'jnews_cpt_category_archive', array() );
 
 				if ( isset( $term->term_id ) ) {
 					$attr['include_category'] = $term->term_id;
 					$this->post_per_page      = $this->get_number_post();
 				}
 			} elseif ( is_tag() ) {
-				$term = $this->get_term();
-
+				$term        = $this->get_term();
+				$cpt_archive = get_theme_mod( 'jnews_cpt_other_archive', array() );
 				if ( isset( $term->term_id ) ) {
 					$attr['include_tag'] = $term->term_id;
 					$this->post_per_page = $this->get_number_post();
 				}
 			} elseif ( is_author() ) {
-				$user = get_userdata( get_query_var( 'author' ) );
+				$user        = get_userdata( get_query_var( 'author' ) );
+				$cpt_archive = get_theme_mod( 'jnews_cpt_author_archive', array() );
 
 				if ( isset( $user->ID ) ) {
 					$attr['include_author'] = $user->ID;
 					$this->post_per_page    = $this->get_number_post();
 				}
 			} elseif ( is_date() ) {
-				$attr['date_query'] = [ //fix custom archive template date issue (see: #H1Gk3Nfv)
-					[
+				$cpt_archive = get_theme_mod( 'jnews_cpt_other_archive', array() );
+				$attr['date_query']  = array( // fix custom archive template date issue (see: #H1Gk3Nfv)
+					array(
 						'year'  => get_query_var( 'year' ) ? get_query_var( 'year' ) : null,
 						'month' => get_query_var( 'monthnum' ) ? get_query_var( 'monthnum' ) : null,
 						'day'   => get_query_var( 'day' ) ? get_query_var( 'day' ) : null,
-					],
-				];
+					),
+				);
 				$this->post_per_page = $this->get_number_post();
 			}
 
 			$attr['sort_by']                = 'latest';
-			$attr['post_type']              = 'post';
+			$attr['post_type']              = empty( $cpt_archive ) ? 'post' : array_merge( array( 'post' ), $cpt_archive );
 			$attr['post_offset']            = 0;
 			$attr['number_post']            = $this->post_per_page;
 			$attr['pagination_number_post'] = $this->post_per_page;

@@ -1299,7 +1299,12 @@ Class SinglePost {
 				'pagination_mode'         => get_theme_mod( 'jnews_single_post_pagination_related', 'disable' ),
 				'pagination_scroll_limit' => get_theme_mod( 'jnews_single_post_auto_load_related', 3 ),
 				'paged'                   => 1,
+				'main_custom_image_size'  => get_theme_mod( 'jnews_single_post_related_main_thumbnail', 'default' ),
 			);
+
+			if ( 'default' !== get_theme_mod( 'jnews_single_post_related_second_thumbnail', 'default' ) ) {
+				$attr['second_custom_image_size'] = get_theme_mod( 'jnews_single_post_related_second_thumbnail', 'default' );
+			}
 
 			$name = 'JNews_Block_' . get_theme_mod( 'jnews_single_post_related_template', '22' );
 			$name = jnews_get_view_class_from_shortcode( $name );

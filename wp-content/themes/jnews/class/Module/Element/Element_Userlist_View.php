@@ -181,7 +181,7 @@ class Element_Userlist_View extends ModuleViewAbstract {
 		foreach ( $results as $user ) {
 
 			// ~ AVATAR
-			$content = $content . "<li><div class='jeg_userlist-wrap'><div class='jeg_userlist-photo'><a href=\"" . get_bloginfo( 'url' ) . '/?author=' . $user->ID . '">' . get_avatar( $user->ID, 500 ) . '</a></div>';
+			$content = $content . "<li><div class='jeg_userlist-wrap'><div class='jeg_userlist-photo'><a href=\"" . get_author_posts_url( $user->ID ) . '">' . get_avatar( $user->ID, 500 ) . '</a></div>'; /* see w3Ee07BX */
 
 			// ~ NAME
 			$content = $content . "<div class='jeg_userlist-content'>";
@@ -248,6 +248,8 @@ class Element_Userlist_View extends ModuleViewAbstract {
 			'twitch'     => 'fa-twitch',
 			'tiktok'     => 'jeg-icon icon-tiktok',
 			'threads'    => 'jeg-icon icon-threads',
+			'xing'       => 'fa-xing',
+			'bluesky'    => 'jeg-icon icon-bluesky',
 		);
 
 		return $social_array;

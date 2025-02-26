@@ -141,12 +141,6 @@ class Element_Rss_Option extends ModuleOptionAbstract {
 	}
 
 	public function set_general_option() {
-		$content_layout = apply_filters(
-			'jnews_get_content_layout_block_option',
-			array(
-				JNEWS_THEME_URL . '/assets/img/admin/content-3.png'  => '3',
-			)
-		);
 
 		$this->options[] = array(
 			'type'        => 'textfield',
@@ -161,7 +155,9 @@ class Element_Rss_Option extends ModuleOptionAbstract {
 			'type'        => 'radioimage',
 			'param_name'  => 'block_type',
 			'std'         => '3',
-			'value'       => $content_layout,
+			'value'       => array(
+				JNEWS_THEME_URL . '/assets/img/admin/content-3.png'  => '3', /* see sLdJ1HlP */
+			),
 			'heading'     => esc_html__( 'Block Type', 'jnews' ),
 			'description' => esc_html__( 'Choose which block type that fit your content design.', 'jnews' ),
 		);

@@ -517,6 +517,139 @@ $options[] = [
 	],
 ];
 
+$size_lists = array(
+	'default' => esc_attr__( 'Default', 'jnews' ),
+	'full'    => esc_attr__( 'Original Image', 'jnews' ),
+);
+foreach ( wp_get_registered_image_subsizes()  as $key => $image_size ) {
+	$size_lists[ $key ] = $key;
+}
+
+$options[] = array(
+	'id'              => 'jnews_category_hero_main_image',
+	'transport'       => 'postMessage',
+	'default'         => 'default',
+	'type'            => 'jnews-select',
+	'label'           => esc_html__( 'Rendered Image Size Main Content', 'jnews' ),
+	'description'     => esc_html__( 'Choose the image size that you want to rendered in main content on this Hero.', 'jnews' ),
+	'multiple'        => 1,
+	'choices'         => $size_lists,
+	'partial_refresh' => array(
+		'jnews_category_content' => array(
+			'selector'        => '.jnews_category_content_wrapper',
+			'render_callback' => function () {
+				$single = new \JNews\Category\Category();
+				echo jnews_sanitize_output( $single->render_content() );
+			},
+		),
+	),
+	'postvar'         => array(
+		array(
+			'redirect' => 'category_tag',
+			'refresh'  => false,
+		),
+	),
+	'active_callback' => array(
+		array(
+			'setting'  => 'jnews_category_page_layout',
+			'operator' => '!=',
+			'value'    => 'custom-template',
+		),
+		array(
+			'setting'  => 'jnews_category_hero_show',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+);
+
+$options[] = array(
+	'id'              => 'jnews_category_hero_second_image',
+	'transport'       => 'postMessage',
+	'default'         => 'default',
+	'type'            => 'jnews-select',
+	'label'           => esc_html__( 'Rendered Image Size Second Content', 'jnews' ),
+	'description'     => esc_html__( 'Select the image size to be rendered in the third content list on this JNews Hero element', 'jnews' ),
+	'multiple'        => 1,
+	'choices'         => $size_lists,
+	'partial_refresh' => array(
+		'jnews_category_content' => array(
+			'selector'        => '.jnews_category_content_wrapper',
+			'render_callback' => function () {
+				$single = new \JNews\Category\Category();
+				echo jnews_sanitize_output( $single->render_content() );
+			},
+		),
+	),
+	'postvar'         => array(
+		array(
+			'redirect' => 'category_tag',
+			'refresh'  => false,
+		),
+	),
+	'active_callback' => array(
+		array(
+			'setting'  => 'jnews_category_hero',
+			'operator' => 'in',
+			'value'    => array( '1', '2', '3', '4', '5', '6', '10', '11', '12' ),
+		),
+		array(
+			'setting'  => 'jnews_category_page_layout',
+			'operator' => '!=',
+			'value'    => 'custom-template',
+		),
+		array(
+			'setting'  => 'jnews_category_hero_show',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+);
+
+$options[] = array(
+	'id'              => 'jnews_category_hero_thrid_image',
+	'transport'       => 'postMessage',
+	'default'         => 'default',
+	'type'            => 'jnews-select',
+	'label'           => esc_html__( 'Rendered Image Size Thrid Content', 'jnews' ),
+	'description'     => esc_html__( 'Select the image size to be rendered in the third content list on this JNews Hero element.', 'jnews' ),
+	'multiple'        => 1,
+	'choices'         => $size_lists,
+	'partial_refresh' => array(
+		'jnews_category_content' => array(
+			'selector'        => '.jnews_category_content_wrapper',
+			'render_callback' => function () {
+				$single = new \JNews\Category\Category();
+				echo jnews_sanitize_output( $single->render_content() );
+			},
+		),
+	),
+	'postvar'         => array(
+		array(
+			'redirect' => 'category_tag',
+			'refresh'  => false,
+		),
+	),
+	'active_callback' => array(
+		array(
+			'setting'  => 'jnews_category_hero',
+			'operator' => 'in',
+			'value'    => array( '1', '3', '12' ),
+		),
+		array(
+			'setting'  => 'jnews_category_page_layout',
+			'operator' => '!=',
+			'value'    => 'custom-template',
+		),
+		array(
+			'setting'  => 'jnews_category_hero_show',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+);
+
+
 $options[] = [
 	'id'              => 'jnews_category_hero_style',
 	'transport'       => 'postMessage',
@@ -736,6 +869,79 @@ $options[] = [
 		],
 	],
 ];
+
+
+
+$options[] = array(
+	'id'              => 'jnews_category_content_main_image',
+	'transport'       => 'postMessage',
+	'default'         => 'default',
+	'type'            => 'jnews-select',
+	'label'           => esc_html__( 'Rendered Image Size in Main Thumbnail', 'jnews' ),
+	'description'     => esc_html__( 'Choose the image size that you want to rendered in main thumbnail in this module.', 'jnews' ),
+	'multiple'        => 1,
+	'choices'         => $size_lists,
+	'partial_refresh' => array(
+		'jnews_category_content' => array(
+			'selector'        => '.jnews_category_content_wrapper',
+			'render_callback' => function () {
+				$single = new \JNews\Category\Category();
+				echo jnews_sanitize_output( $single->render_content() );
+			},
+		),
+	),
+	'postvar'         => array(
+		array(
+			'redirect' => 'category_tag',
+			'refresh'  => false,
+		),
+	),
+	'active_callback' => [
+		[
+			'setting'  => 'jnews_category_page_layout',
+			'operator' => '!=',
+			'value'    => 'custom-template',
+		],
+	],
+);
+
+$options[] = array(
+	'id'              => 'jnews_category_content_second_image',
+	'transport'       => 'postMessage',
+	'default'         => 'default',
+	'type'            => 'jnews-select',
+	'label'           => esc_html__( 'Rendered Image Size in Second Thumbnail', 'jnews' ),
+	'description'     => esc_html__( 'Choose the image size that you want to rendered in second thumbnail in this module.', 'jnews' ),
+	'multiple'        => 1,
+	'choices'         => $size_lists,
+	'partial_refresh' => array(
+		'jnews_category_content' => array(
+			'selector'        => '.jnews_category_content_wrapper',
+			'render_callback' => function () {
+				$single = new \JNews\Category\Category();
+				echo jnews_sanitize_output( $single->render_content() );
+			},
+		),
+	),
+	'postvar'         => array(
+		array(
+			'redirect' => 'category_tag',
+			'refresh'  => false,
+		),
+	),
+	'active_callback' => array(
+		array(
+			'setting'  => 'jnews_category_content',
+			'operator' => '==',
+			'value'    => '14',
+		),
+		array(
+			'setting'  => 'jnews_category_page_layout',
+			'operator' => '!=',
+			'value'    => 'custom-template',
+		),
+	),
+);
 
 $options[] = [
 	'id'              => 'jnews_category_boxed',

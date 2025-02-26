@@ -61,8 +61,12 @@ class LandingBuilder {
 			'boxed'                  => $this->get_boxed(),
 			'boxed_shadow'           => $this->get_boxed_shadow(),
 			'box_shadow'             => $this->get_box_shadow(),
+			'main_custom_image_size' => $this->get_main_custom_image(),
 		);
 
+		if ( 'default' !== $this->get_second_custom_image() ) {
+			$attr['second_custom_image_size'] = $this->get_second_custom_image();
+		}
 		$name                   = jnews_get_view_class_from_shortcode( 'JNews_Block_' . $this->get_content_type() );
 		$this->content_instance = jnews_get_module_instance( $name );
 		return null !== $this->content_instance ? $this->content_instance->build_module( $attr ) : '';
@@ -281,6 +285,13 @@ class LandingBuilder {
 
 	public function get_content_type() {
 		return jnews_get_metabox_value( 'jnews_page_loop.module', '3', $this->post_id );
+	}
+	public function get_main_custom_image() {
+		return jnews_get_metabox_value( 'jnews_page_loop.main_custom_image_size', 'default', $this->post_id );
+	}
+
+	public function get_second_custom_image() {
+		return ( '14' !== $this->get_content_type() ) ? 'default' : jnews_get_metabox_value( 'jnews_page_loop.second_custom_image_size', 'default', $this->post_id );
 	}
 
 	public function get_content_date() {

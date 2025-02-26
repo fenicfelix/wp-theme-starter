@@ -68,10 +68,11 @@ class Block_16_View extends BlockViewAbstract {
 	}
 
 	public function render_output( $attr, $column_class ) {
+		add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 		$results    = isset( $attr['results'] ) ? $attr['results'] : $this->build_query( $attr );
 		$navigation = $this->render_navigation( $attr, $results['next'], $results['prev'], $results['total_page'] );
 		$content    = ! empty( $results['result'] ) ? $this->render_column( $results['result'], $column_class ) : $this->empty_content();
-
+		remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 		return "<div class=\"jeg_block_container\">
                     {$this->get_content_before($attr)}
                     {$content}

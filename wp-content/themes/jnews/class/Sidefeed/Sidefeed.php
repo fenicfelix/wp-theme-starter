@@ -194,6 +194,7 @@ Class Sidefeed
 
         foreach($result as $index => $post)
         {
+            $unique_id = uniqid(); /* see eQ5XupFZ */
             $active_class = ( $post->ID === $active_id ) ? "active" : "";
 
             if($index == $sequence)
@@ -207,7 +208,7 @@ Class Sidefeed
                 $additional_class = (!has_post_thumbnail($post->ID)) ? ' no_thumbnail' : '';
 
                 $output .=
-                    "<div class=\"jeg_post jeg_pl_md_box {$active_class} {$additional_class}\" data-id=\"{$post->ID}\" data-sequence=\"{$index}\">
+                    "<div id=\"feed_item_{$unique_id}\" class=\"jeg_post jeg_pl_md_box {$active_class} {$additional_class}\" data-id=\"{$post->ID}\" data-sequence=\"{$index}\">
                         <div class=\"overlay_container\">
                             <div class=\"jeg_thumb\">
                                 " . jnews_edit_post( $post->ID ) . "
@@ -224,7 +225,7 @@ Class Sidefeed
                 $additional_class = (!has_post_thumbnail($post->ID)) ? ' no_thumbnail' : '';
 
                 $output .=
-                    "<div class=\"jeg_post jeg_pl_xs_3 {$active_class} {$additional_class}\" data-id=\"{$post->ID}\" data-sequence=\"{$index}\">
+                    "<div id=\"feed_item_{$unique_id}\" class=\"jeg_post jeg_pl_xs_3 {$active_class} {$additional_class}\" data-id=\"{$post->ID}\" data-sequence=\"{$index}\">
                         <div class=\"jeg_thumb\">
                             " . jnews_edit_post( $post->ID ) . "
                             <a class=\"ajax\" href=\"" . get_the_permalink($post) . "\">{$thumbnail}</a>

@@ -170,6 +170,28 @@ class Post_Related_Option extends ModuleOptionAbstract {
 			'heading'     => esc_html__( 'Related PostTemplate', 'jnews' ),
 			'description' => esc_html__( 'Choose your related post template.', 'jnews' ),
 		];
+		$image_size_list = $this->get_image_size();
+		$this->options[] = array(
+			'type'        => 'dropdown',
+			'param_name'  => 'main_custom_image_size',
+			'std'         => 'default',
+			'heading'     => esc_html__( 'Rendered Image Size in Main Thumbnail', 'jnews' ),
+			'description' => esc_html__( 'Choose the image size that you want to rendered in main thumbnail in this module.', 'jnews' ),
+			'value'       => $image_size_list,
+		);
+
+		$this->options[] = array(
+			'type'        => 'dropdown',
+			'param_name'  => 'second_custom_image_size',
+			'std'         => 'default',
+			'heading'     => esc_html__( 'Rendered Image Size in Second Thumbnail', 'jnews' ),
+			'description' => esc_html__( 'Choose the image size that you want to rendered in second thumbnail in this module.', 'jnews' ),
+			'value'       => $image_size_list,
+			'dependency'  => array(
+				'element' => 'template',
+				'value'   => array( 'template_1', 'template_2', 'template_13', 'template_14', 'template_19' ),
+			),
+		);
 
 		$this->options[] = [
 			'type'        => 'slider',

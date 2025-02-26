@@ -104,7 +104,6 @@ abstract Class ModuleOptionAbstract {
 			$vc_options['name']        = $this->get_module_name();
 			$vc_options['category']    = $this->get_category();
 			$vc_options['icon']        = strtolower( $vc_options['base'] );
-			$vc_options['description'] = $this->get_module_name();
 			$vc_options['as_parent']   = $this->get_module_parent();
 			$vc_options['as_child']    = $this->get_module_child();
 
@@ -535,6 +534,17 @@ abstract Class ModuleOptionAbstract {
 
 	public function set_typography_option( $instance ) {
 		return false;
+	}
+
+	public function get_image_size() {
+		$size_lists = array(
+			esc_attr__( 'Default', 'jnews' )        => 'default',
+			esc_attr__( 'Original Image', 'jnews' ) => 'full',
+		);
+		foreach ( wp_get_registered_image_subsizes()  as $key => $image_size ) {
+			$size_lists[ esc_attr__( $key, 'jnews' ) ] = $key;
+		}
+		return $size_lists;
 	}
 
 	abstract public function set_options();

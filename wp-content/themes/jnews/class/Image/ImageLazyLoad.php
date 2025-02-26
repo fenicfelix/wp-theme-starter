@@ -93,13 +93,18 @@ Class ImageLazyLoad implements ImageInterface {
 		add_filter( 'wp_get_attachment_image_attributes', array( $this, 'lazy_load_image' ), 10, 2 );
 
 		$additional_class = '';
+		$size             = apply_filters( 'jnews_use_custom_image', $size );
+		if ( ! thumbnail_size_exist( $id, $size ) ) {
+			$size = 'full';
+		}
 		if ( ! has_post_thumbnail( $id ) ) {
 			$additional_class = 'no_thumbnail';
+		} elseif ( strpos( $size, 'jnews-' ) === false ) {
+			$additional_class = 'custom-size';
 		}
-
-		$thumbnail = "<div class=\"thumbnail-container animate-lazy {$additional_class} size-{$image_size['dimension']} \">";
+		$thumbnail  = "<div class=\"thumbnail-container animate-lazy {$additional_class} size-{$image_size['dimension']} \">";
 		$thumbnail .= get_the_post_thumbnail( $id, $size );
-		$thumbnail .= "</div>";
+		$thumbnail .= '</div>';
 
 		jnews_remove_filters( 'wp_get_attachment_image_attributes', array( $this, 'lazy_load_image' ), 10 );
 
@@ -114,10 +119,13 @@ Class ImageLazyLoad implements ImageInterface {
 	 */
 	public function owl_single_image( $id, $size ) {
 		$image_size = Image::getInstance()->get_image_size( $size );
-
-		$thumbnail = "<div class=\"thumbnail-container size-{$image_size['dimension']} \">";
+		$size       = apply_filters( 'jnews_use_custom_image', $size );
+		if ( ! thumbnail_size_exist( $id, $size, false ) ) {
+			$size = 'full';
+		}
+		$thumbnail  = "<div class=\"thumbnail-container size-{$image_size['dimension']} \">";
 		$thumbnail .= wp_get_attachment_image( $id, $size );
-		$thumbnail .= "</div>";
+		$thumbnail .= '</div>';
 
 		return $thumbnail;
 	}
@@ -132,10 +140,15 @@ Class ImageLazyLoad implements ImageInterface {
 		$image_size = Image::getInstance()->get_image_size( $size );
 
 		add_filter( 'wp_get_attachment_image_attributes', array( $this, 'owl_lazy_attr' ), 10, 2 );
+		$size = apply_filters( 'jnews_use_custom_image', $size );
+		if ( ! thumbnail_size_exist( $id, $size, false ) ) {
+			$size = 'full';
+		}
+		$additional_class = strpos( $size, 'jnews-' ) === false ? 'custom-size' : '';
 
-		$thumbnail = "<div class=\"thumbnail-container size-{$image_size['dimension']} \">";
+		$thumbnail  = "<div class=\"thumbnail-container {$additional_class} size-{$image_size['dimension']} \">";
 		$thumbnail .= wp_get_attachment_image( $id, $size );
-		$thumbnail .= "</div>";
+		$thumbnail .= '</div>';
 
 		jnews_remove_filters( 'wp_get_attachment_image_attributes', array( $this, 'owl_lazy_attr' ), 10 );
 

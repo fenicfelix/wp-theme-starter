@@ -416,4 +416,75 @@ class Category extends CategoryAbstract {
 
 		return apply_filters( 'jnews_category_box_shadow', $option, $this->term->term_id );
 	}
+
+	public function get_content_main_image() {
+		$option = get_theme_mod( 'jnews_category_content_main_image', 'default' );
+
+		if ( $this->is_overwritten() ) {
+			$term = $this->term->term_id;
+			if ( function_exists( 'pll_get_term' ) ) {
+				$term = pll_get_term( $this->term->term_id, pll_default_language() );
+			}
+			$option = get_theme_mod( 'jnews_category_content_main_image_' . $term, 'default' );
+		}
+
+		return apply_filters( 'jnews_category_content_main_image', $option, $this->term->term_id );
+	}
+
+	public function get_content_second_image() {
+		$option = get_theme_mod( 'jnews_category_content_second_image', 'default' );
+
+		if ( $this->is_overwritten() ) {
+			$term = $this->term->term_id;
+			if ( function_exists( 'pll_get_term' ) ) {
+				$term = pll_get_term( $this->term->term_id, pll_default_language() );
+			}
+			$option = get_theme_mod( 'jnews_category_content_second_image_' . $term, 'default' );
+		}
+
+		return apply_filters( 'jnews_category_content_second_image', $option, $this->term->term_id );
+	}
+
+	public function get_hero_main_image() {
+		$option = get_theme_mod( 'jnews_category_hero_main_image', 'default' );
+
+		if ( $this->is_overwritten() ) {
+			$term = $this->term->term_id;
+			if ( function_exists( 'pll_get_term' ) ) {
+				$term = pll_get_term( $this->term->term_id, pll_default_language() );
+			}
+			$option = get_theme_mod( 'jnews_category_hero_main_image_' . $term, 'default' );
+		}
+
+		return apply_filters( 'jnews_category_hero_main_image', $option, $this->term->term_id );
+	}
+
+	public function get_hero_second_image() {
+		$option = get_theme_mod( 'jnews_category_hero_second_image', 'default' );
+
+		if ( $this->is_overwritten() ) {
+			$term = $this->term->term_id;
+			if ( function_exists( 'pll_get_term' ) ) {
+				$term = pll_get_term( $this->term->term_id, pll_default_language() );
+			}
+			$option = get_theme_mod( 'jnews_category_hero_second_image_' . $term, 'default' );
+		}
+
+		return apply_filters( 'jnews_category_hero_second_image', $option, $this->term->term_id );
+	}
+
+	public function get_hero_thrid_image() {
+		$option = get_theme_mod( 'jnews_category_hero_thrid_image', 'default' );
+
+		if ( $this->is_overwritten() ) {
+			$term = $this->term->term_id;
+			if ( function_exists( 'pll_get_term' ) ) {
+				$term = pll_get_term( $this->term->term_id, pll_default_language() );
+			}
+			$option = get_theme_mod( 'jnews_category_hero_thrid_image_' . $term, 'default' );
+		}
+
+		return apply_filters( 'jnews_category_hero_thrid_image', $option, $this->term->term_id );
+	}
+
 }

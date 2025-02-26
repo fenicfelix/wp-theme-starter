@@ -8,13 +8,16 @@ namespace JNews\Module\Slider;
 class Slider_2_View extends SliderViewAbstract {
 	public function content( $results ) {
 		$content = '';
+		if ( $this->manager->get_current_width() > 8 ) {
+			$size = $this->main_custom_image_size( 'jnews-1140x570' );
+		} else {
+			$size = $this->main_custom_image_size( 'jnews-750x375' );
+		}
+
 		foreach ( $results as $key => $post ) {
 			$primary_category = $this->get_primary_category( $post->ID );
-			if ( $this->manager->get_current_width() > 8 ) {
-				$image = get_the_post_thumbnail_url( $post->ID, 'jnews-1140x570' );
-			} else {
-				$image = get_the_post_thumbnail_url( $post->ID, 'jnews-750x375' );
-			}
+			$image            = get_the_post_thumbnail_url( $post->ID, $size );
+
 			$image_mechanism = isset( $this->attribute['force_normal_image_load'] ) && ( 'true' === $this->attribute['force_normal_image_load'] || 'yes' === $this->attribute['force_normal_image_load'] );
 			$hidden_image    = $image_mechanism && 0 <= $key ? "<img class=\"thumbnail-prioritize\" src=\"{$image}\" style=\"display: none\" >" : '';
 

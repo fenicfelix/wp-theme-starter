@@ -8,6 +8,8 @@ Class Hero_14_Option extends HeroOptionAbstract
 {
     protected $number_post = 8;
     protected $show_style = false;
+	protected $second_thumbnail = true;
+
 
     public function get_module_name()
     {

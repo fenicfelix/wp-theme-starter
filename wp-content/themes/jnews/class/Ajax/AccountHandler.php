@@ -130,7 +130,7 @@ class AccountHandler {
 	}
 
 	public function register_handler() {
-		if ( ! empty( $_POST['jnews_nonce'] ) && check_ajax_referer( 'jnews_nonce', 'jnews_nonce', false ) ) {
+		if ( ! empty( $_POST['jnews_nonce'] ) && check_ajax_referer( 'jnews_nonce', 'jnews_nonce', false ) && ! empty( $_POST['jnews_register_nonce'] ) && check_ajax_referer( 'jnews_register_nonce', 'jnews_register_nonce', false ) && get_option( 'users_can_register' ) ) { /* see fbvTG964 */
 			try {
 				$user_login = sanitize_user( wp_unslash( $_POST['username'] ) );
 				$user_email = sanitize_user( wp_unslash( $_POST['email'] ) );

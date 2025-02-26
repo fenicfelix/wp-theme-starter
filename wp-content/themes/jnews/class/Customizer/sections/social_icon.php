@@ -75,6 +75,8 @@ $options[] = array(
 				'snapchat'      => esc_attr__( 'Snapchat', 'jnews' ),
 				'whatsapp'      => esc_attr__( 'Whatsapp', 'jnews' ),
 				'threads'       => esc_attr__( 'Threads', 'jnews' ),
+				'xing'          => esc_attr__( 'Xing', 'jnews' ),
+				'bluesky'       => esc_attr__( 'Bluesky', 'jnews' ),
 			),
 		),
 		'social_url'  => array(

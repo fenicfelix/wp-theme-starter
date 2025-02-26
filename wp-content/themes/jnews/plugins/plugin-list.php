@@ -61,7 +61,7 @@ return array(
 	'js_composer'                           => array(
 		'name'               => 'WPBakery Visual Composer',
 		'slug'               => 'js_composer',
-		'version'            => '8.0',
+		'version'            => '8.1',
 		'file'               => 'js_composer/js_composer.php',
 		'source'             => 'js_composer.zip',
 		'required'           => false,
@@ -161,7 +161,7 @@ return array(
 	'jnews-view-counter'                    => array(
 		'name'             => 'JNews - View Counter',
 		'slug'             => 'jnews-view-counter',
-		'version'          => '11.0.4',
+		'version'          => '11.0.6',
 		'file'             => 'jnews-view-counter/jnews-view-counter.php',
 		'source'           => 'jnews-view-counter.zip',
 		'required'         => false,
@@ -187,7 +187,7 @@ return array(
 	'jnews-social-share'                    => array(
 		'name'             => 'JNews - Social Share',
 		'slug'             => 'jnews-social-share',
-		'version'          => '11.6.1',
+		'version'          => '11.6.3',
 		'file'             => 'jnews-social-share/jnews-social-share.php',
 		'source'           => 'jnews-social-share.zip',
 		'required'         => false,
@@ -239,7 +239,7 @@ return array(
 	'jnews-paywall'                         => array(
 		'name'               => 'JNews - Paywall',
 		'slug'               => 'jnews-paywall',
-		'version'            => '11.6.2',
+		'version'            => '11.6.4',
 		'file'               => 'jnews-paywall/jnews-paywall.php',
 		'source'             => 'jnews-paywall.zip',
 		'required'           => false,
@@ -281,7 +281,7 @@ return array(
 	'jnews-pay-writer'                      => array(
 		'name'               => 'JNews - Pay Writer',
 		'slug'               => 'jnews-pay-writer',
-		'version'            => '11.6.1',
+		'version'            => '11.6.2',
 		'file'               => 'jnews-pay-writer/jnews-pay-writer.php',
 		'source'             => 'jnews-pay-writer.zip',
 		'required'           => false,
@@ -308,7 +308,7 @@ return array(
 	'jnews-video'                           => array(
 		'name'               => 'JNews - Video',
 		'slug'               => 'jnews-video',
-		'version'            => '11.6.1',
+		'version'            => '11.6.2',
 		'file'               => 'jnews-video/jnews-video.php',
 		'source'             => 'jnews-video.zip',
 		'required'           => false,
@@ -368,7 +368,7 @@ return array(
 	'jnews-podcast'                         => array(
 		'name'               => 'JNews - Podcast',
 		'slug'               => 'jnews-podcast',
-		'version'            => '11.6.0',
+		'version'            => '11.6.1',
 		'file'               => 'jnews-podcast/jnews-podcast.php',
 		'source'             => 'jnews-podcast.zip',
 		'required'           => false,
@@ -540,7 +540,7 @@ return array(
 	'jnews-auto-load-post'                  => array(
 		'name'             => 'JNews - Auto Load Post',
 		'slug'             => 'jnews-auto-load-post',
-		'version'          => '11.0.2',
+		'version'          => '11.0.3',
 		'file'             => 'jnews-auto-load-post/jnews-auto-load-post.php',
 		'source'           => 'jnews-auto-load-post.zip',
 		'required'         => false,
@@ -582,7 +582,7 @@ return array(
 	'jnews-option-category'                 => array(
 		'name'             => 'JNews - Extended Category Option',
 		'slug'             => 'jnews-option-category',
-		'version'          => '11.6.0',
+		'version'          => '11.6.1',
 		'file'             => 'jnews-option-category/jnews-option-category.php',
 		'source'           => 'jnews-option-category.zip',
 		'required'         => false,
@@ -675,7 +675,7 @@ return array(
 	'jnews-tiktok'                          => array(
 		'name'             => 'JNews - Tiktok Feed',
 		'slug'             => 'jnews-tiktok',
-		'version'          => '11.0.3',
+		'version'          => '11.0.4',
 		'file'             => 'jnews-tiktok/jnews-tiktok.php',
 		'source'           => 'jnews-tiktok.zip',
 		'required'         => false,
@@ -894,7 +894,7 @@ return array(
 	'jnews-push-notification'               => array(
 		'name'             => 'JNews - Push Notification',
 		'slug'             => 'jnews-push-notification',
-		'version'          => '11.0.0',
+		'version'          => '11.0.1',
 		'file'             => 'jnews-push-notification/jnews-push-notification.php',
 		'source'           => 'jnews-push-notification.zip',
 		'required'         => false,

@@ -45,14 +45,6 @@ class Widget {
 	 * @return void
 	 */
 	private function __construct() {
-		$this->widget_location = array(
-			'default-sidebar' => esc_html__( 'Default Sidebar', 'jnews' ),
-			'footer-widget-1' => esc_html__( 'Footer Widget 1', 'jnews' ),
-			'footer-widget-2' => esc_html__( 'Footer Widget 2', 'jnews' ),
-			'footer-widget-3' => esc_html__( 'Footer Widget 3', 'jnews' ),
-			'footer-widget-4' => esc_html__( 'Footer Widget 4', 'jnews' ),
-		);
-		$this->widget_location = apply_filters( 'jnews_register_widget_location', $this->widget_location );
 		$this->setup_hook();
 	}
 
@@ -62,9 +54,24 @@ class Widget {
 	 * @return void
 	 */
 	public function setup_hook() {
+		add_action( 'after_setup_theme', array( $this, 'register_widget_locations' ) );
 		add_action( 'widgets_init', array( &$this, 'register_widget_module' ), 11 );
 		add_filter( 'wp_list_categories', array( &$this, 'list_category' ), null, 2 );
 		add_action( 'init', array( $this, 'jnews_widget_initialized' ) );
+	}
+
+	/**
+	 * Method register jnews default widget locaions.
+	 */
+	public function register_widget_locations() {
+		$this->widget_location = array(
+			'default-sidebar' => esc_html__( 'Default Sidebar', 'jnews' ),
+			'footer-widget-1' => esc_html__( 'Footer Widget 1', 'jnews' ),
+			'footer-widget-2' => esc_html__( 'Footer Widget 2', 'jnews' ),
+			'footer-widget-3' => esc_html__( 'Footer Widget 3', 'jnews' ),
+			'footer-widget-4' => esc_html__( 'Footer Widget 4', 'jnews' ),
+		);
+		$this->widget_location = apply_filters( 'jnews_register_widget_location', $this->widget_location );
 	}
 
 	/**

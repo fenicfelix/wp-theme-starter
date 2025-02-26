@@ -5,7 +5,7 @@
 
 namespace JNews\Module\Archive;
 
-Class Archive_Block_View extends ArchiveViewAbstract {
+class Archive_Block_View extends ArchiveViewAbstract {
 
 	public function render_module_back( $attr, $column_class ) {
 		return $this->build_block_module( $attr );
@@ -28,9 +28,18 @@ Class Archive_Block_View extends ArchiveViewAbstract {
 		if ( ! empty( $result['result'] ) ) {
 			$attr['pagination_mode'] = 'disable';
 			$attr['results']         = $result;
+			if ( '14' !== $attr['block_type'] ) {
+				unset( $attr['second_custom_image_size'] );
+			}
+			add_filter( 'jnews_block_script_attribute', array( $this, 'remove_result_attribute' ) );  //see ZKyevnHL
 
 			return $instance->build_module( $attr );
 		}
+	}
 
+	public function remove_result_attribute( $attr ) {
+		//see ZKyevnHL
+		$attr['results'] = array();
+		return $attr;
 	}
 }

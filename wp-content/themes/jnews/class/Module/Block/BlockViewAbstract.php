@@ -14,9 +14,17 @@ abstract class BlockViewAbstract extends ModuleViewAbstract {
 		$name          = str_replace( 'jnews_block_', '', $this->class_name );
 		$style_output  = jnews_header_styling( $attr, $this->unique_id . ' ' );
 		$style_output .= jnews_module_custom_color( $attr, $this->unique_id . ' ', $name );
-		$content       = $this->render_output( $attr, $column_class );
-		$style         = ! empty( $style_output ) ? "<style scoped>{$style_output}</style>" : '';
-		$script        = $this->render_script( $attr, $column_class );
+		if ( empty( $attr['second_custom_image_size'] ) ) {
+				add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+				$content = $this->render_output( $attr, $column_class );
+				remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+		} else {
+			$content = $this->render_output( $attr, $column_class );
+			remove_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
+		}
+
+		$style  = ! empty( $style_output ) ? "<style scoped>{$style_output}</style>" : '';
+		$script = $this->render_script( $attr, $column_class );
 
 		return "<div {$this->element_id($attr)} class=\"jeg_postblock_{$name} jeg_postblock jeg_module_hook jeg_pagination_{$attr['pagination_mode']} {$column_class} {$this->unique_id} {$this->get_vc_class_name()} {$this->color_scheme()} {$attr['el_class']}\" data-unique=\"{$this->unique_id}\">
 					{$heading}
@@ -29,8 +37,15 @@ abstract class BlockViewAbstract extends ModuleViewAbstract {
 	public function render_module_out_call( $result, $column_class ) {
 		$name = str_replace( 'jnews_block_', '', $this->class_name );
 
-		$content = ! empty( $result ) ? $this->render_column( $result, $column_class ) : $this->empty_content();
+		if ( empty( $attr['second_custom_image_size'] ) ) {
+			add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+			$content = ! empty( $result ) ? $this->render_column( $result, $column_class ) : $this->empty_content();
+			remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+		} else {
+			$content = ! empty( $result ) ? $this->render_column( $result, $column_class ) : $this->empty_content();
 
+			remove_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
+		}
 		$this->generate_unique_id();
 
 		return "<div class=\"jeg_postblock_{$name} jeg_postblock {$column_class}\">
@@ -249,7 +264,7 @@ abstract class BlockViewAbstract extends ModuleViewAbstract {
 			$link .= $args['add_fragment'];
 
 			/** This filter is documented in wp-includes/general-template.php */
-			$page_links[] = '<a class="page_nav next" aria-label="' . esc_html__( 'Show next pagination' , 'jnews' ) . '" href="' . esc_url( apply_filters( 'paginate_links', $link ) ) . '"><span class="navtext">' . $args['next_text'] . '</span></a>';
+			$page_links[] = '<a class="page_nav next" aria-label="' . esc_html__( 'Show next pagination', 'jnews' ) . '" href="' . esc_url( apply_filters( 'paginate_links', $link ) ) . '"><span class="navtext">' . $args['next_text'] . '</span></a>';
 		endif;
 
 		switch ( $args['type'] ) {
@@ -426,7 +441,7 @@ abstract class BlockViewAbstract extends ModuleViewAbstract {
 		$attr['paged']        = 1;
 		$attr['column_class'] = $column_class;
 		$attr['class']        = $this->class_name;
-		$json_attr            = wp_json_encode( $attr );
+		$json_attr            = wp_json_encode( apply_filters( 'jnews_block_script_attribute', $attr ) ); /* see ZKyevnHL */
 
 		$output = "<script>var {$this->unique_id} = {$json_attr};</script>";
 
@@ -454,9 +469,18 @@ abstract class BlockViewAbstract extends ModuleViewAbstract {
 
 		$content = $this->empty_content();
 		if ( ! empty( $results['result'] ) ) {
+			if ( empty( $attr['attribute']['second_custom_image_size'] ) ) {
+				add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+			}
 			$content = $this->render_column( $results['result'], $column_class );
 			if ( $attr['attribute']['pagination_mode'] === 'loadmore' || $attr['attribute']['pagination_mode'] === 'scrollload' ) {
 				$content = $attr['current_page'] == 1 ? $this->render_column( $results['result'], $column_class ) : $this->render_column_alt( $results['result'], $column_class );
+			}
+
+			if ( empty( $attr['attribute']['second_custom_image_size'] ) ) {
+				remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+			} else {
+				remove_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
 			}
 		}
 
@@ -516,6 +540,16 @@ abstract class BlockViewAbstract extends ModuleViewAbstract {
 			}
 		}
 		return $args;
+	}
+
+	public function main_custom_image_size( $size ) {
+		$size = ! empty( $this->attribute['main_custom_image_size'] ) && 'default' !== $this->attribute['main_custom_image_size'] ? $this->attribute['main_custom_image_size'] : $size;
+		return $size;
+	}
+
+	public function second_custom_image_size( $size ) {
+		$size = ! empty( $this->attribute['second_custom_image_size'] ) && 'default' !== $this->attribute['second_custom_image_size'] ? $this->attribute['second_custom_image_size'] : $size;
+		return $size;
 	}
 
 	abstract public function render_column( $result, $column_class );

@@ -11,6 +11,8 @@ abstract Class HeroOptionAbstract extends ModuleOptionAbstract
     protected $number_post = 0;
     protected $margin = 0;
     protected $show_style = true;
+    protected $second_thumbnail = false;
+    protected $thrid_thumbnail = false;
 
     public function get_number_post()
     {
@@ -194,6 +196,49 @@ abstract Class HeroOptionAbstract extends ModuleOptionAbstract
 			'description' => esc_html__( 'Force it to use normal load image and optimize Largest Contentful Paint (LCP) when using this element at the top of your site', 'jnews' ),
 			'group'       => esc_html__( 'Hero Setting', 'jnews' ),
 		);
+        $size_lists = $this->get_image_size();
+		if ( $this->second_thumbnail ) {
+			$this->options[] = array(
+				'type'        => 'dropdown',
+				'param_name'  => 'main_custom_image_size',
+				'std'         => 'default',
+				'heading'     => esc_html__( 'Rendered Image Size Main Content', 'jnews' ),
+				'description' => esc_html__( 'Choose the image size that you want to rendered in main content on this Hero.', 'jnews' ),
+				'value'       => $size_lists,
+				'group'       => esc_html__( 'Hero Setting', 'jnews' ),
+			);
+
+			$this->options[] = array(
+				'type'        => 'dropdown',
+				'param_name'  => 'second_custom_image_size',
+				'std'         => 'default',
+				'heading'     => esc_html__( 'Rendered Image Size Second Content', 'jnews' ),
+				'description' => esc_html__( 'Select the image size to be rendered in the third content list on this JNews Hero element', 'jnews' ),
+				'value'       => $size_lists,
+				'group'       => esc_html__( 'Hero Setting', 'jnews' ),
+			);
+			if ( $this->thrid_thumbnail ) {
+				$this->options[] = array(
+					'type'        => 'dropdown',
+					'param_name'  => 'thrid_custom_image_size',
+					'std'         => 'default',
+					'heading'     => esc_html__( 'Rendered Image Size Thrid Content', 'jnews' ),
+					'description' => esc_html__( 'Select the image size to be rendered in the third content list on this JNews Hero element.', 'jnews' ),
+					'value'       => $size_lists,
+					'group'       => esc_html__( 'Hero Setting', 'jnews' ),
+				);
+			}
+		} else {
+			$this->options[] = array(
+				'type'        => 'dropdown',
+				'param_name'  => 'main_custom_image_size',
+				'std'         => 'default',
+				'heading'     => esc_html__( 'Rendered Image Size', 'jnews' ),
+				'description' => esc_html__( 'Choose the image size that you want to rendered in this Hero.', 'jnews' ),
+				'value'       => $size_lists,
+				'group'       => esc_html__( 'Hero Setting', 'jnews' ),
+			);
+		}
     }
 
 	public function set_hero_slider_option()
@@ -278,5 +323,16 @@ abstract Class HeroOptionAbstract extends ModuleOptionAbstract
 				'value'   => 'post',
 			),
 		);
+	}
+
+    public function get_image_size() {
+		$size_lists = array(
+			esc_attr__( 'Default', 'jnews' )        => 'default',
+			esc_attr__( 'Original Image', 'jnews' ) => 'full',
+		);
+		foreach ( wp_get_registered_image_subsizes()  as $key => $image_size ) {
+			$size_lists[ esc_attr__( $key, 'jnews' ) ] = $key;
+		}
+		return $size_lists;
 	}
 }

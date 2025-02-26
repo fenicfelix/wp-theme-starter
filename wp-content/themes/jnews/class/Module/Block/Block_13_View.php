@@ -32,19 +32,19 @@ class Block_13_View extends BlockViewAbstract {
 				'<article ' . jnews_post_class( 'jeg_post jeg_pl_md_1', $post->ID ) . '>' .
 					$output
 				. '</article>';
-
 	}
 
 
 	public function build_column_1( $results ) {
+		add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 		$first_block = $this->render_block( $results[0], 'jnews-350x250', 1 );
-
+		remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+		add_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
 		$second_block = '';
 		$size         = sizeof( $results );
 		for ( $i = 1; $i < $size; $i++ ) {
 			$second_block .= $this->render_block( $results[ $i ], 'jnews-120x86', 2 );
 		}
-
 		return '<article ' . jnews_post_class( 'jeg_post jeg_pl_lg_1', $results[0]->ID ) . ">
                     {$first_block}
                 </article>
@@ -56,7 +56,10 @@ class Block_13_View extends BlockViewAbstract {
 	}
 
 	public function build_column_2( $results ) {
+		add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 		$first_block = $this->render_block( $results[0], 'jnews-360x504', 1 );
+		remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+		add_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
 
 		$second_block = $third_block = '';
 		$size         = sizeof( $results );
@@ -67,7 +70,6 @@ class Block_13_View extends BlockViewAbstract {
 				$third_block .= $this->render_block( $results[ $i ], 'jnews-350x250', 2 );
 			}
 		}
-
 		return '<div class="jeg_posts row">
                     <article ' . jnews_post_class( 'jeg_post jeg_pl_lg_1 col-sm-6', $results[0]->ID ) . ">
                         {$first_block}
@@ -84,7 +86,10 @@ class Block_13_View extends BlockViewAbstract {
 	}
 
 	public function build_column_3( $results ) {
+		add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 		$first_block = $this->render_block( $results[0], 'jnews-360x504', 1 );
+		remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+		add_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
 
 		$second_block = $third_block = $fourth_block = '';
 		$size         = sizeof( $results );

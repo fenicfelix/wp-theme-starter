@@ -68,6 +68,22 @@ class Slider_1_Option extends SliderOptionAbstract {
 			'heading'     => esc_html__( 'Use Normal Image Load', 'jnews' ),
 			'description' => esc_html__( 'Force it to use normal load image and optimize Largest Contentful Paint (LCP) when using this element at the top of your site', 'jnews' ),
 		];
-	}
+		$this->options[] = array(
+			'type'        => 'dropdown',
+			'param_name'  => 'main_custom_image_size',
+			'std'         => 'default',
+			'heading'     => esc_html__( 'Rendered Image Size', 'jnews' ),
+			'description' => esc_html__( 'Choose the image size that you want to rendered in this Slider.', 'jnews' ),
+			'value'       => $this->get_image_size(),
+		);
 
+		$this->options[] = array(
+			'type'        => 'dropdown',
+			'param_name'  => 'second_custom_image_size',
+			'std'         => 'default',
+			'heading'     => esc_html__( 'Rendered Image Size in Slider Thumbnail', 'jnews' ),
+			'description' => esc_html__( 'Choose the image size that you want to rendered in slider thumbnail in this module.', 'jnews' ),
+			'value'       => $this->get_image_size(),
+		);
+	}
 }

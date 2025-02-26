@@ -89,5 +89,14 @@ Class Block_32_Option extends BlockOptionAbstract {
 				'std'         => '...'
 			);
 		}
+		$this->options[] = array(
+			'type'        => 'dropdown',
+			'param_name'  => 'main_custom_image_size',
+			'std'         => 'default',
+			'heading'     => esc_html__( 'Rendered Image Size', 'jnews' ),
+			'description' => esc_html__( 'Choose the image size that you want to rendered in this module.', 'jnews' ),
+			'group'       => esc_html__( 'Content Setting', 'jnews' ),
+			'value'       => $this->get_image_size(),
+		);
 	}
 }

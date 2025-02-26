@@ -28,6 +28,8 @@ use JNews\Archive\Builder\ArchiveBuilder;
 use JNews\Asset\GoogleAnalytics;
 use JNews\Asset\GoogleFonts;
 use JNews\Dashboard\AdminDashboard;
+use JNews\Util\Api\Social_Accounts;
+use JNews\Util\Api\SocialAccounts;
 use JNews\Util\RestAPI;
 use JNews\Util\SchemeStyle;
 use JNews\Util\Updater;
@@ -154,7 +156,6 @@ class Init {
 
 		// Load Visual Composer.
 		$this->load_module();
-
 	}
 
 	/**
@@ -212,6 +213,7 @@ class Init {
 			// load backend asset.
 			BackendAsset::getInstance();
 
+			SocialAccounts::getInstance();
 		} else {
 			// Front End.
 

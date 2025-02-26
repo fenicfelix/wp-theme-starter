@@ -19,6 +19,11 @@ class Element_Embedplaylist_View extends ModuleViewAbstract {
 	 */
 	private $meta_playlist = 'jnews_playlist_cache';
 
+	/**
+	 * @var integer
+	 */
+	private $limit_playlist = 0;
+
 	public function youtube_api() {
 		return get_theme_mod( 'jnews_youtube_api' );
 	}
@@ -49,12 +54,14 @@ class Element_Embedplaylist_View extends ModuleViewAbstract {
 			foreach ( $lists as $list => $id ) {
 				$playlist_results = $this->get_playlist_item( $id );
 				if ( $expired > 0 ) { // see qoRaVyNq
-					$new_playlist_cache['value']   = $playlist_results;
-					$new_playlist_cache['expired'] = current_time( 'timestamp' );
-					$playlist_cache[ $id ]         = $new_playlist_cache;
-					update_option( $this->meta_playlist, $playlist_cache );
+					$new_playlist_cache['value']                         = $playlist_results;
+					$new_playlist_cache['expired']                       = current_time( 'timestamp' );
+					$playlist_cache[ $id . '_' . $this->limit_playlist ] = $new_playlist_cache;
 				}
 				$youtube = $this->insert_playlist( $youtube, $id, $playlist_results );
+			}
+			if ( $expired > 0 ) {
+				update_option( $this->meta_playlist, $playlist_cache );
 			}
 		}
 
@@ -63,7 +70,13 @@ class Element_Embedplaylist_View extends ModuleViewAbstract {
 			$lists = array_chunk( $youtube, 50 );
 			foreach ( $lists as $list => $id ) {
 				$url            = 'https://www.googleapis.com/youtube/v3/videos?id=' . implode( ',', $id ) . '&part=id,contentDetails,snippet&key=' . $this->youtube_api();
-				$youtube_remote = wp_remote_get( $url );
+				$args           = array(
+					'User-Agent' => 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13',
+					'headers'    => array(
+						'referer' => home_url(),
+					),
+				);
+				$youtube_remote = wp_remote_get( $url, $args ); /* see QVFjqvEh */
 
 				if ( ! is_wp_error( $youtube_remote ) && $youtube_remote['response']['code'] == '200' ) {
 					$youtube_remote = json_decode( $youtube_remote['body'] );
@@ -153,9 +166,9 @@ class Element_Embedplaylist_View extends ModuleViewAbstract {
 			$result   = trim( $result );
 			$video_id = VideoAttribute::getInstance()->get_video_id( $result );
 			if ( is_array( $video_id ) ) {
-				if ( ! array_key_exists( $video_id['playlist'], $playlist_cache ) ) {
+				if ( ! array_key_exists( $video_id['playlist'] . '_' . $this->limit_playlist, $playlist_cache ) ) {
 					$video_retrieve[] = $result;
-				} elseif ( $playlist_cache[ $video_id['playlist'] ]['expired'] < ( $now - $expired ) ) {
+				} elseif ( $playlist_cache[ $video_id['playlist'] . '_' . $this->limit_playlist ]['expired'] < ( $now - $expired ) ) {
 					$video_retrieve[] = $result;
 				}
 			} elseif ( ! array_key_exists( $video_id, $video_cache ) ) {
@@ -184,8 +197,8 @@ class Element_Embedplaylist_View extends ModuleViewAbstract {
 			$result   = trim( $result );
 			$video_id = VideoAttribute::getInstance()->get_video_id( $result );
 			if ( is_array( $video_id ) ) {
-				if ( array_key_exists( $video_id['playlist'], $playlist_cache ) ) {
-					foreach ( $playlist_cache[ $video_id['playlist'] ]['value'] as $pkey => $plist ) {
+				if ( array_key_exists( $video_id['playlist'] . '_' . $this->limit_playlist, $playlist_cache ) ) {
+					foreach ( $playlist_cache[ $video_id['playlist'] . '_' . $this->limit_playlist ]['value'] as $pkey => $plist ) {
 						if ( isset( $video_cache[ $plist ] ) ) {
 							$video_result[] = $video_cache[ $plist ];
 						} else {
@@ -336,21 +349,32 @@ class Element_Embedplaylist_View extends ModuleViewAbstract {
 	 *
 	 * @return array
 	 */
-	public function get_playlist_item( $playlist_id, $page_token = null ) {
+	public function get_playlist_item( $playlist_id, $page_token = null, $prev_count = 0 ) { /* see ow9Kytf6 */
 		/**
 		 * @todo https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=PLAYLISTID&key=APIKEY
 		 */
-		$page_token     = ! is_null( $page_token ) ? '&pageToken=' . $page_token : '';
-		$url            = 'https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=' . $playlist_id . '&key=' . $this->youtube_api() . $page_token;
-		$youtube_remote = wp_remote_get( $url );
-		$youtube        = array();
-		if ( ! is_wp_error( $youtube_remote ) && $youtube_remote['response']['code'] == '200' ) {
-			$youtube_remote = json_decode( $youtube_remote['body'] );
-			foreach ( $youtube_remote->items as $key => $item ) {
-				$youtube[ $key ] = $item->contentDetails->videoId;
-			}
-			if ( isset( $youtube_remote->nextPageToken ) ) {
-				$youtube = array_merge( $youtube, $this->get_playlist_item( $playlist_id, $youtube_remote->nextPageToken ) );
+		$page_token = ! is_null( $page_token ) ? '&pageToken=' . $page_token : '';
+		$max_result = ( $this->limit_playlist > 0 && ( $this->limit_playlist - $prev_count < 50 ) ) ? $this->limit_playlist - $prev_count : 50;
+		$youtube    = array();
+		/* Only fetch playlist item data if the playlist item count is below the playlist item limit */
+		if ( $max_result > 0 ) {
+			$url            = 'https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=' . $max_result . '&playlistId=' . $playlist_id . '&key=' . $this->youtube_api() . $page_token;
+			$args           = array(
+				'User-Agent' => 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13',
+				'headers'    => array(
+					'referer' => home_url(),
+				),
+			);
+			$youtube_remote = wp_remote_get( $url, $args );
+
+			if ( ! is_wp_error( $youtube_remote ) && $youtube_remote['response']['code'] == '200' ) {
+				$youtube_remote = json_decode( $youtube_remote['body'] );
+				foreach ( $youtube_remote->items as $key => $item ) {
+					$youtube[ $key ] = $item->contentDetails->videoId;
+				}
+				if ( isset( $youtube_remote->nextPageToken ) ) {
+					$youtube = array_merge( $youtube, $this->get_playlist_item( $playlist_id, $youtube_remote->nextPageToken, count( $youtube ) + $prev_count ) );
+				}
 			}
 		}
 
@@ -358,10 +382,10 @@ class Element_Embedplaylist_View extends ModuleViewAbstract {
 	}
 
 	public function render_module( $attr, $column_class ) {
-
-		$results  = $this->explode_playlist( $attr['playlist'] );
-		$results  = $this->build_result( $results );
-		$playlist = $this->build_playlist( $results );
+		$this->limit_playlist = isset( $attr['playlist_limit'] ) ? (int) $attr['playlist_limit'] : 0;
+		$results              = $this->explode_playlist( $attr['playlist'] );
+		$results              = $this->build_result( $results );
+		$playlist             = $this->build_playlist( $results );
 
 		$col_width_raw         = isset( $attr['column_width'] ) && $attr['column_width'] != 'auto' ? $attr['column_width'] : $this->manager->get_current_width();
 		$layout                = ( $attr['layout'] === 'vertical' ) ? 'jeg_horizontal_playlist' : 'jeg_vertical_playlist';

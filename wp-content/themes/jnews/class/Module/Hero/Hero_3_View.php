@@ -13,7 +13,13 @@ Class Hero_3_View extends HeroViewAbstract
         if($post) {
             $post_id    = $post->ID;
             $permalink  = get_the_permalink($post);
-            $image      = $index > 2 ? 'jnews-350x250' : 'jnews-featured-750';
+			if ( $index > 2 ) {
+				$image = $this->thrid_custom_image_size( 'jnews-350x250' );
+			} elseif ( $is_column_1 ) {
+				$image = $this->main_custom_image_size( 'jnews-featured-750' );
+			} else {
+				$image = $this->second_custom_image_size( 'jnews-featured-750' );
+			}
             $meta       = $is_column_1 ? $this->post_meta_3($post) : $this->post_meta_2($post);
 
             return  "<article " . jnews_post_class("jeg_post jeg_hero_item_{$index}", $post_id) . " style=\"padding: 0 0 {$this->margin}px {$this->margin}px;\">

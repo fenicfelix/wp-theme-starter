@@ -108,6 +108,9 @@ class Image {
 	 * @return object
 	 */
 	public function get_image_size( $size ) {
+		if ( strpos( apply_filters( 'jnews_use_custom_image', $size ), 'jnews-' ) !== false ) {
+			$size = apply_filters( 'jnews_use_custom_image', $size ); /* see N8xEb1VO */
+		}
 		return $this->image_size[ $size ];
 	}
 

@@ -12,6 +12,11 @@ Class Hero_5_View extends HeroViewAbstract
         $index      = $is_type_1 ? $index : $index + 1;
 
         if($post) {
+            if ( $is_type_1 ) {
+                $image_size = $this->main_custom_image_size( 'jnews-featured-750' );
+            } else {
+                $image_size = $this->second_custom_image_size( 'jnews-featured-750' );
+            }
             $post_id    = $post->ID;
             $permalink  = get_the_permalink($post);
             $meta       = $is_type_1 ? $this->post_meta_3($post) : $this->post_meta_2($post);
@@ -21,7 +26,7 @@ Class Hero_5_View extends HeroViewAbstract
                             " . jnews_edit_post($post_id) . "
                             <span class=\"jeg_postformat_icon\"></span>
                             <div class=\"jeg_thumb\">
-                                <a href=\"{$permalink}\" aria-label=\"" . esc_html__( 'Read article: ', 'jnews' ) . get_the_title( $post ) . "\">{$this->get_thumbnail($post_id, 'jnews-featured-750')}</a>
+                                <a href=\"{$permalink}\" aria-label=\"" . esc_html__( 'Read article: ', 'jnews' ) . get_the_title( $post ) . "\">{$this->get_thumbnail($post_id, $image_size )}</a>
                             </div>
                             <div class=\"jeg_postblock_content\">
                                 <div class=\"jeg_post_category\">{$this->get_primary_category($post_id)}</div>

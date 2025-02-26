@@ -61,12 +61,6 @@ class Menu {
 	 * @return void
 	 */
 	private function __construct() {
-		$this->menu_location = array(
-			'top_navigation'    => esc_html__( 'Top Bar Navigation', 'jnews' ),
-			'navigation'        => esc_html__( 'Main Navigation', 'jnews' ),
-			'mobile_navigation' => esc_html__( 'Mobile Navigation', 'jnews' ),
-			'footer_navigation' => esc_html__( 'Footer Navigation', 'jnews' ),
-		);
 
 		$this->mega_class = new MegaMenu();
 		$this->setup_hook();
@@ -78,9 +72,19 @@ class Menu {
 	 * @return void
 	 */
 	public function setup_hook() {
-		add_action( 'after_setup_theme', array( $this, 'register_menu' ) );
+		add_action( 'after_setup_theme', array( $this, 'setup_menu' ) );
+		add_action( 'init', array( $this, 'register_menu' ) );
 		add_filter( 'wp_setup_nav_menu_item', array( $this, 'custom_nav_item' ) );
 		add_filter( 'widget_nav_menu_args', array( $this, 'navigation_menu_widget' ) );
+	}
+
+	public function setup_menu() {
+		$this->menu_location = array(
+			'top_navigation'    => esc_html__( 'Top Bar Navigation', 'jnews' ),
+			'navigation'        => esc_html__( 'Main Navigation', 'jnews' ),
+			'mobile_navigation' => esc_html__( 'Mobile Navigation', 'jnews' ),
+			'footer_navigation' => esc_html__( 'Footer Navigation', 'jnews' ),
+		);
 	}
 
 	/**
@@ -165,13 +169,20 @@ class Menu {
 				$subcat_menu_output = $this->build_subcat_menu( $category );
 				$subcat_class       = empty( $subcat_menu_output ) ? 'no_subcat' : 'with_subcat';
 				$article_output     = self::build_article_category_2( $category, $number );
-				$tags               = explode( ',', $tags );
-
-				foreach ( $tags as $tag ) {
-					$tag_detail = get_tag( $tag );
-					if ( ! is_wp_error( $tag_detail ) ) {
-						$tag_string .= "<li><a href='" . get_tag_link( $tag ) . "'>{$tag_detail->name}</a></li>";
+				/* see bLaPwfvy */
+				if ( ! empty( $tags ) ) {
+					$tags = explode( ',', $tags );
+					foreach ( $tags as $tag ) {
+						$tag_detail = get_tag( $tag );
+						if ( ! is_wp_error( $tag_detail ) ) {
+							$tag_string .= "<li><a href='" . get_tag_link( $tag ) . "'>{$tag_detail->name}</a></li>";
+						}
 					}
+					$tag_string =
+						'<div class="jeg_newsfeed_tags">
+							<h3>' . esc_html__( 'Trending Tags', 'jnews' ) . "</h3>
+							<ul>{$tag_string}</ul>
+						</div>";
 				}
 
 				$mega_output =
@@ -184,10 +195,8 @@ class Menu {
 							</div>
 							{$this->newsfeed_overlay()}
 						</div>
-						<div class=\"jeg_newsfeed_tags\">
-							<h3>" . esc_html__( 'Trending Tags', 'jnews' ) . "</h3>
-							<ul>{$tag_string}</ul>
-						</div>";
+						{$tag_string}
+						";
 
 				echo jnews_sanitize_output( $mega_output );
 			}

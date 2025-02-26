@@ -52,8 +52,10 @@ class Block_2_View extends BlockViewAbstract {
 	}
 
 	public function build_column( $results, $column_class, $is_ajax ) {
+		add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 		$first_block = $this->render_block_type_1( $results[0], 'jnews-350x250' );
-
+		remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+		add_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
 		$second_block = '';
 		$size         = sizeof( $results );
 		for ( $i = 1; $i < $size; $i++ ) {

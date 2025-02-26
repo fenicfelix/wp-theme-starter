@@ -49,8 +49,10 @@ class Block_17_View extends BlockViewAbstract {
 		$limit       = 2;
 
 		if ( $is_col_1o3 ) {
+			add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 			$first_block = $this->render_block_type( $results[0], 'jnews-360x180', 1 );
-			$start       = 1;
+			remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+			$start = 1;
 		} elseif ( $column_class === 'jeg_col_3o3' ) {
 			$image_size = 'jnews-360x180';
 			$limit      = 3;
@@ -60,9 +62,16 @@ class Block_17_View extends BlockViewAbstract {
 		$size         = sizeof( $results );
 		for ( $i = $start; $i < $size; $i++ ) {
 			if ( $is_col_1o3 ) {
+				add_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
 				$second_block .= $this->render_block_type( $results[ $i ], 'jnews-120x86', 2 );
+			} elseif ( $i < $limit ) {
+					add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+					$second_block .= $this->render_block_type( $results[ $i ], $image_size, 1 );
+					remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+
 			} else {
-				$second_block .= $i < $limit ? $this->render_block_type( $results[ $i ], $image_size, 1 ) : $this->render_block_type( $results[ $i ], 'jnews-120x86', 2 );
+				add_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
+				$second_block .= $this->render_block_type( $results[ $i ], 'jnews-120x86', 2 );
 			}
 		}
 
@@ -77,6 +86,7 @@ class Block_17_View extends BlockViewAbstract {
 	public function build_column_1_alt( $results ) {
 		$first_block = '';
 		$size        = sizeof( $results );
+		add_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
 		for ( $i = 0; $i < $size; $i++ ) {
 			$first_block .= $this->render_block_type( $results[ $i ], 'jnews-120x86', 2 );
 		}

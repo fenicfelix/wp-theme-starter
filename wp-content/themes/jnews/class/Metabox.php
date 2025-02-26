@@ -21,11 +21,9 @@ class Metabox {
 	public function __construct() {
 		global $pagenow;
 
-		MetaboxBuilder::set_meta( $this->single_post_meta() );
-		MetaboxBuilder::set_meta( $this->primary_category_meta() );
-		MetaboxBuilder::set_meta( $this->page_loop_meta() );
-		MetaboxBuilder::set_meta( $this->page_default_meta() );
 
+
+		add_action( 'after_setup_theme', array( $this, 'register_metabox_data' ) , 9 );
 		add_action( 'init', array( $this, 'add_meta_box' ), 11 );
 
 		if ( $pagenow === 'post.php' || $pagenow === 'post-new.php' || is_customize_preview() || ! is_admin() ) {
@@ -52,7 +50,13 @@ class Metabox {
 		}
 		remove_action( 'add_meta_boxes', 'vp_pfui_add_meta_boxes' );
 	}
-
+	
+	public function register_metabox_data(){
+		MetaboxBuilder::set_meta( $this->single_post_meta() );
+		MetaboxBuilder::set_meta( $this->primary_category_meta() );
+		MetaboxBuilder::set_meta( $this->page_loop_meta() );
+		MetaboxBuilder::set_meta( $this->page_default_meta() );
+	}
 
 	public function update_custom_post_meta( $post_id ) {
 
@@ -533,7 +537,28 @@ class Metabox {
 							'isClassic' => true,
 							'postId'    => $post->ID,
 							'metaData'  => $meta,
-							'nonce'     => wp_create_nonce( 'wp_rest' ),
+							'nonce'		=> wp_create_nonce( 'wp_rest' ),
+							'postFormat' => get_post_format( $post->ID ),
+							'tabData'    => array(
+								'gallery'     => $this->additional_control_attr(
+									'gallery',
+									array(
+										'type'        => 'jnews-multi-image',
+										'id'          => 'gallery',
+										'label'       => 'Gallery Format',
+										'description' => 'Insert some images as gallery.',
+										'options'     => array(),
+									)
+								),
+								'embed_video' => array(
+									'type'        => 'jnews-textarea',
+									'id'          => 'video',
+									'default'     => $post->ID ? get_post_meta( $post->ID, '_format_video_embed', true ) : '',
+									'label'       => esc_html__( 'Video URL', 'jnews' ),
+									'allow_html'  => true,
+									'description' => esc_html__( 'Insert video URL or embed code.', 'jnews' ),
+								),
+							),
 						)
 					);
 				} else {
@@ -999,6 +1024,35 @@ class Metabox {
 								),
 							),
 							'default'         => '3',
+						),
+
+						array(
+							'type'        => 'jnews-select-search',
+							'id'          => 'main_custom_image_size',
+							'label'       => esc_html__( 'Rendered Image Size in Main Thumbnail', 'jnews' ),
+							'description' => esc_html__( 'Choose the image size that you want to rendered in main thumbnail in this module.', 'jnews' ),
+							'default'     => 'default',
+							'onSearch'    => 'searchImageLists',
+							'isMulti'     => false,
+
+						),
+
+						array(
+							'type'        => 'jnews-select-search',
+							'id'          => 'second_custom_image_size',
+							'label'       => esc_html__( 'Rendered Image Size in Second Thumbnail', 'jnews' ),
+							'description' => esc_html__( 'Choose the image size that you want to rendered in second thumbnail in this module.', 'jnews' ),
+							'default'     => 'default',
+							'dependency'  => array(
+								array(
+									'field'    => 'module',
+									'operator' => 'in',
+									'value'    => array( '14' ),
+								),
+							),
+							'onSearch'    => 'searchImageLists',
+							'isMulti'     => false,
+
 						),
 						array(
 							'type'        => 'jnews-toggle',
@@ -2636,6 +2690,7 @@ class Metabox {
 							'value'    => 'video',
 						),
 					),
+					'hideOnClassic' => true,
 				),
 				array(
 					'type'        => 'jnews-multi-image',
@@ -2650,6 +2705,7 @@ class Metabox {
 						),
 					),
 					'options'     => array(),
+					'hideOnClassic' => true,
 				),
 				array(
 					'type'        => 'jnews-text',
@@ -2687,6 +2743,7 @@ class Metabox {
 			'default'     => $post_format ? $post_format : 'standard',
 			'label'       => esc_html__( 'Post Format Type', 'jnews' ),
 			'description' => esc_html__( 'Choose post format type for the current post.', 'jnews' ),
+			'hideOnClassic' => true,
 			'choices'     => array(
 				array(
 					'value' => 'standard',

@@ -167,4 +167,5 @@ abstract Class ArchiveAbstract {
 	abstract public function get_boxed_shadow();
 
 	abstract public function get_box_shadow();
+
 }

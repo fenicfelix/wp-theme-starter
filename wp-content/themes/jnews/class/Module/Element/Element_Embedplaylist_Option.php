@@ -70,6 +70,17 @@ Class Element_Embedplaylist_Option extends ModuleOptionAbstract {
 			'heading'     => esc_html__( 'YouTube / Vimeo Video', 'jnews' ),
 			'description' => esc_html__( 'Enter your YouTube / YouTube playlist / Vimeo video separated by comma (Ex : https://www.youtube.com/watch?v=1fueZCTYkpA, https://www.youtube.com/watch?v=lzmE3mYrbL0&list=PLzKJi2GjpkEHrFrlRs036qOKPbYCH32iY, https://vimeo.com/180337696).', 'jnews' ),
 		);
+
+		$this->options[] = array(
+			'type'        => 'number',
+			'param_name'  => 'playlist_limit',
+			'heading'     => esc_html__( 'YouTube Playlist items limit', 'jnews' ),
+			'description' => esc_html__( 'Add a value to this option to set a limit on the number of videos displayed per YouTube Playlist URL that you add. If you leave it at 0, no limit will be applied.', 'jnews' ),
+			'min'         => 0,
+			'max'         => 9999,
+			'step'        => 1,
+			'std'         => 0,
+		);
 	}
 
 	public function set_typography_option( $instance ) {

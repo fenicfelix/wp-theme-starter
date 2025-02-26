@@ -12,7 +12,7 @@ Class Hero_9_View extends HeroViewAbstract
         if($post) {
             $post_id            = $post->ID;
             $primary_category   = $this->get_primary_category($post_id);
-            $image              = $this->get_thumbnail($post_id, 'jnews-featured-750');
+            $image              = $this->get_thumbnail( $post_id, $this->main_custom_image_size( 'jnews-featured-750' ) );
             $permalink          = get_the_permalink($post);
 
             return  "<article " . jnews_post_class("jeg_post jeg_hero_item_{$index}", $post_id) . " style=\"padding: 0 0 {$this->margin}px {$this->margin}px;\">

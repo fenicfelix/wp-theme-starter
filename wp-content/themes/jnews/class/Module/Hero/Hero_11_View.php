@@ -13,13 +13,18 @@ Class Hero_11_View extends HeroViewAbstract
         if($post) {
             $post_id            = $post->ID;
             $permalink          = get_the_permalink($post);
+            if ( 1 === $index ) {
+                $image_size = $this->main_custom_image_size( 'jnews-featured-750' );
+            } else {
+                $image_size = $this->second_custom_image_size( 'jnews-featured-750' );
+            }
 
             return  "<article " . jnews_post_class("jeg_post jeg_hero_item_{$index}", $post_id) . " style=\"padding: 0 0 {$this->margin}px {$this->margin}px;\">
                         <div class=\"jeg_block_container\">
                             " . jnews_edit_post($post_id) . "
                             <span class=\"jeg_postformat_icon\"></span>
                             <div class=\"jeg_thumb\">
-                                <a href=\"{$permalink}\"  aria-label=\"" . esc_html__( 'Read article: ', 'jnews' ) . get_the_title( $post ) . "\">{$this->get_thumbnail($post_id, 'jnews-featured-750')}</a>
+                                <a href=\"{$permalink}\"  aria-label=\"" . esc_html__( 'Read article: ', 'jnews' ) . get_the_title( $post ) . "\">{$this->get_thumbnail($post_id, $image_size )}</a>
                             </div>
                             <div class=\"jeg_postblock_content\">
                                 <div class=\"jeg_post_category\">{$this->get_primary_category($post_id)}</div>

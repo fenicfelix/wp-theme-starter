@@ -18,7 +18,7 @@ Class NotFoundArchive extends ArchiveAbstract {
 
 		$post_per_page = get_option( 'posts_per_page' );
 
-		$attr = [
+		$attr = array(
 			'first_title'            => jnews_return_translation( 'Latest Articles', 'jnews', 'latest_articles' ),
 			'date_format'            => $this->get_content_date(),
 			'date_format_custom'     => $this->get_content_date_custom(),
@@ -31,7 +31,12 @@ Class NotFoundArchive extends ArchiveAbstract {
 			'boxed'                  => $this->get_boxed(),
 			'boxed_shadow'           => $this->get_boxed_shadow(),
 			'box_shadow'             => $this->get_box_shadow(),
-		];
+			'main_custom_image_size' => $this->get_content_main_image(),
+		);
+
+		if ( 'default' !== $this->get_content_second_image() && '14' === $this->get_content_type() ) {
+			$attr['second_custom_image_size'] = $this->get_content_second_image();
+		}
 
 		$attr                   = apply_filters( 'jnews_get_content_attr', $attr, 'jnews_404_', null );
 		$name                   = apply_filters( 'jnews_get_content_layout', 'JNews_Block_' . $this->get_content_type(), 'jnews_404_' );
@@ -149,5 +154,13 @@ Class NotFoundArchive extends ArchiveAbstract {
 	}
 
 	public function get_content_pagination_pageinfo() {
+	}
+
+	public function get_content_main_image() {
+		return apply_filters( 'jnews_search_content_main_image', get_theme_mod( 'jnews_search_content_main_image', 'default' ) );
+	}
+
+	public function get_content_second_image() {
+		return apply_filters( 'jnews_search_content_second_image', get_theme_mod( 'jnews_search_content_second_image', 'default' ) );
 	}
 }

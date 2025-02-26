@@ -10,6 +10,7 @@ class Block_1_View extends BlockViewAbstract {
 	public function render_block_type_1( $post, $image_size ) {
 		$post_id   = $post->ID;
 		$permalink = get_the_permalink( $post );
+		add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 
 		return '<div class="jeg_thumb">
 					' . jnews_edit_post( $post_id ) . "
@@ -34,7 +35,7 @@ class Block_1_View extends BlockViewAbstract {
 		$post_id          = $post->ID;
 		$permalink        = get_the_permalink( $post );
 		$additional_class = ( ! has_post_thumbnail( $post_id ) ) ? ' no_thumbnail' : '';
-
+		add_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
 		return '<article ' . jnews_post_class( 'jeg_post jeg_pl_sm' . $additional_class, $post_id ) . '>
 					<div class="jeg_thumb">
 						' . jnews_edit_post( $post_id ) . "
@@ -62,10 +63,12 @@ class Block_1_View extends BlockViewAbstract {
 
 	public function build_column_1( $results ) {
 		$first_block = $this->render_block_type_1( $results[0], 'jnews-360x180' );
-
+		remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 		$second_block = '';
 		$size         = sizeof( $results );
-		for ( $i = 1; $i < $size; $i ++ ) {
+		add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+
+		for ( $i = 1; $i < $size; $i++ ) {
 			$second_block .= $this->render_block_type_2( $results[ $i ], 'jnews-120x86' );
 		}
 
@@ -82,7 +85,7 @@ class Block_1_View extends BlockViewAbstract {
 	public function build_column_1_alt( $results ) {
 		$first_block = '';
 		$size        = sizeof( $results );
-		for ( $i = 0; $i < $size; $i ++ ) {
+		for ( $i = 0; $i < $size; $i++ ) {
 			$first_block .= $this->render_block_type_2( $results[ $i ], 'jnews-120x86' );
 		}
 
@@ -95,10 +98,10 @@ class Block_1_View extends BlockViewAbstract {
 
 	public function build_column_2( $results ) {
 		$first_block = $this->render_block_type_1( $results[0], 'jnews-360x180' );
-
+		remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 		$second_block = '';
 		$size         = sizeof( $results );
-		for ( $i = 1; $i < $size; $i ++ ) {
+		for ( $i = 1; $i < $size; $i++ ) {
 			$second_block .= $this->render_block_type_2( $results[ $i ], 'jnews-120x86' );
 		}
 
@@ -114,17 +117,17 @@ class Block_1_View extends BlockViewAbstract {
 
 	public function build_column_3( $results ) {
 		$first_block = $this->render_block_type_1( $results[0], 'jnews-360x180' );
-
+		remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 		$size        = sizeof( $results );
 		$first_limit = (int) ceil( ( $size - 1 ) * 2 / 5 ) + 1;
 
 		$second_block = '';
-		for ( $i = 1; $i < $first_limit; $i ++ ) {
+		for ( $i = 1; $i < $first_limit; $i++ ) {
 			$second_block .= $this->render_block_type_2( $results[ $i ], 'jnews-120x86' );
 		}
 
 		$third_block = '';
-		for ( $i = $first_limit; $i < $size; $i ++ ) {
+		for ( $i = $first_limit; $i < $size; $i++ ) {
 			$third_block .= $this->render_block_type_3( $results[ $i ] );
 		}
 

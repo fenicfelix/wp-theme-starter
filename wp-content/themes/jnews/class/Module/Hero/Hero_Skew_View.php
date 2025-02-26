@@ -18,7 +18,7 @@ Class Hero_Skew_View extends HeroViewAbstract
                         <div class=\"jeg_block_container\">
                             <span class=\"jeg_postformat_icon\"></span>
                             <div class=\"jeg_thumb\">
-                                <a href=\"{$permalink}\"  aria-label=\"" . esc_html__( 'Read article: ', 'jnews' ) . get_the_title( $post ) . "\">{$this->get_thumbnail($post->ID, 'jnews-featured-750')}</a>
+                                <a href=\"{$permalink}\"  aria-label=\"" . esc_html__( 'Read article: ', 'jnews' ) . get_the_title( $post ) . "\">{$this->get_thumbnail($post->ID , $this->main_custom_image_size( 'jnews-featured-750' ) )}</a>
                             </div>
                             <div class=\"jeg_postblock_content\">
                                 <div class=\"jeg_post_category\">

@@ -9,16 +9,16 @@ class Slider_9_View extends SliderViewAbstract {
 	public function content( $results ) {
 		$content = $thumb = '';
 		$index   = 0;
-
+		if ( $this->manager->get_current_width() > 8 ) {
+			$size = $this->main_custom_image_size( 'jnews-1140x570' );
+		} else {
+			$size = $this->main_custom_image_size( 'jnews-750x375' );
+		}
 		foreach ( $results as $key => $post ) {
 			$primary_category = $this->get_primary_category( $post->ID );
-			if ( $this->manager->get_current_width() > 8 ) {
-				$image = get_the_post_thumbnail_url( $post->ID, 'jnews-1140x570' );
-			} else {
-				$image = get_the_post_thumbnail_url( $post->ID, 'jnews-750x375' );
-			}
-			$image_mechanism = isset( $this->attribute['force_normal_image_load'] ) && ( 'true' === $this->attribute['force_normal_image_load'] || 'yes' === $this->attribute['force_normal_image_load'] );
-			$hidden_image    = $image_mechanism && 0 <= $key ? "<img class=\"thumbnail-prioritize\" src=\"{$image}\" style=\"display: none\" >" : '';
+			$image            = get_the_post_thumbnail_url( $post->ID, $size );
+			$image_mechanism  = isset( $this->attribute['force_normal_image_load'] ) && ( 'true' === $this->attribute['force_normal_image_load'] || 'yes' === $this->attribute['force_normal_image_load'] );
+			$hidden_image     = $image_mechanism && 0 <= $key ? "<img class=\"thumbnail-prioritize\" src=\"{$image}\" style=\"display: none\" >" : '';
 
 			$content .=
 				'<div ' . jnews_post_class( 'jeg_slide_item', $post->ID ) . " style=\"background-image: url({$image})\">
@@ -54,18 +54,20 @@ class Slider_9_View extends SliderViewAbstract {
                         </h3>
                     </div>
                 </article>';
-			$index++;
+			++$index;
 		}
 
-		return [
+		return array(
 			'content' => $content,
 			'thumb'   => $thumb,
-		];
+		);
 	}
 
 	public function render_element( $result, $attr ) {
 		if ( ! empty( $result ) ) {
-			$content        = $this->content( $result );
+			add_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
+			$content = $this->content( $result );
+			remove_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
 			$autoplay_delay = isset( $attr['autoplay_delay']['size'] ) ? $attr['autoplay_delay']['size'] : $attr['autoplay_delay'];
 
 			$output =

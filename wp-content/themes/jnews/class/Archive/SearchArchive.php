@@ -81,25 +81,30 @@ Class SearchArchive extends ArchiveAbstract {
 	}
 
 	public function render_content() {
-		ModuleManager::getInstance()->set_width( [ $this->get_content_width() ] );
+		ModuleManager::getInstance()->set_width( array( $this->get_content_width() ) );
 		$this->column_class = ModuleManager::getInstance()->get_column_class();
 
-		$attr = [
-			'date_format'         => $this->get_content_date(),
-			'date_format_custom'  => $this->get_content_date_custom(),
-			'excerpt_length'      => $this->get_content_excerpt(),
-			'pagination_mode'     => $this->get_content_pagination(),
-			'pagination_align'    => $this->get_content_pagination_align(),
-			'pagination_navtext'  => $this->get_content_pagination_navtext(),
-			'pagination_pageinfo' => $this->get_content_pagination_pageinfo(),
-			'boxed'               => $this->get_boxed(),
-			'boxed_shadow'        => $this->get_boxed_shadow(),
-			'box_shadow'          => $this->get_box_shadow(),
-		];
+		$attr = array(
+			'date_format'            => $this->get_content_date(),
+			'date_format_custom'     => $this->get_content_date_custom(),
+			'excerpt_length'         => $this->get_content_excerpt(),
+			'pagination_mode'        => $this->get_content_pagination(),
+			'pagination_align'       => $this->get_content_pagination_align(),
+			'pagination_navtext'     => $this->get_content_pagination_navtext(),
+			'pagination_pageinfo'    => $this->get_content_pagination_pageinfo(),
+			'boxed'                  => $this->get_boxed(),
+			'boxed_shadow'           => $this->get_boxed_shadow(),
+			'box_shadow'             => $this->get_box_shadow(),
+			'main_custom_image_size' => $this->get_content_main_image(),
 
-		$attr                   = apply_filters( 'jnews_get_content_attr', $attr, 'jnews_search_', null );
-		$name                   = apply_filters( 'jnews_get_content_layout', 'JNews_Block_' . $this->get_content_type(), 'jnews_search_' );
-		$class_name             = jnews_get_view_class_from_shortcode( $name ); // NVYX2FHn
+		);
+
+		if ( 'default' !== $this->get_content_second_image() && '14' === $this->get_content_type() ) {
+			$attr['second_custom_image_size'] = $this->get_content_second_image();
+		}
+		$attr       = apply_filters( 'jnews_get_content_attr', $attr, 'jnews_search_', null );
+		$name       = apply_filters( 'jnews_get_content_layout', 'JNews_Block_' . $this->get_content_type(), 'jnews_search_' );
+		$class_name = jnews_get_view_class_from_shortcode( $name ); // NVYX2FHn
 		$this->content_instance = jnews_get_module_instance( $class_name );
 		$this->content_instance->set_attribute( $attr );
 
@@ -126,7 +131,7 @@ Class SearchArchive extends ArchiveAbstract {
 
 		$query_attr = $wp_query->query;
 
-		$attr                            = [];
+		$attr                            = array();
 		$attr['paged']                   = 1;
 		$attr['column_class']            = $this->column_class;
 		$attr['s']                       = isset( $query_attr['s'] ) ? $query_attr['s'] : '';
@@ -142,6 +147,11 @@ Class SearchArchive extends ArchiveAbstract {
 		$attr['boxed']                   = $this->get_boxed();
 		$attr['boxed_shadow']            = $this->get_boxed_shadow();
 		$attr['box_shadow']              = $this->get_box_shadow();
+		$attr['main_custom_image_size']  = $this->get_content_main_image();
+
+		if ( 'default' !== $this->get_content_second_image() && '14' === $this->get_content_type() ) {
+			$attr['second_custom_image_size'] = $this->get_content_second_image();
+		}
 
 		$json_attr = wp_json_encode( $attr );
 
@@ -255,7 +265,7 @@ Class SearchArchive extends ArchiveAbstract {
 	}
 
 	public function get_box_shadow() {
-		if ( ! in_array( $this->get_content_type(), [ '37', '35', '33', '36', '32', '38' ] ) ) {
+		if ( ! in_array( $this->get_content_type(), array( '37', '35', '33', '36', '32', '38' ) ) ) {
 			return false;
 		}
 
@@ -263,5 +273,14 @@ Class SearchArchive extends ArchiveAbstract {
 	}
 
 	public function get_header_description() {
+	}
+
+
+	public function get_content_main_image() {
+		return apply_filters( 'jnews_search_content_main_image', get_theme_mod( 'jnews_search_content_main_image', 'default' ) );
+	}
+
+	public function get_content_second_image() {
+		return apply_filters( 'jnews_search_content_second_image', get_theme_mod( 'jnews_search_content_second_image', 'default' ) );
 	}
 }

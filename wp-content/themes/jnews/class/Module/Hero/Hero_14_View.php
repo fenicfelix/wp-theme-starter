@@ -91,13 +91,17 @@ class Hero_14_View extends HeroViewAbstract {
 		for ( $i = 0; $i <= $number_post; $i++ ) {
 			$item = isset( $result[ $i ] ) ? $result[ $i ] : '';
 			if ( $i < 1 ) {
+				add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 				$first_block .= $this->render_block_type_1( $item );
+				remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+				add_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
 			} elseif ( $i < 5 ) {
 				$second_block .= $this->render_block_type_2( $item );
 			} else {
 				$third_block .= $this->render_block_type_3( $item );
 			}
 		}
+		remove_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
 
 		return "<div class=\"jeg_postbig\">
                     {$first_block}

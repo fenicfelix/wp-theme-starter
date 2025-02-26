@@ -2,6 +2,7 @@
 
 $options = [];
 
+//see ZKyevnHL
 $options[] = [
 	'id'    => 'jnews_cpt_menu_header',
 	'type'  => 'jnews-header',
@@ -206,5 +207,46 @@ if ( ! empty( $post_types ) && is_array( $post_types ) ) {
 		'description' => esc_html__( 'There\'s no custom post type found.', 'jnews' ),
 	];
 }
+$options[] = array(
+	'id'    => 'jnews_cpt_archive_header',
+	'type'  => 'jnews-header',
+	'label' => esc_html__( 'Custom Post Type on Archive Page', 'jnews' ),
+);
+
+$options[] = array(
+	'id'          => 'jnews_cpt_category_archive',
+	'option_type' => 'option',
+	'transport'   => 'postMessage',
+	'default'     => array(),
+	'type'        => 'jnews-select',
+	'label'       => esc_html__( 'Custom Post Type On Category Page', 'jnews' ),
+	'description' => esc_html__( 'Include Custom Post Type on category page.', 'jnews' ),
+	'multiple'    => 100,
+	'choices'     => $post_types,
+);
+
+$options[] = array(
+	'id'          => 'jnews_cpt_author_archive',
+	'option_type' => 'option',
+	'transport'   => 'postMessage',
+	'default'     => array(),
+	'type'        => 'jnews-select',
+	'label'       => esc_html__( 'Custom Post Type On Author Page', 'jnews' ),
+	'description' => esc_html__( 'Include Custom Post Type on author page.', 'jnews' ),
+	'multiple'    => 100,
+	'choices'     => $post_types,
+);
+
+$options[] = array(
+	'id'          => 'jnews_cpt_other_archive',
+	'option_type' => 'option',
+	'transport'   => 'postMessage',
+	'default'     => array(),
+	'type'        => 'jnews-select',
+	'label'       => esc_html__( 'Custom Post Type Other Archive', 'jnews' ),
+	'description' => esc_html__( 'Include Custom Post Type on Tags and Date archive page.', 'jnews' ),
+	'multiple'    => 100,
+	'choices'     => $post_types,
+);
 
 return $options;

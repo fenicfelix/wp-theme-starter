@@ -78,7 +78,6 @@ class Block_9_View extends BlockViewAbstract {
 		for ( $i = 0; $i < $size; $i++ ) {
 			$first_block .= $this->render_block_type_1( $results[ $i ], $image_size );
 		}
-
 		return $first_block;
 	}
 }

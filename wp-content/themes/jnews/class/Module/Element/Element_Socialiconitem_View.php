@@ -162,19 +162,19 @@ class Element_Socialiconitem_View extends ModuleViewAbstract {
 				
 				//see rYir2Qgd	
 				case 'stumbleupon':
-					$label = $vertical ? '<span>' . jnews_return_translation( 'StumbleUpon', 'jnews', 'stumbleupon' ) . '</span>' : '';
+					$label = ! empty( $social_vertical ) ? '<span>' . jnews_return_translation( 'StumbleUpon', 'jnews', 'stumbleupon' ) . '</span>' : '';
 
-					$output .= '<a href="' . $social['social_url'] . '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $social['social_icon'] ) . '" class="jeg_stumbleupon">
-								<i class="fa fa-stumbleupon" ' . $inline_css . '></i>
+					$output .= '<a href="' . $attr['social_url'] . '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $attr['social_icon'] ) . '" class="jeg_stumbleupon">
+								<i class="fa fa-stumbleupon" ' . $social_inline_css . '></i>
 								' . $label . '
 							</a>';
 					break;
 
 				case 'telegram':
-					$label = $vertical ? '<span>' . jnews_return_translation( 'Telegram', 'jnews', 'telegram' ) . '</span>' : '';
+					$label = ! empty( $social_vertical ) ? '<span>' . jnews_return_translation( 'Telegram', 'jnews', 'telegram' ) . '</span>' : '';
 
-					$output .= '<a href="' . $social['social_url'] . '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $social['social_icon'] ) . '" class="jeg_telegram">
-								<i class="fa fa-telegram" ' . $inline_css . '></i>
+					$output .= '<a href="' . $attr['social_url'] . '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $attr['social_icon'] ) . '" class="jeg_telegram">
+								<i class="fa fa-telegram" ' . $social_inline_css . '></i>
 								' . $label . '
 							</a>';
 					break;
@@ -235,8 +235,8 @@ class Element_Socialiconitem_View extends ModuleViewAbstract {
 				case 'odnoklassniki':
 					$label = ! empty( $social_vertical ) ? '<span>' . jnews_return_translation( 'odnoklassniki', 'jnews', 'odnoklassniki' ) . '</span>' : '';
 
-					$output .= '<a href="' . $social['social_url'] . '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $social['social_icon'] ) . '" class="jeg_odnoklassniki">
-								<i class="fa fa-odnoklassniki" ' . $inline_css . '></i>
+					$output .= '<a href="' . $attr['social_url'] . '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $attr['social_icon'] ) . '" class="jeg_odnoklassniki">
+								<i class="fa fa-odnoklassniki" ' . $social_inline_css . '></i>
 								' . $label . '
 							</a>';
 					break;
@@ -264,10 +264,28 @@ class Element_Socialiconitem_View extends ModuleViewAbstract {
 				case 'whatsapp':
 					$label = ! empty( $social_vertical ) ? '<span>' . jnews_return_translation( 'Whatsapp', 'jnews', 'whatsapp' ) . '</span>' : '';
 
-					$output .= '<a href="' . $social['social_url'] . '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $social['social_icon'] ) . '" class="jeg_whatsapp">
-								<i class="fa fa-whatsapp" ' . $inline_css . '></i>
+					$output .= '<a href="' . $attr['social_url'] . '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $attr['social_icon'] ) . '" class="jeg_whatsapp">
+								<i class="fa fa-whatsapp" ' . $social_inline_css . '></i>
 								' . $label . '
 							</a>';
+					break;
+				case 'xing':
+					$label = ! empty( $social_vertical ) ? '<span>' . jnews_return_translation( 'Xing', 'jnews', 'xing' ) . '</span>' : '';
+
+					$output .= '<a href="' . $attr['social_url'] . '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $attr['social_icon'] ) . '" class="jeg_xing">
+								<i class="fa fa-xing" ' . $social_inline_css . '></i>
+								' . $label . '
+							</a>';
+					break;
+				case 'bluesky':
+					$svg   = true;
+					$label = ! empty( $social_vertical ) ? '<span>' . jnews_return_translation( 'Bluesky', 'jnews', 'bluesky' ) . '</span>' : '';
+					$icon  = jnews_get_svg( 'bluesky' );
+
+					$output .= '<a href="' . $attr['social_url'] . '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $attr['social_icon'] ) . '" class="jeg_bluesky">
+										<span class="jeg-icon icon-bluesky" ' . $social_inline_css . '><div class="' . $social_svg_class . '">' . $icon . '</div></span>
+									' . $label . '
+								</a>';
 					break;
 			}
 		}

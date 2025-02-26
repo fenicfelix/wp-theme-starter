@@ -114,10 +114,12 @@ class SocialWidget implements NormalWidgetInterface {
 							'discord'       => esc_attr__( 'Discord', 'jnews' ),
 							'odnoklassniki' => esc_attr__( 'Odnoklassniki', 'jnews' ),
 							'tiktok'        => esc_attr__( 'TikTok', 'jnews' ),
-							'snapchat'      => esc_attr__( 'Snapchat', 'jnews' ), //see rYir2Qgd
+							'snapchat'      => esc_attr__( 'Snapchat', 'jnews' ), // see rYir2Qgd
 							'whatsapp'      => esc_attr__( 'Whatsapp', 'jnews' ),
 							'line'          => esc_attr__( 'Line', 'jnews' ),
 							'threads'       => esc_attr__( 'Threads', 'jnews' ),
+							'xing'          => esc_attr__( 'Xing', 'jnews' ),
+							'bluesky'       => esc_attr__( 'Bluesky', 'jnews' ),
 						),
 					),
 					'social_url'  => array(
@@ -402,7 +404,7 @@ class SocialWidget implements NormalWidgetInterface {
 								break;
 
 							case 'snapchat':
-								$label = ( isset( $verticalsocial ) && $verticalsocial ) ?  '<span>' . jnews_return_translation( 'Snapchat', 'jnews', 'snapchat' ) . '</span>' : '';
+								$label = ( isset( $verticalsocial ) && $verticalsocial ) ? '<span>' . jnews_return_translation( 'Snapchat', 'jnews', 'snapchat' ) . '</span>' : '';
 
 								$output .= '<a href="' . $social->social_url . '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $social->social_icon ) . '" class="jeg_snapchat">
 											<i class="fa fa-snapchat-ghost"></i>
@@ -411,12 +413,29 @@ class SocialWidget implements NormalWidgetInterface {
 								break;
 
 							case 'whatsapp':
-								$label = ( isset( $verticalsocial ) && $verticalsocial ) ?  '<span>' . jnews_return_translation( 'Whatsapp', 'jnews', 'whatsapp' ) . '</span>' : '';
+								$label = ( isset( $verticalsocial ) && $verticalsocial ) ? '<span>' . jnews_return_translation( 'Whatsapp', 'jnews', 'whatsapp' ) . '</span>' : '';
 
 								$output .= '<a href="' . $social->social_url . '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $social->social_icon ) . '" class="jeg_whatsapp">
 											<i class="fa fa-whatsapp"></i>
 											' . $label . '
 										</a>';
+								break;
+							case 'xing':
+								$label = ( isset( $verticalsocial ) && $verticalsocial ) ? '<span>' . jnews_return_translation( 'Xing', 'jnews', 'xing' ) . '</span>' : '';
+
+								$output .= '<a href="' . $social->social_url . '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $social->social_icon ) . '" class="jeg_xing">
+											<i class="fa fa-xing"></i>
+											' . $label . '
+										</a>';
+								break;
+							case 'bluesky':
+								$label = ( isset( $verticalsocial ) && $verticalsocial ) ? '<span>' . jnews_return_translation( 'Bluesky', 'jnews', 'bluesky' ) . '</span>' : '';
+
+								$icon    = jnews_get_svg( 'bluesky' );
+								$output .= '<a href="' . $social->social_url . '" target="_blank" rel="external noopener nofollow" aria-label="' . esc_html__( 'Find us on ', 'jnews' ) . ucwords( $social->social_icon ) . '" class="jeg_bluesky">
+												<span class="jeg-icon icon-bluesky">' . $icon . '</span>
+												' . $label . '
+											</a>';
 								break;
 						}
 					}

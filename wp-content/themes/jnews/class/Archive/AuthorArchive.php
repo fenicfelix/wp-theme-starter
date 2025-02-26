@@ -33,7 +33,7 @@ Class AuthorArchive extends ArchiveAbstract {
 
 		$post_per_page = get_option( 'posts_per_page' );
 
-		$attr = [
+		$attr = array(
 			'content_type'            => $this->section,
 			'date_format'             => $this->get_content_date(),
 			'date_format_custom'      => $this->get_content_date_custom(),
@@ -53,9 +53,15 @@ Class AuthorArchive extends ArchiveAbstract {
 			'boxed_shadow'            => $this->get_boxed_shadow(),
 			'box_shadow'              => $this->get_box_shadow(),
 			'push_archive'            => true,
-		];
-
+			'main_custom_image_size'  => $this->get_content_main_image(),
+		);
+		
 		$attr                   = apply_filters( 'jnews_get_content_attr', $attr, 'jnews_author_', '_' . $this->author );
+		if ( 'default' !== $this->get_content_second_image() && '14' === $this->get_content_type() ) {
+			$attr['second_custom_image_size'] = $this->get_content_second_image();
+		}
+		$cpt_archive            = get_theme_mod( 'jnews_cpt_author_archive', array() ); 
+		$attr['post_type']      = empty( $cpt_archive ) ? 'post' : array_merge( array( 'post' ), $cpt_archive ); //see ZKyevnHL
 		$name                   = apply_filters( 'jnews_get_content_layout', 'JNews_Block_' . $this->get_content_type(), 'jnews_author_' );
 		$name                   = jnews_get_view_class_from_shortcode( $name );
 		$this->content_instance = jnews_get_module_instance( $name );
@@ -162,7 +168,7 @@ Class AuthorArchive extends ArchiveAbstract {
 	}
 
 	public function get_box_shadow() {
-		if ( ! in_array( $this->get_content_type(), [ '37', '35', '33', '36', '32', '38' ] ) ) {
+		if ( ! in_array( $this->get_content_type(), array( '37', '35', '33', '36', '32', '38' ) ) ) {
 			return false;
 		}
 
@@ -173,5 +179,13 @@ Class AuthorArchive extends ArchiveAbstract {
 	}
 
 	public function get_header_description() {
+	}
+
+	public function get_content_main_image() {
+		return apply_filters( 'jnews_author_content_main_image', get_theme_mod( 'jnews_author_content_main_image', 'default' ), $this->author );
+	}
+
+	public function get_content_second_image() {
+		return apply_filters( 'jnews_author_content_second_image', get_theme_mod( 'jnews_author_content_second_image', 'default' ), $this->author );
 	}
 }

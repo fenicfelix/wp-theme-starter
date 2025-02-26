@@ -348,7 +348,13 @@ class VideoAttribute {
 	public function youtube_attribute( $video_id ) {
 		$video_detail   = array();
 		$url            = 'https://www.googleapis.com/youtube/v3/videos?id=' . $video_id . '&part=id,contentDetails,snippet&key=' . $this->youtube_api();
-		$youtube_remote = wp_remote_get( $url );
+		$args           = array(
+			'User-Agent' => 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13',
+			'headers'    => array(
+				'referer' => home_url(),
+			),
+		);
+		$youtube_remote = wp_remote_get( $url, $args );
 
 		if ( ! is_wp_error( $youtube_remote ) && $youtube_remote['response']['code'] == '200' ) {
 			$youtube_remote = json_decode( $youtube_remote['body'] );
@@ -409,7 +415,13 @@ class VideoAttribute {
 		$taxonomy        = array();
 		$category_detail = array();
 		$url             = 'https://www.googleapis.com/youtube/v3/videoCategories?part=snippet&id=' . $catid . '&key=' . $this->youtube_api();
-		$youtube_remote  = wp_remote_get( $url );
+		$args            = array(
+			'User-Agent' => 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13',
+			'headers'    => array(
+				'referer' => home_url(),
+			),
+		);
+		$youtube_remote  = wp_remote_get( $url, $args );
 
 		if ( ! is_wp_error( $youtube_remote ) && $youtube_remote['response']['code'] == '200' ) {
 			$youtube_remote = json_decode( $youtube_remote['body'] );

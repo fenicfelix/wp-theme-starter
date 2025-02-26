@@ -23,6 +23,8 @@
 		'twitch'     => 'fa-twitch',
 		'tiktok'     => 'jeg-icon icon-tiktok',
 		'threads'    => 'jeg-icon icon-threads',
+		'xing'       => 'fa-xing',
+		'bluesky'    => 'jeg-icon icon-bluesky',
 	);
 
 	if ( function_exists( 'get_coauthors' ) && ! is_author() ) {

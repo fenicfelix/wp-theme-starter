@@ -95,7 +95,7 @@ class Gutenberg {
 		$li_font         = get_theme_mod( 'jnews_li_font' );
 		$blockquote_font = get_theme_mod( 'jnews_blobkquote_font' );
 		?>
-		<style type="text/css">
+		<style type="text/css" id="jnews-gutenberg-style">
 			/*Font Style*/
 			@media (max-width: 1200px ) {
 				.wp-block {
@@ -132,18 +132,17 @@ class Gutenberg {
 			/* Paragraph Style */
 			<?php if ( ! empty( $paragraph_font ) ) { ?>
 				<?php
+				/* see EsaX16AP */
 				$paragraph_size_unit = isset( $paragraph_font['font-size-unit'] ) && '' !== $paragraph_font['font-size-unit'] ? esc_attr( $paragraph_font['font-size-unit'] ) : 'px';
 				?>
-			.wp-block-paragraph,
-			.wp-block {
+			.wp-block-paragraph{
 				font-family: <?php echo esc_attr( $paragraph_font['font-family'] ); ?>;
 				font-size: <?php echo '' === $paragraph_font['font-size'] ? '16px' : esc_attr( $paragraph_font['font-size'] . $paragraph_size_unit ); ?>;
 				color: <?php echo '' === $paragraph_font['color'] ? '#333' : esc_attr( $paragraph_font['color'] ); ?>;
 				line-height: <?php echo '' === $paragraph_font['line-height'] ? '1.3' : esc_attr( $paragraph_font['line-height'] ); ?>;
 			}
 			<?php } else { ?>
-			.wp-block-paragraph,
-			.wp-block {
+			.wp-block-paragraph{
 				font-family: Revalia,Helvetica,Arial,sans-serif;
 				font-size: 16px;
 				color: '#333';

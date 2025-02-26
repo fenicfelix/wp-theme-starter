@@ -86,7 +86,7 @@ class AdminDashboard {
 	 * Setup Init
 	 */
 	private function setup_init() {
-		$this->template   = new \JNews\Template( JNEWS_THEME_DIR . 'class/Dashboard/template/' );
+		$this->template = new \JNews\Template( JNEWS_THEME_DIR . 'class/Dashboard/template/' );
 	}
 
 	/**
@@ -166,73 +166,73 @@ class AdminDashboard {
 		}
 
 		$metabox_updated_plugins = array(
-			'JNEWS_ESSENTIAL' => array(
+			'JNEWS_ESSENTIAL'           => array(
 				'plugin_name' => 'JNews - Essential',
-				'version' => 'JNEWS_ESSENTIAL_VERSION',
+				'version'     => 'JNEWS_ESSENTIAL_VERSION',
 			),
-			'JNEWS_SOCIAL_SHARE' => array(
+			'JNEWS_SOCIAL_SHARE'        => array(
 				'plugin_name' => 'JNews - Social Share',
-				'version' => 'JNEWS_SOCIAL_SHARE_VERSION',
+				'version'     => 'JNEWS_SOCIAL_SHARE_VERSION',
 			),
-			'JNEWS_META_HEADER' => array(
+			'JNEWS_META_HEADER'         => array(
 				'plugin_name' => 'JNews - Meta Header',
-				'version' => 'JNEWS_META_HEADER_VERSION',
+				'version'     => 'JNEWS_META_HEADER_VERSION',
 			),
-			'JNEWS_BOOKMARK' => array(
+			'JNEWS_BOOKMARK'            => array(
 				'plugin_name' => 'JNews - Bookmark',
-				'version' => 'JNEWS_BOOKMARK_VERSION',
+				'version'     => 'JNEWS_BOOKMARK_VERSION',
 			),
-			'JNEWS_FOOD_RECIPE' => array(
+			'JNEWS_FOOD_RECIPE'         => array(
 				'plugin_name' => 'JNews - Food Recipe',
-				'version' => 'JNEWS_FOOD_RECIPE_VERSION',
+				'version'     => 'JNEWS_FOOD_RECIPE_VERSION',
 			),
-			'JNEWS_PAYWALL' => array(
+			'JNEWS_PAYWALL'             => array(
 				'plugin_name' => 'JNews - Paywall',
-				'version' => 'JNEWS_PAYWALL_VERSION',
+				'version'     => 'JNEWS_PAYWALL_VERSION',
 			),
-			'JNEWS_REVIEW' => array(
+			'JNEWS_REVIEW'              => array(
 				'plugin_name' => 'JNews - Review',
-				'version' => 'JNEWS_REVIEW_VERSION',
+				'version'     => 'JNEWS_REVIEW_VERSION',
 			),
-			'JNEWS_SPLIT' => array(
+			'JNEWS_SPLIT'               => array(
 				'plugin_name' => 'JNews - Split',
-				'version' => 'JNEWS_SPLIT_VERSION',
+				'version'     => 'JNEWS_SPLIT_VERSION',
 			),
-			'JNEWS_VIDEO' => array(
+			'JNEWS_VIDEO'               => array(
 				'plugin_name' => 'JNews - Video',
-				'version' => 'JNEWS_VIDEO_VERSION',
+				'version'     => 'JNEWS_VIDEO_VERSION',
 			),
-			'JNEWS_JSONLD' => array(
+			'JNEWS_JSONLD'              => array(
 				'plugin_name' => 'JNews - JSON-LD',
-				'version' => 'JNEWS_JSONLD_VERSION',
+				'version'     => 'JNEWS_JSONLD_VERSION',
 			),
-			'JNEWS_PAY_WRITER' => array(
+			'JNEWS_PAY_WRITER'          => array(
 				'plugin_name' => 'JNews - Pay Writer',
-				'version' => 'JNEWS_PAY_WRITER_VERSION',
+				'version'     => 'JNEWS_PAY_WRITER_VERSION',
 			),
 			'JNEWS_MIGRATION_NEWSPAPER' => array(
 				'plugin_name' => 'JNews - Migration Newspaper',
-				'version' => 'JNEWS_MIGRATION_NEWSPAPER_VERSION',
+				'version'     => 'JNEWS_MIGRATION_NEWSPAPER_VERSION',
 			),
-			'JNEWS_OPTION_CUSTOMIZER' => array(
+			'JNEWS_OPTION_CUSTOMIZER'   => array(
 				'plugin_name' => 'JNews - Extended Category Option',
-				'version' => 'JNEWS_OPTION_CUSTOMIZER_VERSION',
+				'version'     => 'JNEWS_OPTION_CUSTOMIZER_VERSION',
 			),
-			'JNEWS_PODCAST' => array(
-				'plugin_name' =>  'JNews - Podcast',
-				'version' => 'JNEWS_PODCAST_VERSION',
+			'JNEWS_PODCAST'             => array(
+				'plugin_name' => 'JNews - Podcast',
+				'version'     => 'JNEWS_PODCAST_VERSION',
 			),
 		);
 
 		$plugin_list = '';
 
 		foreach ( $metabox_updated_plugins as $slug => $plugin_data ) {
-			if ( ( defined( $slug ) && ! defined( $plugin_data['version'] ) ) || ( defined( $plugin_data['version'] ) && version_compare( constant(  $plugin_data['version'] ), '11.6.0', '<' ) ) ) {
+			if ( ( defined( $slug ) && ! defined( $plugin_data['version'] ) ) || ( defined( $plugin_data['version'] ) && version_compare( constant( $plugin_data['version'] ), '11.6.0', '<' ) ) ) {
 				$plugin_list .= '<li>' . $plugin_data['plugin_name'] . '</li>';
 			}
 		}
 
-		if( ! empty( $plugin_list ) ) {
+		if ( ! empty( $plugin_list ) ) {
 			echo wp_kses(
 				' <div class="notice notice-error jnews-update-plugin-notice">
 					<span class="jnews-notice-heading">' . __( 'JNews Plugin Updates Required', 'jnews' ) . '</span>
@@ -244,14 +244,14 @@ class AdminDashboard {
 					</span>
 				</div>',
 				array(
-					'div' => array(
+					'div'    => array(
 						'class' => true,
 					),
-					'i' => array(
+					'i'      => array(
 						'class' => true,
 					),
-					'ul' => array(),
-					'li' => array(),
+					'ul'     => array(),
+					'li'     => array(),
 					'strong' => array(),
 					'span'   => array(
 						'style' => true,
@@ -303,9 +303,9 @@ class AdminDashboard {
 	 * @return array
 	 */
 	public function get_admin_menu() {
-		$slug             = $this->admin_slug();
-		$admin_url        = 'themes.php';
-		$menu             = array();
+		$slug      = $this->admin_slug();
+		$admin_url = 'themes.php';
+		$menu      = array();
 
 		if ( defined( 'JNEWS_ESSENTIAL' ) ) {
 			$admin_url = 'admin.php';
@@ -422,7 +422,7 @@ class AdminDashboard {
 		}
 		return $data;
 	}
-	
+
 	/**
 	 * Method jnews_dashboard_config
 	 *
@@ -753,7 +753,15 @@ class AdminDashboard {
 				),
 				JEGTHEME_SERVER . '/activate/'
 			),
-			'callback_url'      => apply_filters( 'jnews_callback_url', array() ),
+			'callback_url'      => apply_filters(
+				'jnews_callback_url',
+				array(
+					'social_accounts' => array(
+						'callback'   => admin_url( 'admin.php?page=jnews-social' ),
+						'client_url' => get_site_url(),
+					),
+				)
+			),
 		);
 	}
 

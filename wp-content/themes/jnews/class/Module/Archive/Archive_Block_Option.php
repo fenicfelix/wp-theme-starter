@@ -231,6 +231,35 @@ class Archive_Block_Option extends ModuleOptionAbstract {
 			'description' => esc_html__( 'Enable this option if you want to show this block only on the first page.', 'jnews' ),
 			'std'         => false,
 		);
+		$size_lists      = array(
+			esc_attr__( 'Default', 'jnews' )        => 'default',
+			esc_attr__( 'Original Image', 'jnews' ) => 'full',
+		);
+		foreach ( wp_get_registered_image_subsizes()  as $key => $image_size ) {
+			$size_lists[ esc_attr__( $key, 'jnews' ) ] = $key;
+		}
+
+		$this->options[] = array(
+			'type'        => 'dropdown',
+			'param_name'  => 'main_custom_image_size',
+			'std'         => 'default',
+			'heading'     => esc_html__( 'Rendered Image Size in Main Thumbnail', 'jnews' ),
+			'description' => esc_html__( 'Choose the image size that you want to rendered in main thumbnail in this module.', 'jnews' ),
+			'value'       => $size_lists,
+		);
+
+		$this->options[] = array(
+			'type'        => 'dropdown',
+			'param_name'  => 'second_custom_image_size',
+			'std'         => 'default',
+			'heading'     => esc_html__( 'Rendered Image Size in Second Thumbnail', 'jnews' ),
+			'description' => esc_html__( 'Choose the image size that you want to rendered in second thumbnail in this module.', 'jnews' ),
+			'value'       => $size_lists,
+			'dependency'  => array(
+				'element' => 'block_type',
+				'value'   => '14',
+			),
+		);
 
 		$this->options = apply_filters( 'jnews_custom_block_option', $this->options );
 	}

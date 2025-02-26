@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Elementor\Controls_Manager;
 use Elementor\Widget_Base;
+use JNews\Util\Api\SocialAccounts;
 
 class SocialCounter extends Widget_Base {
 	/**
@@ -23,9 +24,9 @@ class SocialCounter extends Widget_Base {
 	private $tw_consumer_secret;
 	private $tw_access_token;
 	private $tw_access_token_secret;
-	private $cache_key = "jnews_social_counter_widget_cache";
+	private $cache_key = 'jnews_social_counter_widget_cache';
 	private $newtab;
-
+	private $yt_channel_id;
 	/**
 	 * @var array
 	 */
@@ -37,7 +38,7 @@ class SocialCounter extends Widget_Base {
 	 */
 	private $rss_count = 10;
 
-	public function __construct( array $data = [], $args = null ) {
+	public function __construct( array $data = array(), $args = null ) {
 		parent::__construct( $data, $args );
 	}
 
@@ -54,20 +55,20 @@ class SocialCounter extends Widget_Base {
 	}
 
 	public function get_categories() {
-		return [ 'jnews-element' ];
+		return array( 'jnews-element' );
 	}
 
 	protected function register_controls() {
 		$this->start_controls_section(
 			'general_section',
-			[
+			array(
 				'label' => esc_html__( 'General Setting', 'jnews' ),
-			]
+			)
 		);
 
 		$this->add_control(
 			'column',
-			[
+			array(
 				'label'       => esc_html__( 'Number of Column', 'jnews' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => 'col1',
@@ -78,13 +79,13 @@ class SocialCounter extends Widget_Base {
 					'col4' => esc_html__( '4 Columns', 'jnews' ),
 				),
 				'label_block' => true,
-				'description' => esc_html__( 'Set the number of social counter column.', 'jnews' )
-			]
+				'description' => esc_html__( 'Set the number of social counter column.', 'jnews' ),
+			)
 		);
 
 		$this->add_control(
 			'style',
-			[
+			array(
 				'label'       => esc_html__( 'Social Style', 'jnews' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => 'light',
@@ -93,168 +94,187 @@ class SocialCounter extends Widget_Base {
 					'colored' => esc_html__( 'Colored', 'jnews' ),
 				),
 				'label_block' => true,
-				'description' => esc_html__( 'Choose your social counter style.', 'jnews' )
-			]
+				'description' => esc_html__( 'Choose your social counter style.', 'jnews' ),
+			)
 		);
 
 		$this->add_control(
 			'newtab',
-			[
+			array(
 				'label'       => esc_html__( 'Open New Tab', 'jnews' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => '',
 				'description' => esc_html__( 'Open social account page on new tab.', 'jnews' ),
-			]
+			)
 		);
 
 		$this->end_controls_section();
 
 		$this->start_controls_section(
 			'account_section',
-			[
+			array(
 				'label' => esc_html__( 'Account Setting', 'jnews' ),
-			]
+			)
 		);
 
 		$this->add_control(
 			'tw_consumer_key',
-			[
+			array(
 				'label'       => esc_html__( 'Twitter Consumer Key', 'jnews' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
 				'label_block' => true,
 				'description' => sprintf( __( 'You can create an application and get Twitter Consumer Key <a href="%s" target="_blank">here</a>.', 'jnews' ), 'https://apps.twitter.com/' ),
-			]
+			)
 		);
 
 		$this->add_control(
 			'tw_consumer_secret',
-			[
+			array(
 				'label'       => esc_html__( 'Twitter Consumer Secret', 'jnews' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
 				'label_block' => true,
 				'description' => sprintf( __( 'You can create an application and get Twitter Consumer Secret <a href="%s" target="_blank">here</a>.', 'jnews' ), 'https://apps.twitter.com/' ),
-			]
+			)
 		);
 
 		$this->add_control(
 			'tw_access_token',
-			[
+			array(
 				'label'       => esc_html__( 'Twitter Access Token', 'jnews' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
 				'label_block' => true,
 				'description' => sprintf( __( 'You can create an application and get Twitter Access Token <a href="%s" target="_blank">here</a>.', 'jnews' ), 'https://apps.twitter.com/' ),
-			]
+			)
 		);
 
 		$this->add_control(
 			'tw_access_token_secret',
-			[
+			array(
 				'label'       => esc_html__( 'Twitter Access Token Secret', 'jnews' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
 				'label_block' => true,
 				'description' => sprintf( __( 'You can create an application and get Twitter Access Token Secret <a href="%s" target="_blank">here</a>.', 'jnews' ), 'https://apps.twitter.com/' ),
-			]
+			)
 		);
 
 		$this->add_control(
 			'bh_key',
-			[
+			array(
 				'label'       => esc_html__( 'Behance API Key', 'jnews' ),
 				'description' => sprintf( __( 'You can register Behance API Key <a href="%s" target="_blank">here</a>.', 'jnews' ), 'https://www.behance.net/dev/register' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
 				'label_block' => true,
-			]
+			)
 		);
 
 		$this->add_control(
 			'vk_id',
-			[
+			array(
 				'label'       => esc_html__( 'VK User ID', 'jnews' ),
 				'description' => esc_html__( 'Insert your VK user id.', 'jnews' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
 				'label_block' => true,
-			]
+			)
 		);
 
 		$this->add_control(
 			'vk_token',
-			[
+			array(
 				'label'       => esc_html__( 'VK Service Token', 'jnews' ),
 				'description' => esc_html__( 'Insert your VK service token.', 'jnews' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
 				'label_block' => true,
-			]
+			)
 		);
 
 		$this->add_control(
 			'rss_count',
-			[
+			array(
 				'label'       => esc_html__( 'RSS Subscriber', 'jnews' ),
 				'description' => esc_html__( 'Insert the number of RSS subscribers.', 'jnews' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
 				'label_block' => true,
-			]
+			)
+		);
+
+		$this->add_control(
+			'yt_channel_id',
+			array(
+				'label'       => esc_html__( 'YouTube Channel ID', 'jnews' ),
+				'description' => esc_html__( 'Insert your YouTube Channel ID', 'jnews' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
+				'label_block' => true,
+			)
 		);
 
 		$this->add_control(
 			'account',
-			[
+			array(
 				'label'       => esc_html__( 'Social Account', 'jnews' ),
 				'description' => esc_html__( 'Add your social account list.', 'jnews' ),
 				'type'        => Controls_Manager::REPEATER,
-				'default'     => [
-					[
+				'default'     => array(
+					array(
 						'social_icon' => 'facebook',
-						'social_url'  => 'https://www.facebook.com/jegtheme/'
-					],
-					[
+						'social_url'  => 'https://www.facebook.com/jegtheme/',
+					),
+					array(
 						'social_icon' => 'twitter',
-						'social_url'  => 'https://twitter.com/jegtheme'
-					],
-				],
-				'fields'      => [
-					[
+						'social_url'  => 'https://twitter.com/jegtheme',
+					),
+				),
+				'fields'      => array(
+					array(
 						'name'        => 'social_icon',
 						'label'       => esc_html__( 'Social Icon', 'jnews' ),
 						'description' => esc_html__( 'Choose your social account.', 'jnews' ),
 						'type'        => Controls_Manager::SELECT,
 						'options'     => array(
-							''            => esc_attr__( 'Choose Icon', 'jnews' ),
-							'facebook'    => esc_attr__( 'Facebook Page', 'jnews' ),
-							'twitter'     => esc_attr__( 'Twitter', 'jnews' ),
-							'pinterest'   => esc_attr__( 'Pinterest', 'jnews' ),
-							'behance'     => esc_attr__( 'Behance', 'jnews' ),
-							'flickr'      => esc_attr__( 'Flickr', 'jnews' ),
-							'soundcloud'  => esc_attr__( 'Soundcloud', 'jnews' ),
-							'instagram'   => esc_attr__( 'Instagram', 'jnews' ),
-							'vimeo'       => esc_attr__( 'Vimeo', 'jnews' ),
-							'youtube'     => esc_attr__( 'Youtube', 'jnews' ),
-							'twitch'      => esc_attr__( 'Twitch', 'jnews' ),
-							'vk'          => esc_attr__( 'VK', 'jnews' ),
-							'rss'         => esc_attr__( 'RSS', 'jnews' ),
-							'tiktok'      => esc_attr__( 'TikTok', 'jnews' ),
+							''           => esc_attr__( 'Choose Icon', 'jnews' ),
+							'facebook'   => esc_attr__( 'Facebook Page', 'jnews' ),
+							'twitter'    => esc_attr__( 'Twitter', 'jnews' ),
+							'pinterest'  => esc_attr__( 'Pinterest', 'jnews' ),
+							'behance'    => esc_attr__( 'Behance', 'jnews' ),
+							'flickr'     => esc_attr__( 'Flickr', 'jnews' ),
+							'soundcloud' => esc_attr__( 'Soundcloud', 'jnews' ),
+							'instagram'  => esc_attr__( 'Instagram', 'jnews' ),
+							'vimeo'      => esc_attr__( 'Vimeo', 'jnews' ),
+							'youtube'    => esc_attr__( 'Youtube', 'jnews' ),
+							'twitch'     => esc_attr__( 'Twitch', 'jnews' ),
+							'vk'         => esc_attr__( 'VK', 'jnews' ),
+							'rss'        => esc_attr__( 'RSS', 'jnews' ),
+							'tiktok'     => esc_attr__( 'TikTok', 'jnews' ),
 						),
 						'default'     => '',
 						'label_block' => true,
-					],
-					[
+					),
+					array(
 						'name'        => 'social_url',
 						'label'       => esc_html__( 'Social URL', 'jnews' ),
 						'description' => esc_html__( 'Insert your social account url.', 'jnews' ),
 						'type'        => Controls_Manager::TEXT,
 						'default'     => '',
 						'label_block' => true,
-					],
-				],
-			]
+					),
+					array(
+						'name'        => 'custom_value',
+						'label'       => esc_attr__( 'Follower Count', 'jnews' ),
+						'description' => esc_attr__( 'Some social API has no loonger available, so you need add the number of your followers manualy in this filds.', 'jnews' ),
+						'type'        => Controls_Manager::TEXT,
+						'default'     => '',
+						'label_block' => true,
+					),
+				),
+			)
 		);
 
 		$this->end_controls_section();
@@ -262,18 +282,18 @@ class SocialCounter extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings();
-
 		$this->content                = $this->data_cache = null;
 		$this->vk_id                  = isset( $settings['vk_id'] ) ? str_replace( 'id', '', $settings['vk_id'] ) : '';
 		$this->vk_token               = isset( $settings['vk_token'] ) ? str_replace( 'token', '', $settings['vk_token'] ) : '';
 		$this->fb_key                 = isset( $settings['fb_key'] ) ? $settings['fb_key'] : '';
-		$this->gg_key                 = isset( $settings['gg_key'] ) ? $settings['gg_key'] : '';
+		$this->gg_key                 = isset( $instance['gg_key'] ) ? $instance['gg_key'] : get_theme_mod( 'jnews_youtube_api' ); // see XISz4FBO
 		$this->bh_key                 = isset( $settings['bh_key'] ) ? $settings['bh_key'] : '';
 		$this->rss_count              = isset( $settings['rss_count'] ) ? $settings['rss_count'] : '';
 		$this->tw_consumer_key        = isset( $settings['tw_consumer_key'] ) ? $settings['tw_consumer_key'] : '';
 		$this->tw_consumer_secret     = isset( $settings['tw_consumer_secret'] ) ? $settings['tw_consumer_secret'] : '';
 		$this->tw_access_token        = isset( $settings['tw_access_token'] ) ? $settings['tw_access_token'] : '';
 		$this->tw_access_token_secret = isset( $settings['tw_access_token_secret'] ) ? $settings['tw_access_token_secret'] : '';
+		$this->yt_channel_id          = isset( $settings['yt_channel_id'] ) ? $settings['yt_channel_id'] : '';
 
 		$this->render_social_content( $settings );
 	}
@@ -312,7 +332,6 @@ class SocialCounter extends Widget_Base {
 					$this->service_social( $social );
 				}
 			}
-
 		}
 	}
 
@@ -366,11 +385,14 @@ class SocialCounter extends Widget_Base {
 					$data['social_text'] = jnews_return_translation( 'Followers', 'jnews', 'followers' );
 					break;
 			}
-        }
-
+		}
+		$icon = "<i class=\"fa fa-{$data['social_type']}\"></i>";
+		if ( 'twitter' === $data['social_type'] ) {
+			$icon = "<i class=\"fa fa-{$data['social_type']}\">" . jnews_get_svg( 'twitter' ) . '</i>';
+		}
 		$this->content .=
 			"<li class=\"jeg_{$data['social_type']}\">
-                <a href=\"{$data['social_url']}\" {$this->newtab}><i class=\"fa fa-{$data['social_type']}\"></i>
+                <a href=\"{$data['social_url']}\" {$this->newtab}>{$icon}</i>
                     <span>{$count}</span>
                     <small>{$data['social_text']}</small>
                 </a>
@@ -383,223 +405,221 @@ class SocialCounter extends Widget_Base {
 	 * @param  array $data
 	 */
 	protected function service_social( $data ) {
-		switch ( $data['social_icon'] ) {
-			case 'facebook':
-				$social_id = parse_url( $data['social_url'] );
-				$social_id = trim( $social_id['path'], '/' );
-
-				if ( ! empty( $social_id ) && ! empty( $this->fb_key ) ) {
-					$array = array(
-						'social_type' => 'facebook',
-						'social_id'   => $social_id,
-						'social_text' => jnews_return_translation( 'Fan', 'jnews', 'fan' ),
-						'social_url'  => $data['social_url'],
-                        'social_grab' => 'https://graph.facebook.com/v11.0/' . $social_id . '?access_token=' . apply_filters( 'jnews_facebook_token_access', $this->fb_key ) . '&fields=followers_count',
-					);
-					$this->check_cache( $array );
-				}
-				break;
-
-			case 'twitter':
-				$social_id = parse_url( $data['social_url'] );
-				$social_id = trim( $social_id['path'], '/' );
-
-				if ( ! empty( $social_id ) ) {
-					$array = array(
-						'social_type' => 'twitter',
-						'social_id'   => $social_id,
-						'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
-						'social_url'  => $data['social_url'],
-						'social_grab' => $data['social_url'],
-					);
-					$this->check_cache( $array );
-				}
-				break;
-
-			case 'instagram':
-				$social_id = parse_url( $data['social_url'] );
-				$social_id = trim( $social_id['path'], '/' );
-
-				if ( ! empty( $social_id ) ) {
-					$array = array(
-						'social_type' => 'instagram',
-						'social_id'   => $social_id,
-						'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
-						'social_url'  => $data['social_url'],
-						'social_grab' => $data['social_url'],
-					);
-					$this->check_cache( $array );
-				}
-				break;
-
-			case 'pinterest':
-				$social_id = parse_url( $data['social_url'] );
-				$social_id = trim( $social_id['path'], '/' );
-
-				if ( ! empty( $social_id ) ) {
-					$array = array(
-						'social_type' => 'pinterest',
-						'social_id'   => $social_id,
-						'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
-						'social_url'  => $data['social_url'],
-						'social_grab' => $data['social_url'],
-					);
-					$this->check_cache( $array );
-				}
-				break;
-
-			case 'vimeo':
-				$social_id = parse_url( $data['social_url'] );
-				$social_id = trim( $social_id['path'], '/' );
-
-				if ( ! empty( $social_id ) ) {
-					$array = array(
-						'social_type' => 'vimeo',
-						'social_id'   => $social_id,
-						'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
-						'social_url'  => $data['social_url'],
-						'social_grab' => 'https://vimeo.com/' . $social_id . '/following/followers/',
-					);
-					$this->check_cache( $array );
-				}
-				break;
-
-			case 'soundcloud':
-				$social_id = parse_url( $data['social_url'] );
-				$social_id = trim( $social_id['path'], '/' );
-
-				if ( ! empty( $social_id ) ) {
-					$array = array(
-						'social_type' => 'soundcloud',
-						'social_id'   => $social_id,
-						'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
-						'social_url'  => $data['social_url'],
-						'social_grab' => $data['social_url'],
-					);
-					$this->check_cache( $array );
-				}
-				break;
-
-			case 'behance':
-				$social_id = parse_url( $data['social_url'] );
-				$social_id = trim( $social_id['path'], '/' );
-
-				if ( ! empty( $social_id ) && ! empty( $this->bh_key ) ) {
-					$array = array(
-						'social_type' => 'behance',
-						'social_id'   => $social_id,
-						'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
-						'social_url'  => $data['social_url'],
-						'social_grab' => 'https://api.behance.net/v2/users/' . $social_id . '?client_id=' . apply_filters( 'jnews_behance_token_access', $this->bh_key ),
-					);
-					$this->check_cache( $array );
-				}
-				break;
-
-			case 'flickr':
-				$social_id = parse_url( $data['social_url'] );
-				$social_id = trim( $social_id['path'], '/' );
-				$social_id = str_replace( 'photos/', '', $social_id );
-
-				if ( ! empty( $social_id ) ) {
-					$array = array(
-						'social_type' => 'flickr',
-						'social_id'   => $social_id,
-						'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
-						'social_url'  => $data['social_url'],
-						'social_grab' => $data['social_url'],
-					);
-					$this->check_cache( $array );
-				}
-				break;
-
-			case 'twitch':
-				$social_id = parse_url( $data['social_url'] );
-				$social_id = trim( $social_id['path'], '/' );
-
-				if ( ! empty( $social_id ) ) {
-					$array = array(
-						'social_type' => 'twitch',
-						'social_id'   => $social_id,
-						'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
-						'social_url'  => $data['social_url'],
-					);
-					$this->check_cache( $array );
-				}
-				break;
-
-			case 'vk':
-				$social_id = parse_url( $data['social_url'] );
-				$social_id = trim( $social_id['path'], '/' );
-
-				if ( ! empty( $social_id ) ) {
-					$array = array(
-						'social_type' => 'vk',
-						'social_id'   => $social_id,
-						'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
-						'social_url'  => $data['social_url'],
-						'social_grab' => 'https://api.vk.com/method/users.getFollowers?user_id=' . $this->vk_id . '&v=5.74&access_token=' . $this->vk_token,
-					);
-					$this->check_cache( $array );
-				}
-				break;
-
-			case 'youtube':
-				$social_id = parse_url( $data['social_url'] );
-				$social_id = trim( $social_id['path'], '/' );
-
-				if ( ! empty( $social_id ) && ! empty( $this->gg_key ) ) {
-					$array = array(
-						'social_type' => 'youtube',
-						'social_text' => jnews_return_translation( 'Subscriber', 'jnews', 'subscriber' ),
-						'social_url'  => $data['social_url'],
-						'social_grab' => 'https://www.googleapis.com/youtube/v3/channels?part=statistics&key=' . apply_filters( 'jnews_youtube_token_access', $this->gg_key ),
-					);
-
-					$social_id = explode( "/", $social_id );
-
-					if ( is_array( $social_id ) ) {
-						if ( $social_id[0] == 'channel' ) {
-							$array['social_grab'] .= '&id=' . $social_id[1];
-						} else {
-							$array['social_grab'] .= '&forUsername=' . $social_id[1];
-						}
-
-						$array['social_id'] = $social_id[1];
+		if ( is_numeric( $data['custom_value'] ) ) {
+			$this->build_content(
+				array(
+					'social_type' => $data['social_icon'],
+					'social_data' => $data['custom_value'],
+					'social_url'  => $data['social_url'],
+				)
+			);
+		} else {
+			switch ( $data['social_icon'] ) {
+				case 'facebook':
+					$social_id = wp_parse_url( $data['social_url'] );
+					$social_id = trim( $social_id['path'], '/' );
+					if ( ! empty( $social_id ) && ! empty( $this->fb_key ) ) {
+						$array = array(
+							'social_type' => 'facebook',
+							'social_id'   => $social_id,
+							'social_text' => jnews_return_translation( 'Fan', 'jnews', 'fan' ),
+							'social_url'  => $data['social_url'],
+							'social_grab' => 'https://graph.facebook.com/v11.0/' . $social_id . '?access_token=' . apply_filters( 'jnews_facebook_token_access', $this->fb_key ) . '&fields=followers_count',
+						);
+						$this->check_cache( $array );
 					}
+					break;
 
-					$this->check_cache( $array );
-				}
-				break;
+				case 'twitter':
+					$social_id = parse_url( $data['social_url'] );
+					$social_id = trim( $social_id['path'], '/' );
 
-			case 'rss':
-				if ( is_numeric( $this->rss_count ) ) {
-					$array = array(
-						'social_text' => jnews_return_translation( 'Subscriber', 'jnews', 'subscriber' ),
-						'social_url'  => empty( $data['social_url'] ) ? esc_url( jnews_home_url_multilang( '/feed' ) ) : $data['social_url'],
-						'social_data' => $this->rss_count,
-						'social_type' => 'rss',
-					);
+					if ( ! empty( $social_id ) ) {
+						$array = array(
+							'social_type' => 'twitter',
+							'social_id'   => $social_id,
+							'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
+							'social_url'  => $data['social_url'],
+							'social_grab' => $data['social_url'],
+						);
+						$this->check_cache( $array );
+					}
+					break;
 
-					$this->build_content( $array );
-				}
-				break;
-			
-			case 'tiktok':
-				$social_id = parse_url( $data['social_url'] );
-				$social_id = trim( $social_id['path'], '/' );
+				case 'instagram':
+					$social_id = parse_url( $data['social_url'] );
+					$social_id = trim( $social_id['path'], '/' );
 
-				if ( ! empty( $social_id ) && ! empty( $this->bh_key ) ) {
-					$array = array(
-						'social_type' => 'tiktok',
-						'social_id'   => $social_id,
-						'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
-						'social_url'  => $data['social_url'],
-						'social_grab' => 'https://www.tiktok.com/node/share/user/' . $social_id,
-					);
-					$this->check_cache( $array );
-				}
-				break;
+					if ( ! empty( $social_id ) ) {
+						$array = array(
+							'social_type' => 'instagram',
+							'social_id'   => $social_id,
+							'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
+							'social_url'  => $data['social_url'],
+							'social_grab' => $data['social_url'],
+						);
+						$this->check_cache( $array );
+					}
+					break;
+
+				case 'pinterest':
+					$social_id = parse_url( $data['social_url'] );
+					$social_id = trim( $social_id['path'], '/' );
+
+					if ( ! empty( $social_id ) ) {
+						$array = array(
+							'social_type' => 'pinterest',
+							'social_id'   => $social_id,
+							'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
+							'social_url'  => $data['social_url'],
+							'social_grab' => $data['social_url'],
+						);
+						$this->check_cache( $array );
+					}
+					break;
+
+				case 'vimeo':
+					$social_id = parse_url( $data['social_url'] );
+					$social_id = trim( $social_id['path'], '/' );
+
+					if ( ! empty( $social_id ) ) {
+						$array = array(
+							'social_type' => 'vimeo',
+							'social_id'   => $social_id,
+							'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
+							'social_url'  => $data['social_url'],
+							'social_grab' => 'https://vimeo.com/' . $social_id . '/following/followers/',
+						);
+						$this->check_cache( $array );
+					}
+					break;
+
+				case 'soundcloud':
+					$social_id = parse_url( $data['social_url'] );
+					$social_id = trim( $social_id['path'], '/' );
+
+					if ( ! empty( $social_id ) ) {
+						$array = array(
+							'social_type' => 'soundcloud',
+							'social_id'   => $social_id,
+							'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
+							'social_url'  => $data['social_url'],
+							'social_grab' => $data['social_url'],
+						);
+						$this->check_cache( $array );
+					}
+					break;
+
+				case 'behance':
+					$social_id = parse_url( $data['social_url'] );
+					$social_id = trim( $social_id['path'], '/' );
+
+					if ( ! empty( $social_id ) && ! empty( $this->bh_key ) ) {
+						$array = array(
+							'social_type' => 'behance',
+							'social_id'   => $social_id,
+							'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
+							'social_url'  => $data['social_url'],
+							'social_grab' => 'https://api.behance.net/v2/users/' . $social_id . '?client_id=' . apply_filters( 'jnews_behance_token_access', $this->bh_key ),
+						);
+						$this->check_cache( $array );
+					}
+					break;
+
+				case 'flickr':
+					$social_id = parse_url( $data['social_url'] );
+					$social_id = trim( $social_id['path'], '/' );
+					$social_id = str_replace( 'photos/', '', $social_id );
+
+					if ( ! empty( $social_id ) ) {
+						$array = array(
+							'social_type' => 'flickr',
+							'social_id'   => $social_id,
+							'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
+							'social_url'  => $data['social_url'],
+							'social_grab' => $data['social_url'],
+						);
+						$this->check_cache( $array );
+					}
+					break;
+
+				case 'twitch':
+					$social_id = parse_url( $data['social_url'] );
+					$social_id = trim( $social_id['path'], '/' );
+
+					if ( ! empty( $social_id ) ) {
+						$array = array(
+							'social_type' => 'twitch',
+							'social_id'   => $social_id,
+							'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
+							'social_url'  => $data['social_url'],
+						);
+						$this->check_cache( $array );
+					}
+					break;
+
+				case 'vk':
+					$social_id = parse_url( $data['social_url'] );
+					$social_id = trim( $social_id['path'], '/' );
+
+					if ( ! empty( $social_id ) ) {
+						$array = array(
+							'social_type' => 'vk',
+							'social_id'   => $social_id,
+							'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
+							'social_url'  => $data['social_url'],
+							'social_grab' => 'https://api.vk.com/method/users.getFollowers?user_id=' . $this->vk_id . '&v=5.74&access_token=' . $this->vk_token,
+						);
+						$this->check_cache( $array );
+					}
+					break;
+
+				case 'youtube':
+					if ( ! empty( $data['social_url'] ) && ! empty( $this->gg_key ) && ! empty( $this->yt_channel_id ) ) {
+						$social_id = parse_url( $data['social_url'] );
+						$social_id = trim( $social_id['path'], '/' );
+
+						$array = array(
+							'social_type' => 'youtube',
+							'social_id'   => $social_id[1],
+							'social_text' => jnews_return_translation( 'Subscriber', 'jnews', 'subscriber' ),
+							'social_url'  => $data['social_url'],
+							'social_grab' => 'https://www.googleapis.com/youtube/v3/channels?part=statistics&key=' . apply_filters( 'jnews_youtube_token_access', $this->gg_key ) . '&id=' . $this->yt_channel_id,
+						);
+
+						$this->check_cache( $array );
+					}
+					break;
+
+				case 'rss':
+					if ( is_numeric( $this->rss_count ) ) {
+						$array = array(
+							'social_text' => jnews_return_translation( 'Subscriber', 'jnews', 'subscriber' ),
+							'social_url'  => empty( $data['social_url'] ) ? esc_url( jnews_home_url_multilang( '/feed' ) ) : $data['social_url'],
+							'social_data' => $this->rss_count,
+							'social_type' => 'rss',
+						);
+
+						$this->build_content( $array );
+					}
+					break;
+
+				case 'tiktok':
+					$social_id = parse_url( $data['social_url'] );
+					$social_id = trim( $social_id['path'], '/' );
+
+					if ( ! empty( $social_id ) ) {
+						$array = array(
+							'social_type' => 'tiktok',
+							'social_id'   => $social_id,
+							'social_text' => jnews_return_translation( 'Follower', 'jnews', 'follower' ),
+							'social_url'  => $data['social_url'],
+							'social_grab' => 'https://www.tiktok.com/node/share/user/' . $social_id,
+						);
+						$this->check_cache( $array );
+					}
+					break;
+			}
 		}
 	}
 
@@ -666,25 +686,35 @@ class SocialCounter extends Widget_Base {
 	 * @param  array $data
 	 *
 	 * @return int
-	 *
 	 */
 	protected function fetch_data( $data ) {
 		if ( $data['social_type'] === 'twitter' ) {
 			return $this->get_twitter_counter( $data['social_id'] );
-		}
-
-		if ( $data['social_type'] === 'instagram' ) {
-			$response = jnews_get_instagram_data( $data['social_id'], 'user' );
+		} elseif ( $data['social_type'] === 'instagram' ) {
+			$social_api = SocialAccounts::getInstance();
+			$response   = $social_api->get_followers( 'instagram' );
+		} elseif ( $data['social_type'] === 'twitch' ) {
+			return jnews_get_twitch_data( $data['social_id'] );
+		} elseif ( $data['social_type'] === 'tiktok' ) {
+			$social_api = SocialAccounts::getInstance();
+			$response   = $social_api->get_followers( 'tiktok' );
 		} else {
-			$response = wp_remote_get( $data['social_grab'], array(
-				'timeout' => 10,
-			) );
+			$response = wp_remote_get(
+				$data['social_grab'],
+				array(
+					'User-Agent' => 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13',
+					'headers'    => array(
+						'referer' => home_url(),
+					),
+					'timeout' => 10,
+				)
+			);
 		}
 
 		if ( ! is_wp_error( $response ) && isset( $response['response'] ) && isset( $response['response']['code'] ) && $response['response']['code'] == '200' ) {
 			switch ( $data['social_type'] ) {
 				case 'twitter':
-					$pattern = "/<div class=\"statnum\">(.*?)<\/div>/";
+					$pattern = '/<div class="statnum">(.*?)<\/div>/';
 					preg_match_all( $pattern, $response['body'], $matches );
 
 					if ( ! empty( $matches[1][2] ) ) {
@@ -700,13 +730,13 @@ class SocialCounter extends Widget_Base {
 					break;
 
 				case 'instagram':
-					if ( ! empty( $response['counts']['followed_by'] ) ) {
-						return $response['counts']['followed_by'];
+					if ( ! empty( $response['counts'] ) ) {
+						return $response['counts'];
 					}
 					break;
 
 				case 'pinterest':
-					$pattern = "/name=\"pinterestapp:followers\" content=\"(.*?)\"/";
+					$pattern = '/name="pinterestapp:followers" content="(.*?)"/';
 					preg_match( $pattern, $response['body'], $matches );
 
 					if ( ! empty( $matches[1] ) ) {
@@ -715,7 +745,7 @@ class SocialCounter extends Widget_Base {
 					break;
 
 				case 'vimeo':
-					$pattern = "/data-title=\"(.*?) Follower(s?)\"/";
+					$pattern = '/data-title="(.*?) Follower(s?)"/';
 					preg_match( $pattern, $response['body'], $matches );
 
 					if ( ! empty( $matches[1] ) ) {
@@ -731,7 +761,7 @@ class SocialCounter extends Widget_Base {
 					break;
 
 				case 'soundcloud':
-					$pattern = "/<meta property=\"soundcloud:follower_count\" content=\"(.*?)\">/";
+					$pattern = '/<meta property="soundcloud:follower_count" content="(.*?)">/';
 					preg_match( $pattern, $response['body'], $matches );
 
 					if ( ! empty( $matches[1] ) ) {
@@ -750,8 +780,8 @@ class SocialCounter extends Widget_Base {
 
 				case 'facebook':
 					$result = json_decode( $response['body'] );
-					if ( ! empty( $result->fan_count ) ) {
-						return (int) $result->fan_count;
+					if ( ! empty( $result->followers_count ) ) {
+						return (int) $result->followers_count;
 					}
 					break;
 
@@ -763,7 +793,7 @@ class SocialCounter extends Widget_Base {
 					break;
 
 				case 'flickr':
-					$pattern = "/\"followerCount\":(.*?),\"/";
+					$pattern = '/"followerCount":(.*?),"/';
 					preg_match( $pattern, $response['body'], $matches );
 
 					if ( ! empty( $matches[1] ) ) {
@@ -786,9 +816,8 @@ class SocialCounter extends Widget_Base {
 					break;
 
 				case 'tiktok':
-					$result = json_decode( $response['body'] );
-					if ( ! empty( $result->body->userData->fans ) ) {
-						return $result->body->userData->fans;
+					if ( ! empty( $response['counts'] ) ) {
+						return $response['counts'];
 					}
 					break;
 			}
@@ -796,7 +825,6 @@ class SocialCounter extends Widget_Base {
 
 		return null;
 	}
-
 	protected function get_twitter_counter( $id ) {
 		$counter = 0;
 

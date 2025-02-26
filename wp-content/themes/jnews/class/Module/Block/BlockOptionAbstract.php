@@ -12,6 +12,7 @@ abstract Class BlockOptionAbstract extends ModuleOptionAbstract {
 	protected $show_excerpt = false;
 	protected $show_ads = false;
 	protected $default_ajax_post = 5;
+	protected $second_thumbnail    = false;
 
 	public function compatible_column() {
 		return array( 4, 8, 12 );
@@ -354,6 +355,38 @@ abstract Class BlockOptionAbstract extends ModuleOptionAbstract {
 			'description' => esc_html__( 'Force it to use normal load image and optimize Largest Contentful Paint (LCP) when using this element at the top of your site', 'jnews' ),
 			'group'       => esc_html__( 'Content Setting', 'jnews' ),
 		);
+		$image_size_list = $this->get_image_size();
+		if ( $this->second_thumbnail ) {
+			$this->options[] = array(
+				'type'        => 'dropdown',
+				'param_name'  => 'main_custom_image_size',
+				'std'         => 'default',
+				'heading'     => esc_html__( 'Rendered Image Size in Main Thumbnail', 'jnews' ),
+				'description' => esc_html__( 'Choose the image size that you want to rendered in main thumbnail in this module.', 'jnews' ),
+				'group'       => esc_html__( 'Content Setting', 'jnews' ),
+				'value'       => $image_size_list,
+			);
+
+			$this->options[] = array(
+				'type'        => 'dropdown',
+				'param_name'  => 'second_custom_image_size',
+				'std'         => 'default',
+				'heading'     => esc_html__( 'Rendered Image Size in Second Thumbnail', 'jnews' ),
+				'description' => esc_html__( 'Choose the image size that you want to rendered in second thumbnail in this module.', 'jnews' ),
+				'group'       => esc_html__( 'Content Setting', 'jnews' ),
+				'value'       => $image_size_list,
+			);
+		} else {
+			$this->options[] = array(
+				'type'        => 'dropdown',
+				'param_name'  => 'main_custom_image_size',
+				'std'         => 'default',
+				'heading'     => esc_html__( 'Rendered Image Size', 'jnews' ),
+				'description' => esc_html__( 'Choose the image size that you want to rendered in this module.', 'jnews' ),
+				'group'       => esc_html__( 'Content Setting', 'jnews' ),
+				'value'       => $image_size_list,
+			);
+		}
 	}
 
 	public function set_ajax_filter_option( $number = 10 ) {

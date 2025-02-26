@@ -36,8 +36,10 @@ class Block_14_View extends BlockViewAbstract {
 		} elseif ( $column_class === 'jeg_col_3o3' ) {
 			$image_size = 'jnews-1140x570';
 		}
-
+		add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 		$first_block = $this->render_block_type( $results[0], $image_size, 1 );
+		remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+		add_filter( 'jnews_use_custom_image', array( $this, 'second_custom_image_size' ) );
 
 		$second_block = '';
 		$size         = sizeof( $results );

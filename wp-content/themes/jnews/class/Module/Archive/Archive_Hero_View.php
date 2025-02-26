@@ -5,7 +5,7 @@
 
 namespace JNews\Module\Archive;
 
-Class Archive_Hero_View extends ArchiveViewAbstract {
+class Archive_Hero_View extends ArchiveViewAbstract {
 
 	public function render_module_back( $attr, $column_class ) {
 		return $this->build_hero_module( $attr );
@@ -21,12 +21,13 @@ Class Archive_Hero_View extends ArchiveViewAbstract {
 			return false;
 		}
 
-        $name			= jnews_get_view_class_from_shortcode( 'JNews_Hero_' . $attr['hero_type'] );
-		$instance		= jnews_get_module_instance( $name );
-		$result			= $this->get_result( $attr, $instance->get_number_post() );
-		$column_class	= $this->get_module_column_class( $attr );
-		$column_class	.= ' ' . $this->unique_id; 
-		$column_class	.= ' ' . $this->get_vc_class_name(); 
+		$name          = jnews_get_view_class_from_shortcode( 'JNews_Hero_' . $attr['hero_type'] );
+		$instance      = jnews_get_module_instance( $name );
+		$result        = $this->get_result( $attr, $instance->get_number_post() );
+		$column_class  = $this->get_module_column_class( $attr );
+		$column_class .= ' ' . $this->unique_id;
+		$column_class .= ' ' . $this->get_vc_class_name();
+		$instance->set_image_attribute( $attr );
 
 		return $instance->render_output( $result['result'], $attr, $column_class );
 	}

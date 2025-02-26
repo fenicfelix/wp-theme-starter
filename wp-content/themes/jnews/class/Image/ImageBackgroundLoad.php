@@ -76,10 +76,9 @@ Class ImageBackgroundLoad implements ImageInterface
         }
     }
 
-    public function single_hero_image($id, $size, $prioritize = false )
-    {
+	public function single_hero_image( $id, $size, $prioritize = false ) {
         $post_thumbnail_id = get_post_thumbnail_id( $id );
-        $image = $this->get_image_url($post_thumbnail_id, $size);
+		$image = $this->get_image_url( $post_thumbnail_id, $size );
 
         // $thumbnail = "<div class=\"thumbnail-container animate-lazy thumbnail-background jeg_thumb\">
         // <div class=\"lazyload\" {$this->alt_text($post_thumbnail_id)} data-bgset=\"{$image}\" data-expand='{$this->expand_range}' data-animate='0'></div>
@@ -144,6 +143,11 @@ Class ImageBackgroundLoad implements ImageInterface
             $additional_class = 'no_thumbnail';
         } else {
             $post_thumbnail_id = get_post_thumbnail_id( $id );
+            $size       = apply_filters( 'jnews_use_custom_image', $size );
+
+            if ( ! thumbnail_size_exist( $post_thumbnail_id, $size, false ) ) {
+                $size = 'full';
+            }
             $image = $this->get_image_url($post_thumbnail_id, $size);
         }
 
@@ -159,11 +163,14 @@ Class ImageBackgroundLoad implements ImageInterface
      * @param $size
      * @return string
      */
-    public function owl_single_image($id, $size)
-    {
-        $image_size = Image::getInstance()->get_image_size($size);
+	public function owl_single_image( $id, $size ) {
+		$image_size = Image::getInstance()->get_image_size( $size );
+		$size       = apply_filters( 'jnews_use_custom_image', $size );
 
-        $image = $this->get_image_url($id, $size);
+		if ( ! thumbnail_size_exist( $id, $size, false ) ) {
+			$size = 'full';
+		}
+		$image     = $this->get_image_url( $id, $size );
         $thumbnail = "<div class=\"thumbnail-container animate-lazy thumbnail-background size-{$image_size['dimension']}\">
                         <div class=\"lazyload\" {$this->alt_text($id)} data-bgset=\"{$image}\" data-expand='{$this->expand_range}'></div>
                      </div>";
@@ -181,6 +188,11 @@ Class ImageBackgroundLoad implements ImageInterface
 	    $image              = get_post($id);
 	    $image_size         = wp_get_attachment_metadata($id);
         $image_dimension    = Image::getInstance()->get_image_size($size);
+        $size               = apply_filters( 'jnews_use_custom_image', $size );
+
+		if ( ! thumbnail_size_exist( $id, $size, false ) ) {
+			$size = 'full';
+		}
         $image_url          = $this->get_image_url($id, $size);
         if ( ! is_array( $image_size ) ) {
             $image_size = [

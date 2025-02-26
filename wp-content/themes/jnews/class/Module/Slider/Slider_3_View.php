@@ -8,6 +8,7 @@ namespace JNews\Module\Slider;
 class Slider_3_View extends SliderViewAbstract {
 	public function content( $results ) {
 		$content = '';
+		add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 		foreach ( $results as $key => $post ) {
 			$primary_category  = $this->get_primary_category( $post->ID );
 			$post_thumbnail_id = get_post_thumbnail_id( $post->ID );
@@ -38,7 +39,7 @@ class Slider_3_View extends SliderViewAbstract {
                     </div>
                 </div>";
 		}
-
+		remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
 		return $content;
 	}
 

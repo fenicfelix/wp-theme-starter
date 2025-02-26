@@ -49,32 +49,38 @@ class MenuWalker extends \Walker_Nav_Menu {
             $mega_output = $mega_menu->newsfeed_overlay();
         } else {
             $tag_string         = '';
-            $subcat_menu_output = $mega_menu->build_subcat_menu($category);
-            $subcat_class       = empty ( $subcat_menu_output )  ? 'no_subcat' : 'with_subcat';
-            $article_output     = Menu::build_article_category_2($category, $number);
-            $tags               = explode( ',', $tags );
+			$subcat_menu_output = $mega_menu->build_subcat_menu( $category );
+			$subcat_class       = empty( $subcat_menu_output ) ? 'no_subcat' : 'with_subcat';
+			$article_output     = Menu::build_article_category_2( $category, $number );
+			if ( ! empty( $tags ) ) {
+				$tags = explode( ',', $tags );
 
-            foreach ( $tags as $tag ) {
-                $tag_detail  = get_tag( $tag );
-                if ( ! is_wp_error( $tag_detail ) ) {
-                    $tag_string .= "<li><a href='" . get_tag_link( $tag ) . "'>{$tag_detail->name}</a></li>";
+                foreach ( $tags as $tag ) {
+                    $tag_detail = get_tag( $tag );
+                    if ( ! is_wp_error( $tag_detail ) ) {
+                        $tag_string .= "<li><a href='" . get_tag_link( $tag ) . "'>{$tag_detail->name}</a></li>";
+                    }
                 }
+
+                $tag_string = '
+                    <div class="jeg_newsfeed_tags">
+                        <h3>' . esc_html__( 'Trending Tags', 'jnews' ) . "</h3>
+                        <ul>{$tag_string}</ul>
+                    </div>";
             }
 
             $mega_output = 
-                    "{$subcat_menu_output}
-                    <div class=\"jeg_newsfeed_list loaded\">
-                        <div data-cat-id=\"{$category}\" data-load-status=\"loaded\" class=\"jeg_newsfeed_container\">
-                            <div class=\"newsfeed_static {$subcat_class}\">
-                                {$article_output}
-                            </div>
+                "{$subcat_menu_output}
+                <div class=\"jeg_newsfeed_list loaded\">
+                    <div data-cat-id=\"{$category}\" data-load-status=\"loaded\" class=\"jeg_newsfeed_container\">
+                        <div class=\"newsfeed_static {$subcat_class}\">
+                            {$article_output}
                         </div>
-                        {$mega_menu->newsfeed_overlay()}
                     </div>
-                    <div class=\"jeg_newsfeed_tags\">
-                        <h3>" . esc_html__('Trending Tags', 'jnews') . "</h3>
-                        <ul>{$tag_string}</ul>
-                    </div>";
+                    {$mega_menu->newsfeed_overlay()}
+                </div>
+                {$tag_string}
+            ";
         }
 
         return "<div class=\"sub-menu\">

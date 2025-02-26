@@ -55,7 +55,7 @@ class Ads {
 		add_action( 'jnews_single_post_after_content', array( $this, 'article_content_bottom' ), 10 );
 
 		// paragraph.
-		add_filter( 'the_content', array( $this, 'inject_ads' ), 10 );
+		add_filter( 'the_content', array( $this, 'inject_ads' ), 12 );  /* rIE7Fk11 */
 
 		// archive.
 		add_action( 'jnews_archive_above_content', array( $this, 'above_content' ) );
@@ -87,7 +87,7 @@ class Ads {
 			$pnumber   = $tag->total( 'p' );
 
 			foreach ( $locations as $location ) {
-				if ( get_theme_mod( 'jnews_ads_' . $location . '_enable', false ) ) {
+				if ( get_theme_mod( 'jnews_ads_' . $location . '_enable', false ) && apply_filters( 'jnews_ads_global_enable', true, get_the_ID(), $location ) ) {
 					$adsposition = get_theme_mod( 'jnews_ads_' . $location . '_paragraph', 3 );
 
 					if ( get_theme_mod( 'jnews_ads_' . $location . '_paragraph_random', false ) ) {
@@ -232,9 +232,8 @@ class Ads {
 	 * @return void
 	 */
 	public function after_main() {
-		echo '';
-		// $html = '<div class="jeg_ad jnews_above_footer_ads ' . $this->additional_class( 'above_footer' ) . '">' . $this->above_footer( false ) . '</div>';
-		// echo jnews_sanitize_output( $html );
+		$html = '<div class="jeg_ad jnews_above_footer_ads ' . $this->additional_class( 'above_footer' ) . '">' . $this->above_footer( false ) . '</div>';
+		echo jnews_sanitize_output( $html );
 	}
 
 	/**
@@ -497,9 +496,8 @@ class Ads {
 	 * @return void
 	 */
 	public function sticky_footer_ads() {
-		echo '';
-		// $html = '<div class="jeg_ad jnews_mobile_sticky_ads ' . $this->additional_class( 'mobile_sticky' ) . '">' . $this->mobile_sticky( false ) . '</div>';
-		// echo jnews_sanitize_output( $html );
+		$html = '<div class="jeg_ad jnews_mobile_sticky_ads ' . $this->additional_class( 'mobile_sticky' ) . '">' . $this->mobile_sticky( false ) . '</div>';
+		echo jnews_sanitize_output( $html );
 	}
 
 	/**
@@ -613,7 +611,7 @@ class Ads {
 		$enabled  = $this->default_value( 'jnews_ads_' . $location . '_enable', false, $default );
 		$ads_html = '';
 
-		if ( $enabled ) {
+		if ( $enabled && apply_filters( 'jnews_ads_global_enable', true, get_the_ID(), $location ) ) { /* see iPlFxEZp */
 			$type = $this->default_value( 'jnews_ads_' . $location . '_type', 'googleads', $default );
 
 			if ( 'image' === $type ) {

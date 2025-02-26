@@ -38,7 +38,6 @@ class ModuleVC {
 	 * ModuleVC constructor.
 	 */
 	private function __construct() {
-		$this->add_param();
 		$this->setup_hook();
 	}
 
@@ -454,6 +453,7 @@ class ModuleVC {
 	public function setup_hook() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) );
 		add_action( 'after_setup_theme', array( $this, 'integrate_vc' ) );
+		add_action( 'after_setup_theme', array( $this, 'add_param' ) , 9 );
 		add_action( 'init', array( $this, 'additional_element' ), 98 );
 		add_action( 'init', array( $this, 'vc_modules' ) );
 		add_filter( 'vc_check_post_type_validation', array( $this, 'vc_post_type' ), null, 2 );

@@ -125,7 +125,6 @@ abstract Class HeroViewAbstract extends ModuleViewAbstract
     	$output = '';
     	$result = array_chunk($result, $this->get_number_post());
         $is_skew_slider = ( strpos( $this->class_name, 'jnews_hero_skew' ) !== false ) && ( isset( $this->attribute['hero_slider_enable'] ) && $this->attribute['hero_slider_enable'] );
-
         $output = "<div class=\"jeg_hero_wrapper\">";
     	foreach ( $result as $item )
 	    {
@@ -185,6 +184,34 @@ abstract Class HeroViewAbstract extends ModuleViewAbstract
         return $this->render_output($results['result'], $attr, $column_class);
     }
 
+
+    public function main_custom_image_size( $size ) {
+		$size = ! empty( $this->attribute['main_custom_image_size'] ) && 'default' !== $this->attribute['main_custom_image_size'] ? $this->attribute['main_custom_image_size'] : $size;
+		return $size;
+	}
+
+    public function second_custom_image_size( $size ) {
+		$size = ! empty( $this->attribute['second_custom_image_size'] ) && 'default' !== $this->attribute['second_custom_image_size'] ? $this->attribute['second_custom_image_size'] : $size;
+		return $size;
+	}
+
+    public function thrid_custom_image_size( $size ) {
+		$size = ! empty( $this->attribute['thrid_custom_image_size'] ) && 'default' !== $this->attribute['thrid_custom_image_size'] ? $this->attribute['thrid_custom_image_size'] : $size;
+		return $size;
+	}
+    public function set_image_attribute( $attr ) {
+		if ( isset( $attr['main_custom_image_size'] ) ) {
+			$this->attribute['main_custom_image_size'] = $attr['main_custom_image_size'];
+		}
+
+		if ( isset( $attr['second_custom_image_size'] ) ) {
+			$this->attribute['second_custom_image_size'] = $attr['second_custom_image_size'];
+		}
+
+		if ( isset( $attr['thrid_custom_image_size'] ) ) {
+			$this->attribute['thrid_custom_image_size'] = $attr['thrid_custom_image_size'];
+		}
+	}
     abstract public function render_element($result);
 }
 

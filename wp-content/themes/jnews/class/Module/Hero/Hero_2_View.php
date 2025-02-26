@@ -13,10 +13,10 @@ Class Hero_2_View extends HeroViewAbstract
         if($post) {
             $post_id            = $post->ID;
             $permalink          = get_the_permalink($post);
-            $image_size         = 'jnews-350x250';
+            $image_size         = $this->second_custom_image_size( 'jnews-350x250' );
             $meta               = $is_type_1 ? $this->post_meta_3($post) : $this->post_meta_2($post);
             if($is_type_1){
-                $image_size     = 'jnews-featured-750';
+                $image_size     = $this->main_custom_image_size( 'jnews-featured-750' );
                 $meta           = $this->post_meta_3($post);
             }
 

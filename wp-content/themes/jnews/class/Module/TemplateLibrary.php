@@ -14,8 +14,6 @@ Class TemplateLibrary
      */
     private static $instance;
 
-    private $category;
-
     /**
      * @return TemplateLibrary
      */
@@ -30,20 +28,9 @@ Class TemplateLibrary
 
     private function __construct()
     {
-        $this->set_category();
-        $this->library();
-
+        /* see A0cq0obX */
         add_filter('vc_load_default_templates', array($this, 'library'));
     }
-
-    public function set_category()
-    {
-        $this->category = array(
-            'footer' => esc_html__('Footer', 'jnews'),
-            'contact' => esc_html__('Contact', 'jnews'),
-        );
-    }
-
     public function library()
     {
         $data               = array();

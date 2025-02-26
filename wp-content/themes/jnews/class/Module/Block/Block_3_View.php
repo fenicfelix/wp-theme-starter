@@ -22,7 +22,7 @@ Class Block_3_View extends BlockViewAbstract
                     <a href=\"" . $permalink . "\" aria-label=\"" . esc_html__( 'Read article: ', 'jnews' ) . get_the_title( $post ) . "\">" . $thumbnail . "</a>
                 </div>
                 <div class=\"jeg_postblock_content\">
-                    <h3 class=\"c\">
+                    <h3 class=\"jeg_post_title\">
                         <a href=\"" . $permalink . "\">" . $title . "</a>
                     </h3>
                     " . $this->post_meta_1($post, false, $is_feed) . "

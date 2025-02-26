@@ -61,6 +61,7 @@ $recaptcha_site_key = get_theme_mod('jnews_recaptcha_site_key');
             <p class="submit">
                 <input type="hidden" name="action" value="register_handler">
                 <input type="hidden" name="jnews_nonce" value="<?php echo esc_attr( $nonce ) ?>">
+                <input type="hidden" name="jnews_register_nonce" value="<?php echo esc_attr( wp_create_nonce( 'jnews_register_nonce' ) ); ?>">
                 <input type="submit" name="jeg_login_button" class="button" value="<?php jnews_print_translation('Sign Up', 'jnews', 'sign_up'); ?>" data-process="<?php jnews_print_translation('Processing . . .', 'jnews', 'processing'); ?>" data-string="<?php jnews_print_translation('Sign Up', 'jnews', 'sign_up'); ?>">
             </p>
             <?php if ( get_theme_mod('jnews_gdpr_register_enable', false) ) : ?>

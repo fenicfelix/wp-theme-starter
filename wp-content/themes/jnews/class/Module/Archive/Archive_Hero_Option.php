@@ -166,6 +166,49 @@ Class Archive_Hero_Option extends ModuleOptionAbstract {
 			'description' => esc_html__( 'Enable this option if you want to show this hero only on the first page.', 'jnews' ),
 			'std'         => false,
 		];
+
+		$size_lists = array(
+			esc_attr__( 'Default', 'jnews' )        => 'default',
+			esc_attr__( 'Original Image', 'jnews' ) => 'full',
+		);
+		foreach ( wp_get_registered_image_subsizes()  as $key => $image_size ) {
+			$size_lists[ esc_attr__( $key, 'jnews' ) ] = $key;
+		}
+
+		$this->options[] = array(
+			'type'        => 'dropdown',
+			'param_name'  => 'main_custom_image_size',
+			'heading'     => esc_html__( 'Rendered Image Size Main Content', 'jnews' ),
+			'description' => esc_html__( 'Choose the image size that you want to rendered in main content on this Hero.', 'jnews' ),
+			'std'         => 'default',
+			'value'       => $size_lists,
+		);
+
+		$this->options[] = array(
+			'type'        => 'dropdown',
+			'param_name'  => 'second_custom_image_size',
+			'std'         => 'default',
+			'heading'     => esc_html__( 'Rendered Image Size Second Content', 'jnews' ),
+			'description' => esc_html__( 'Select the image size to be rendered in the third content list on this JNews Hero element', 'jnews' ),
+			'value'       => $size_lists,
+			'dependency'  => array(
+				'element' => 'hero_type',
+				'value'   => array( '1', '2', '3', '4', '5', '6', '10', '11', '12' ),
+			),
+		);
+
+		$this->options[] = array(
+			'type'        => 'dropdown',
+			'param_name'  => 'thrid_custom_image_size',
+			'std'         => 'default',
+			'heading'     => esc_html__( 'Rendered Image Size Thrid Content', 'jnews' ),
+			'description' => esc_html__( 'Select the image size to be rendered in the third content list on this JNews Hero element.', 'jnews' ),
+			'value'       => $size_lists,
+			'dependency'  => array(
+				'element' => 'hero_type',
+				'value'   => array( '1', '3', '12' ),
+			),
+		);
 	}
 
 	public function set_design_option() {

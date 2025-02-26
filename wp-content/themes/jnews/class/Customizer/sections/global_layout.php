@@ -297,15 +297,15 @@ $options[] = [
 		[
 			'mediaquery' => '@media only screen and (min-width : 1200px)',
 			'method'     => 'inject-style',
-			'element'    => '.container, .jeg_vc_content > .vc_row, .jeg_vc_content > .wpb-content-wrapper > .vc_row, .jeg_vc_content > .vc_element > .vc_row, .jeg_vc_content > .wpb-content-wrapper > .vc_element > .vc_row, .jeg_vc_content > .vc_row[data-vc-full-width="true"]:not([data-vc-stretch-content="true"]) > .jeg-vc-wrapper, .jeg_vc_content > .wpb-content-wrapper > .vc_row[data-vc-full-width="true"]:not([data-vc-stretch-content="true"]) > .jeg-vc-wrapper, .jeg_vc_content > .vc_element > .vc_row[data-vc-full-width="true"]:not([data-vc-stretch-content="true"]) > .jeg-vc-wrapper, .jeg_vc_content > .wpb-content-wrapper > .vc_element > .vc_row[data-vc-full-width="true"]:not([data-vc-stretch-content="true"]) > .jeg-vc-wrapper',
+			'element'    => '.container, .jeg_vc_content > .vc_row, .jeg_vc_content > .wpb-content-wrapper > .vc_row, .jeg_vc_content > .vc_element > .vc_row, .jeg_vc_content > .wpb-content-wrapper > .vc_element > .vc_row, .jeg_vc_content > .vc_row[data-vc-full-width="true"]:not([data-vc-stretch-content="true"]) > .jeg-vc-wrapper, .jeg_vc_content > .wpb-content-wrapper > .vc_row[data-vc-full-width="true"]:not([data-vc-stretch-content="true"]) > .jeg-vc-wrapper, .jeg_vc_content > .vc_element > .vc_row[data-vc-full-width="true"]:not([data-vc-stretch-content="true"]) > .jeg-vc-wrapper, .jeg_vc_content > .wpb-content-wrapper > .vc_element > .vc_row[data-vc-full-width="true"]:not([data-vc-stretch-content="true"]) > .jeg-vc-wrapper, .elementor-section.elementor-section-boxed > .elementor-container',
 			'property'   => 'max-width',
 			'units'      => 'px',
 		],
 		[
 			'mediaquery' => '@media only screen and (min-width : 1200px)',
 			'method'     => 'inject-style',
-			'element'    => '.elementor-section.elementor-section-boxed > .elementor-container',
-			'property'   => 'max-width',
+			'element'    => '.e-con-boxed.e-parent',
+			'property'   => '--content-width',
 			'units'      => 'px',
 		],
 	],
@@ -389,15 +389,15 @@ $options[] = [
 		[
 			'mediaquery' => '@media only screen and (min-width : 1441px)',
 			'method'     => 'inject-style',
-			'element'    => '.container, .jeg_vc_content > .vc_row, .jeg_vc_content > .wpb-content-wrapper > .vc_row, .jeg_vc_content > .vc_element > .vc_row, .jeg_vc_content > .wpb-content-wrapper > .vc_element > .vc_row, .jeg_vc_content > .vc_row[data-vc-full-width="true"]:not([data-vc-stretch-content="true"]) > .jeg-vc-wrapper, .jeg_vc_content > .wpb-content-wrapper > .vc_row[data-vc-full-width="true"]:not([data-vc-stretch-content="true"]) > .jeg-vc-wrapper, .jeg_vc_content > .vc_element > .vc_row[data-vc-full-width="true"]:not([data-vc-stretch-content="true"]) > .jeg-vc-wrapper, .jeg_vc_content > .wpb-content-wrapper > .vc_element > .vc_row[data-vc-full-width="true"]:not([data-vc-stretch-content="true"]) > .jeg-vc-wrapper',
+			'element'    => '.container, .jeg_vc_content > .vc_row, .jeg_vc_content > .wpb-content-wrapper > .vc_row, .jeg_vc_content > .vc_element > .vc_row, .jeg_vc_content > .wpb-content-wrapper > .vc_element > .vc_row, .jeg_vc_content > .vc_row[data-vc-full-width="true"]:not([data-vc-stretch-content="true"]) > .jeg-vc-wrapper, .jeg_vc_content > .wpb-content-wrapper > .vc_row[data-vc-full-width="true"]:not([data-vc-stretch-content="true"]) > .jeg-vc-wrapper, .jeg_vc_content > .vc_element > .vc_row[data-vc-full-width="true"]:not([data-vc-stretch-content="true"]) > .jeg-vc-wrapper, .jeg_vc_content > .wpb-content-wrapper > .vc_element > .vc_row[data-vc-full-width="true"]:not([data-vc-stretch-content="true"]) > .jeg-vc-wrapper , .elementor-section.elementor-section-boxed > .elementor-container',
 			'property'   => 'max-width',
 			'units'      => 'px',
 		],
 		[
 			'mediaquery' => '@media only screen and (min-width : 1441px)',
 			'method'     => 'inject-style',
-			'element'    => '.elementor-section.elementor-section-boxed > .elementor-container',
-			'property'   => 'max-width',
+			'element'    => '.e-con-boxed.e-parent', /* see gVhQgZFn */
+			'property'   => '--content-width',
 			'units'      => 'px',
 		],
 	],

@@ -52,7 +52,6 @@ class AccountPage {
 	 * @return void
 	 */
 	private function __construct() {
-		$this->setup_endpoint();
 		$this->setup_hook();
 	}
 
@@ -74,6 +73,7 @@ class AccountPage {
 			add_filter( 'document_title_parts', array( $this, 'account_title' ) );
 			add_filter( 'jnews_dropdown_link', array( $this, 'dropdown_link' ) );
 		}
+		add_action( 'after_setup_theme', array( $this, 'setup_endpoint' ), 11 ); /* see A0cq0obX */
 		add_action( 'init', array( $this, 'add_rewrite_rule' ) );
 		add_action( 'init', array( $this, 'jnews_user_role_capabilitiies' ) );
 		add_action( 'after_switch_theme', array( $this, 'flush_rewrite_rules' ) );
@@ -526,7 +526,7 @@ class AccountPage {
 	 *
 	 * @return void
 	 */
-	protected function setup_endpoint() {
+	public function setup_endpoint() {
 		$endpoint = array(
 			'account'         => array(
 				'slug'  => 'account',
@@ -621,7 +621,9 @@ class AccountPage {
 			'tiktok'     => jnews_return_translation( 'Tiktok', 'jnews', 'tiktok' ),
 			'threads'    => jnews_return_translation( 'Threads', 'jnews', 'threads' ),
 			'twitter'    => jnews_return_translation( 'Twitter', 'jnews', 'twitter' ),
+			'bluesky'    => jnews_return_translation( 'Bluesky', 'jnews', 'bluesky' ),
 			'linkedin'   => jnews_return_translation( 'Linkedin', 'jnews', 'linkedin' ),
+			'xing'       => jnews_return_translation( 'Xing', 'jnews', 'xing' ),
 			'pinterest'  => jnews_return_translation( 'Pinterest', 'jnews', 'pinterest' ),
 			'behance'    => jnews_return_translation( 'Behance', 'jnews', 'behance' ),
 			'github'     => jnews_return_translation( 'Github', 'jnews', 'github' ),

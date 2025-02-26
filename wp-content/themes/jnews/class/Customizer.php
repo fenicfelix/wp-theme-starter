@@ -75,6 +75,7 @@ class Customizer {
 		'jnews_video_archive_history',
 		'jnews_global_weather_section',
 		'jnews_header_weather_section',
+		'jnews_social_counter_section',
 	);
 
 	/**
@@ -228,6 +229,7 @@ class Customizer {
 			'image_popup',
 			'image_gif',
 			'social_icon',
+			'social_counter',
 			'search_option',
 			'search_live',
 			'archive_index',

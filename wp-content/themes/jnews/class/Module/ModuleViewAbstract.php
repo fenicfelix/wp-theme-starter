@@ -447,7 +447,7 @@ abstract class ModuleViewAbstract {
 			} else {
 				$output .= "<div class=\"jeg_post_meta\">";
 				$output .= $trending;
-				$output .= get_theme_mod( 'jnews_show_block_meta_author', true ) ? ( jnews_check_coauthor_plus() ? "<div class=\"jeg_meta_author coauthor\">" . jnews_get_author_coauthor( $post->ID, $avatar, 'by', 1 ) . "</div>" : "<div class=\"jeg_meta_author\">" . $author_avatar . "<span class=\"by\">" . jnews_return_translation( 'by', 'jnews', 'by' ) . "</span> <a href=\"{$author_url}\">{$author_name}</a></div>" ) : "";
+				$output .= get_theme_mod( 'jnews_show_block_meta_author', true ) && ! empty( $author_name ) ? ( jnews_check_coauthor_plus() ? '<div class="jeg_meta_author coauthor">' . jnews_get_author_coauthor( $post->ID, $avatar, 'by', 1 ) . '</div>' : '<div class="jeg_meta_author">' . $author_avatar . '<span class="by">' . jnews_return_translation( 'by', 'jnews', 'by' ) . "</span> <a href=\"{$author_url}\">{$author_name}</a></div>" ) : '';
 				$output .= get_theme_mod( 'jnews_show_block_meta_date', true ) ? "<div class=\"jeg_meta_date\"><a href=\"" . get_the_permalink( $post ) . "\"><i class=\"fa fa-clock-o\"></i> " . $this->format_date( $post ) . "</a></div>" : "";
 				$output .= get_theme_mod( 'jnews_show_block_meta_comment', true ) && ! $feed ? "<div class=\"jeg_meta_comment\"><a href=\"" . jnews_get_respond_link( $post->ID ) . "\" ><i class=\"fa fa-comment-o\"></i> {$comment} </a></div>" : "";
 				$output .= get_theme_mod( 'jnews_show_block_meta_views', false ) && ! $feed ? "<div class=\"jeg_meta_views\"><a href=\"" . get_the_permalink( $post->ID ) . "\" ><i class=\"fa fa-eye\"></i> {$view_count} </a></div>" : "";

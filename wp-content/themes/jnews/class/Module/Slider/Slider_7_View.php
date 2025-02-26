@@ -10,23 +10,23 @@ class Slider_7_View extends SliderViewAbstract {
 		$nav_prev = jnews_return_translation( 'prev', 'jnews', 'prev' );
 		$nav_next = jnews_return_translation( 'next', 'jnews', 'next' );
 		$content  = '';
-
+		if ( $this->manager->get_current_width() > 8 ) {
+			$size = $this->main_custom_image_size( 'jnews-1140x570' );
+		} else {
+			$size = $this->main_custom_image_size( 'jnews-750x375' );
+		}
 		foreach ( $results as $key => $post ) {
 			$primary_category = $this->get_primary_category( $post->ID );
-			if ( $this->manager->get_current_width() > 8 ) {
-				$image = get_the_post_thumbnail_url( $post->ID, 'jnews-1140x570' );
-			} else {
-				$image = get_the_post_thumbnail_url( $post->ID, 'jnews-750x375' );
-			}
-			$image_mechanism = isset( $this->attribute['force_normal_image_load'] ) && ( 'true' === $this->attribute['force_normal_image_load'] || 'yes' === $this->attribute['force_normal_image_load'] );
-			$hidden_image    = $image_mechanism && 0 <= $key ? "<img class=\"thumbnail-prioritize\" src=\"{$image}\" style=\"display: none\" >" : '';
+			$image            = get_the_post_thumbnail_url( $post->ID, $size );
+			$image_mechanism  = isset( $this->attribute['force_normal_image_load'] ) && ( 'true' === $this->attribute['force_normal_image_load'] || 'yes' === $this->attribute['force_normal_image_load'] );
+			$hidden_image     = $image_mechanism && 0 <= $key ? "<img class=\"thumbnail-prioritize\" src=\"{$image}\" style=\"display: none\" >" : '';
 
 			$content .=
 				'<div ' . jnews_post_class( 'jeg_slide_item clearfix', $post->ID ) . '>
 					' . $hidden_image . '
                     ' . jnews_edit_post( $post->ID ) . '
                     <div class="jeg_slide_image" style="background-image: url(' . esc_url( $image ) . ')">
-                		<a href="' . get_the_permalink( $post ) . '" aria-label="' . esc_html__( 'Read article: ', 'jnews' )  . get_the_title( $post ) . "\"></a>
+                		<a href="' . get_the_permalink( $post ) . '" aria-label="' . esc_html__( 'Read article: ', 'jnews' ) . get_the_title( $post ) . "\"></a>
 					</div>
                     <div class=\"jeg_slide_caption\">
                         <div class=\"jeg_caption_container\">

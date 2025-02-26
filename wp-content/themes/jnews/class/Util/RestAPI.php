@@ -192,6 +192,56 @@ class RestAPI {
 		return $this->response_success( $posts_data );
 	}
 
+		/**
+		 * Method to search available image size
+		 *
+		 * @param \WP_REST_Request $request request.
+		 *
+		 * @return \WP_REST_Response|array
+		 */
+	public function search_image_lists( $request ) {
+		if ( ! wp_verify_nonce( sanitize_text_field( $request->get_param( 'nonce' ) ), 'wp_rest', false ) ) {
+			return $this->response_error( esc_html__( 'You are not allowed to perform this action.', 'jnews' ) );
+		}
+		$include = sanitize_text_field( $request->get_param( 'include' ) );
+
+		$size_lists = array(
+			array(
+				'value' => 'default',
+				'label' => esc_attr__( 'Default', 'jnews' ),
+			),
+			array(
+				'value' => 'full',
+				'label' => esc_attr__( 'Original Image', 'jnews' ),
+			),
+		);
+		foreach ( wp_get_registered_image_subsizes()  as $key => $image_size ) {
+			$size_lists[] = array(
+				'value' => $key,
+				'label' => $key,
+			);
+		}
+		$search = sanitize_text_field( $request->get_param( 'search' ) );
+		$type   = sanitize_text_field( $request->get_param( 'type' ) );
+		if ( 'search' === $type && ! empty( $search ) ) {
+			$size_lists = array_filter(
+				$size_lists,
+				function ( $val ) use ( $search ) {
+					return ( false !== strpos( $val['value'], $search ) );
+				}
+			);
+		} elseif ( ! empty( $include ) ) {
+			$size_lists = array_filter(
+				$size_lists,
+				function ( $val ) use ( $include ) {
+					return ( $val['value'] == $include );
+				}
+			);
+		}
+
+		return $this->response_success( array_values( $size_lists ) );
+	}
+
 	/**
 	 * Method to search the Users by display_name or ID
 	 *
@@ -607,6 +657,18 @@ class RestAPI {
 	 * @return void
 	 */
 	public function register_routes() {
+
+		// Search available image size.
+		register_rest_route(
+			self::ENDPOINT,
+			'searchImageLists',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'search_image_lists' ),
+				'permission_callback' => array( $this, 'permission_edit_posts' ),
+			)
+		);
+
 		// Search posts by title and id.
 		register_rest_route(
 			self::ENDPOINT,

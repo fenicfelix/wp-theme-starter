@@ -12,6 +12,7 @@ abstract Class SliderOptionAbstract extends ModuleOptionAbstract
 
     protected $gradient_option = false;
     protected $design_option = false;
+	protected $second_thumbnail    = false;
 
     public function compatible_column()
     {
@@ -84,8 +85,26 @@ abstract Class SliderOptionAbstract extends ModuleOptionAbstract
 			'param_name'  => 'force_normal_image_load',
 			'heading'     => esc_html__( 'Use Normal Image Load', 'jnews' ),
 			'description' => esc_html__( 'Force it to use normal load image and optimize Largest Contentful Paint (LCP) when using this element at the top of your site', 'jnews' ),
-		];
-    }
+        ];
+		$this->options[] = array(
+			'type'        => 'dropdown',
+			'param_name'  => 'main_custom_image_size',
+			'std'         => 'default',
+			'heading'     => esc_html__( 'Rendered Image Size', 'jnews' ),
+			'description' => esc_html__( 'Choose the image size that you want to rendered in this Slider.', 'jnews' ),
+			'value'       => $this->get_image_size(),
+		);
+		if ( $this->second_thumbnail ) {
+			$this->options[] = array(
+				'type'        => 'dropdown',
+				'param_name'  => 'second_custom_image_size',
+				'std'         => 'default',
+				'heading'     => esc_html__( 'Rendered Image Size in Slider Thumbnail', 'jnews' ),
+				'description' => esc_html__( 'Choose the image size that you want to rendered in slider thumbnail in this module.', 'jnews' ),
+				'value'       => $this->get_image_size(),
+			);
+		}
+	}
 
     public function set_gradient_option()
     {
@@ -224,5 +243,16 @@ abstract Class SliderOptionAbstract extends ModuleOptionAbstract
 				'value'   => 'post',
 			),
 		);
+	}
+
+	public function get_image_size() {
+		$size_lists = array(
+			esc_attr__( 'Default', 'jnews' )        => 'default',
+			esc_attr__( 'Original Image', 'jnews' ) => 'full',
+		);
+		foreach ( wp_get_registered_image_subsizes()  as $key => $image_size ) {
+			$size_lists[ esc_attr__( $key, 'jnews' ) ] = $key;
+		}
+		return $size_lists;
 	}
 }

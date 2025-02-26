@@ -21,7 +21,7 @@ class Slider_8_View extends SliderViewAbstract {
 			$content .=
 				'<div class="jeg_slide_item_wrapper"><div ' . jnews_post_class( 'jeg_slide_item', $post->ID ) . '>
                     ' . jnews_edit_post( $post->ID ) . '
-                    <a href="' . get_the_permalink( $post ) . '" aria-label="' . esc_html__( 'Read article: ', 'jnews' )  . get_the_title( $post ) . "\" >
+                    <a href="' . get_the_permalink( $post ) . '" aria-label="' . esc_html__( 'Read article: ', 'jnews' ) . get_the_title( $post ) . "\" >
                         {$image}
                     </a>
                     <div class=\"jeg_item_caption\">
@@ -43,7 +43,11 @@ class Slider_8_View extends SliderViewAbstract {
 
 	public function render_element( $result, $attr ) {
 		if ( ! empty( $result ) ) {
-			$content        = $this->content( $result );
+			add_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+
+			$content = $this->content( $result );
+			remove_filter( 'jnews_use_custom_image', array( $this, 'main_custom_image_size' ) );
+
 			$column_class   = $this->get_module_column_class( $attr );
 			$autoplay_delay = isset( $attr['autoplay_delay']['size'] ) ? $attr['autoplay_delay']['size'] : $attr['autoplay_delay'];
 			$number_item    = isset( $attr['number_item']['size'] ) ? $attr['number_item']['size'] : $attr['number_item'];

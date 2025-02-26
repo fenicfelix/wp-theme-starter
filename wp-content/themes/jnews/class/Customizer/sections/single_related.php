@@ -1,4 +1,11 @@
 <?php
+$image_size_list = array(
+	'default' => esc_attr__( 'Default', 'jnews' ),
+	'full'    => esc_attr__( 'Original Image', 'jnews' ),
+);
+foreach ( wp_get_registered_image_subsizes()  as $key => $image_size ) {
+	$image_size_list[ $key ] = esc_attr__( $key, 'jnews' );
+}
 
 $post_related_partial_refresh = [
 	'selector'        => '.jnews_related_post_container',
@@ -360,6 +367,47 @@ $options[] = [
 	],
 	'postvar'         => [ $single_post_tag ],
 ];
+
+$options[] = array(
+	'id'              => 'jnews_single_post_related_main_thumbnail',
+	'transport'       => 'postMessage',
+	'type'            => 'jnews-select',
+	'default'         => 'default',
+	'label'           => esc_html__( 'Rendered Image Size in Main Thumbnail', 'jnews' ),
+	'description'     => esc_html__( 'Choose the image size that you want to rendered in main thumbnail in this module.', 'jnews' ),
+	'choices'         => $image_size_list,
+	'partial_refresh' => array(
+		'jnews_single_post_related_date' => $post_related_partial_refresh,
+	),
+	'active_callback' => array(
+		$related_active_callback,
+		$single_post_callback,
+	),
+	'postvar'         => array( $single_post_tag ),
+);
+
+$options[] = array(
+	'id'              => 'jnews_single_post_related_second_thumbnail',
+	'transport'       => 'postMessage',
+	'type'            => 'jnews-select',
+	'default'         => 'default',
+	'label'           => esc_html__( 'Rendered Image Size in Second Thumbnail', 'jnews' ),
+	'description'     => esc_html__( 'Choose the image size that you want to rendered in main thumbnail in this module.', 'jnews' ),
+	'choices'         => $image_size_list,
+	'partial_refresh' => array(
+		'jnews_single_post_related_date' => $post_related_partial_refresh,
+	),
+	'active_callback' => array(
+		$related_active_callback,
+		$single_post_callback,
+		array(
+			'setting'  => 'jnews_single_post_related_template',
+			'operator' => 'contains',
+			'value'    => array( '1', '2', '13', '14','17' ),
+		),
+	),
+	'postvar'         => array( $single_post_tag ),
+);
 
 
 $options[] = [

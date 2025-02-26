@@ -29,5 +29,6 @@ class SocialOption extends CustomizerOptionAbstract {
 
 	public function set_section() {
 		$this->add_lazy_section( 'jnews_social_icon_section', esc_html__( 'Social Icon', 'jnews' ), 'jnews_social_panel' );
+		$this->add_lazy_section( 'jnews_social_counter_section', esc_html__( 'Social Counter', 'jnews' ), 'jnews_social_panel' );
 	}
 }

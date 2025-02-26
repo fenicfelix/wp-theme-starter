@@ -766,7 +766,6 @@ class FrontendAsset extends AssetAbstract {
 		}
 		$option                   		= jnews_check_cookies_path( $option );
 		$option['zoom_button']    		= jnews_show_zoom_button() ? 1 : 0;
-		$option['stt_button_mobile'] 	= get_theme_mod( 'jnews_scroll_to_top_mobile', false ); /* see H9lsqNt2 */
 		$option['dm_cookie_time'] 		= get_theme_mod( 'jnews_dark_mode_cookie_time', 0 );
 
 		return apply_filters( 'jnews_frontend_asset_localize_script', $option );

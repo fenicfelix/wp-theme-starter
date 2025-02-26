@@ -78,7 +78,12 @@ class Post_Related_View extends PostViewAbstract {
 			'pagination_scroll_limit' => $attr['auto_load'],
 			'paged'                   => 1,
 			'column_width'            => $attr['column_width'], // see TtGCsH5v
+			'main_custom_image_size'  => isset( $attr['main_custom_image_size'] ) ? $attr['main_custom_image_size'] : 'default',
 		);
+
+		if ( isset( $attr['second_custom_image_size'] ) && 'default' !== $attr['second_custom_image_size'] ) {
+			$attribute['second_custom_image_size'] = $attr['second_custom_image_size'];
+		}
 
 		$name = 'JNews_Block_' . str_replace( 'template_', '', $attr['template'] );
 		$name = jnews_get_view_class_from_shortcode( $name );
