@@ -14,6 +14,7 @@
     googletag.defineSlot('/23198293506/homepage_sidebar_1', [[300, 250], [336, 280]], 'div-gpt-ad-1739164133742-0').addService(googletag.pubads());
     googletag.defineSlot('/23198293506/homepage_sidebar_2', [[336, 280], [300, 250]], 'div-gpt-ad-1739164163416-0').addService(googletag.pubads());
     googletag.defineSlot('/23198293506/homepage_sidebar_3', [[300, 250], [336, 280]], 'div-gpt-ad-1739164194823-0').addService(googletag.pubads());
+    googletag.defineSlot('/23198293506/homepage_sidebar_4', [300, 600], 'div-gpt-ad-1740851556130-0').addService(googletag.pubads());
     googletag.defineSlot('/23198293506/homepage_sports_separator_ad', [[728, 90], [320, 50], [468, 60]], 'div-gpt-ad-1739164249312-0').defineSizeMapping(leaderboard).addService(googletag.pubads());
     googletag.defineSlot('/23198293506/homepage_entertainment_separator_ad', [[320, 50], [468, 60], [728, 90]], 'div-gpt-ad-1739164280819-0').defineSizeMapping(leaderboard).addService(googletag.pubads());
     googletag.defineSlot('/23198293506/homepage_latest_news_separator_ad', [[728, 90], [320, 50], [468, 60]], 'div-gpt-ad-1739164313805-0').defineSizeMapping(leaderboard).addService(googletag.pubads());
@@ -23,30 +24,6 @@
     googletag.enableServices();
   });
 </script>
-
-
-<script>
-  window.googletag = window.googletag || {cmd: []};
-  googletag.cmd.push(function() {
-    var largeLeaderboard = googletag.sizeMapping().addSize([1050, 200], [970, 90]).addSize([1024, 768], [970, 90]).addSize([980, 690], [728, 90]).addSize([500, 500], [468, 60]).addSize([0, 0], [320, 50]).build();
-    var leaderboard = googletag.sizeMapping().addSize([980, 690], [728, 90]).addSize([500, 500], [468, 60]).addSize([0, 0], [320, 50]).build();
-    var leaderboard = googletag.sizeMapping().addSize([1050, 200], [728, 90]).addSize([1024, 768], [728, 90]).addSize([500, 500], [468, 60]).addSize([320, 700], [320, 50]).addSize([0, 0], [320, 50]).build();
-
-    googletag.defineSlot('/23198293506/homepage_top_banner', [[728, 90], [320, 50], [970, 90], [468, 60]], 'div-gpt-ad-1739344654693-0').defineSizeMapping(largeLeaderboard).addService(googletag.pubads());
-    googletag.defineSlot('/23198293506/homepage_top_section_separator', [[320, 50], [468, 60], [970, 90], [728, 90]], 'div-gpt-ad-1739164094543-0').defineSizeMapping(largeLeaderboard).addService(googletag.pubads());
-    googletag.defineSlot('/23198293506/homepage_sidebar_1', [[300, 250], [336, 280]], 'div-gpt-ad-1739164133742-0').addService(googletag.pubads());
-    googletag.defineSlot('/23198293506/homepage_sidebar_2', [[336, 280], [300, 250]], 'div-gpt-ad-1739164163416-0').addService(googletag.pubads());
-    googletag.defineSlot('/23198293506/homepage_sidebar_3', [[300, 250], [336, 280]], 'div-gpt-ad-1739164194823-0').addService(googletag.pubads());
-    googletag.defineSlot('/23198293506/homepage_sports_separator_ad', [[728, 90], [320, 50], [468, 60]], 'div-gpt-ad-1739164249312-0').defineSizeMapping(leaderboard).addService(googletag.pubads());
-    googletag.defineSlot('/23198293506/homepage_entertainment_separator_ad', [[320, 50], [468, 60], [728, 90]], 'div-gpt-ad-1739164280819-0').defineSizeMapping(leaderboard).addService(googletag.pubads());
-    googletag.defineSlot('/23198293506/homepage_latest_news_separator_ad', [[728, 90], [320, 50], [468, 60]], 'div-gpt-ad-1739164313805-0').defineSizeMapping(leaderboard).addService(googletag.pubads());
-    googletag.defineSlot('/23198293506/homepage_sticky_footer_ad', [[320, 50], [468, 60], [970, 90], [728, 90]], 'div-gpt-ad-1739164436386-0').defineSizeMapping(largeLeaderboard).addService(googletag.pubads());
-    googletag.pubads().enableSingleRequest();
-    googletag.pubads().collapseEmptyDivs();
-    googletag.enableServices();
-  });
-</script>
-
 
 <!-- /23198293506/homepage_top_banner -->
 <div id='div-gpt-ad-1739344654693-0' style='min-width: 320px; min-height: 50px;'>
@@ -81,6 +58,13 @@
     <script>
         googletag.cmd.push(function () { googletag.display('div-gpt-ad-1739164194823-0'); });
     </script>
+</div>
+
+<!-- /23198293506/homepage_sidebar_4 -->
+<div id='div-gpt-ad-1740851556130-0' style='min-width: 300px; min-height: 600px;'>
+  <script>
+    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1740851556130-0'); });
+  </script>
 </div>
 
 <!-- /23198293506/homepage_sports_separator_ad -->
