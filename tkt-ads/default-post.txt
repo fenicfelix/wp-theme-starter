@@ -14,11 +14,12 @@
     googletag.defineSlot('/23198293506/default_post_midcontent_1', [336, 280], 'div-gpt-ad-1739199346313-0').addService(googletag.pubads()); 
     googletag.defineSlot('/23198293506/default_post_midcontent_2', [336, 280], 'div-gpt-ad-1739199369101-0').addService(googletag.pubads());
     googletag.defineSlot('/23198293506/default_post_midcontent_3', [336, 280], 'div-gpt-ad-1741404515450-0').addService(googletag.pubads());
+    googletag.defineSlot('/23198293506/default_post_bottom_section', ['fluid'], 'div-gpt-ad-1741592491228-0').addService(googletag.pubads());
     googletag.defineSlot('/23198293506/default_section_comment_section_ad', [[320, 50], [468, 60], [728, 90]], 'div-gpt-ad-1739199327470-0').defineSizeMapping(leaderboard).addService(googletag.pubads());
     googletag.defineSlot('/23198293506/default_post_tag_section_ad', [[320, 50], [468, 60], [728, 90]], 'div-gpt-ad-1739199500613-0').defineSizeMapping(leaderboard).addService(googletag.pubads());
     googletag.defineSlot('/23198293506/default_post_sidebar_1', [[300, 250], [336, 280]], 'div-gpt-ad-1739394156815-0').addService(googletag.pubads());
     googletag.defineSlot('/23198293506/default_post_sidebar_2', [[300, 250], [336, 280]], 'div-gpt-ad-1739394234613-0').addService(googletag.pubads());
-    googletag.defineSlot('/23198293506/default_post_sidebar_3', [[336, 280], [300, 250]], 'div-gpt-ad-1739394825415-0').addService(googletag.pubads());
+    googletag.defineSlot('/23198293506/default_post_sidebar_3', [300, 600], 'div-gpt-ad-1741445979775-0').addService(googletag.pubads());
     googletag.defineSlot('/23198293506/default_post_sticky_footer_ad', [[970, 90], [728, 90], [320, 50], [468, 60]], 'div-gpt-ad-1739199468836-0').defineSizeMapping(largeLeaderboard).addService(googletag.pubads());
     googletag.pubads().enableSingleRequest();
     googletag.pubads().collapseEmptyDivs();
@@ -69,6 +70,13 @@
   </script>
 </div>
 
+<!-- /23198293506/default_post_bottom_section -->
+<div id='div-gpt-ad-1741592491228-0'>
+  <script>
+    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1741592491228-0'); });
+  </script>
+</div>
+
 <!-- /23198293506/default_post_tag_section_ad -->
 <div id='div-gpt-ad-1739199500613-0' style='min-width: 320px; min-height: 50px;'>
   <script>
@@ -91,9 +99,9 @@
 </div>
 
 <!-- /23198293506/default_post_sidebar_3 -->
-<div id='div-gpt-ad-1740852345654-0' style='min-width: 300px; min-height: 600px;'>
+<div id='div-gpt-ad-1741445979775-0' style='min-width: 300px; min-height: 600px;'>
   <script>
-    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1740852345654-0'); });
+    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1741445979775-0'); });
   </script>
 </div>
 
