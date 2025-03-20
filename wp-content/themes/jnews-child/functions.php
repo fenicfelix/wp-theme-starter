@@ -22,3 +22,7 @@ register_sidebar(
         'after_title'   => '</h3>',
     )
 );
+
+// include yehtu.php
+
+include_once('yehtu.php');

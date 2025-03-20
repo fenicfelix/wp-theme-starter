@@ -40,9 +40,11 @@ $category = new \JNews\Category\Category($term);
                                 </div>
                             </div>
                         </div>
-                        <?php if (is_active_sidebar('default-category-sidebar')) : ?>
-                            <?php dynamic_sidebar('default-category-sidebar'); ?>
-                        <?php endif; ?>
+                        <div class="jeg_sidebar jeg_column col-sm-4">
+                            <?php if (is_active_sidebar('default-category-sidebar')) : ?>
+                                <?php dynamic_sidebar('default-category-sidebar'); ?>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             </div>
