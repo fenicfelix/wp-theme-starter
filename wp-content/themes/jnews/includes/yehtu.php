@@ -346,19 +346,19 @@ function post_floating_ad()
 {
     if (wp_is_mobile()) {
     ?>
-        <div id='yehtu_c0d945e17f41481c9633920e295bffc8_zone_124411_sect_58856_site_52053' data-sender='yehtu'></div>
+        <div id='yehtu_af2e7095aa8f4a578024ab4171a57982_zone_124412_sect_58856_site_52053' data-sender='yehtu'></div>
         <script type='text/javascript'>
             (window.globalAmlAds = window.globalAmlAds || []).push(function() {
-                globalAml.display('yehtu_c0d945e17f41481c9633920e295bffc8_zone_124411_sect_58856_site_52053');
+                globalAml.display('yehtu_af2e7095aa8f4a578024ab4171a57982_zone_124412_sect_58856_site_52053');
             });
         </script>
     <?php
     } else {
     ?>
-        <div id='yehtu_af2e7095aa8f4a578024ab4171a57982_zone_124412_sect_58856_site_52053' data-sender='yehtu'></div>
+        <div id='yehtu_c0d945e17f41481c9633920e295bffc8_zone_124411_sect_58856_site_52053' data-sender='yehtu'></div>
         <script type='text/javascript'>
             (window.globalAmlAds = window.globalAmlAds || []).push(function() {
-                globalAml.display('yehtu_af2e7095aa8f4a578024ab4171a57982_zone_124412_sect_58856_site_52053');
+                globalAml.display('yehtu_c0d945e17f41481c9633920e295bffc8_zone_124411_sect_58856_site_52053');
             });
         </script>
     <?php
